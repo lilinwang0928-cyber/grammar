@@ -1,0 +1,1239 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CH.01 現在簡單式 × 過去簡單式 · 時態雙軌</title>
+<style>
+:root{
+  --paper:#F2F4F1;
+  --card:#FFFFFF;
+  --ink:#1B2321;
+  --ink-soft:#5A6663;
+  --line:#D8DEDA;
+  --now:#0F6E64;        /* 現在軌：常青 */
+  --now-bg:#E4F0ED;
+  --past:#2E4A7D;       /* 過去軌：沉靛 */
+  --past-bg:#E5EAF3;
+  --gold:#B8913C;
+  --wrong:#B23A48;
+  --shadow:0 1px 2px rgba(27,35,33,.05),0 8px 24px rgba(27,35,33,.06);
+  --serif:"Iowan Old Style","Noto Serif TC","Songti TC","Source Han Serif TC",Georgia,serif;
+  --sans:"PingFang TC","Noto Sans TC","Microsoft JhengHei",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;padding:0}
+body{
+  background:var(--paper);
+  color:var(--ink);
+  font-family:var(--sans);
+  font-size:16px;line-height:1.75;
+  padding-bottom:64px;
+}
+.wrap{max-width:860px;margin:0 auto;padding:0 16px}
+
+/* ── 頁首 ── */
+header.top{
+  position:sticky;top:0;z-index:40;
+  background:rgba(242,244,241,.93);
+  backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--line);
+}
+.brandline{display:flex;align-items:baseline;gap:10px;padding:10px 0 6px;flex-wrap:wrap}
+.brandmark{
+  font-family:var(--serif);font-size:18px;letter-spacing:.14em;
+  color:var(--ink);font-weight:600;
+}
+.brandsub{font-size:11px;letter-spacing:.22em;color:var(--ink-soft)}
+nav.pills{display:flex;gap:6px;overflow-x:auto;padding:0 0 10px;scrollbar-width:none}
+nav.pills::-webkit-scrollbar{display:none}
+.pill{
+  flex:0 0 auto;border:1px solid var(--line);background:var(--card);
+  color:var(--ink-soft);font-family:var(--sans);font-size:13px;
+  padding:7px 14px;border-radius:999px;cursor:pointer;
+  transition:background .18s,color .18s,border-color .18s;
+}
+.pill:hover{border-color:var(--now)}
+.pill[aria-current="true"]{background:var(--ink);color:#fff;border-color:var(--ink)}
+.pill:focus-visible,button:focus-visible,input:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+
+/* ── 區塊 ── */
+section.view{display:none;padding:22px 0 8px}
+section.view.on{display:block;animation:fade .3s ease}
+@keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+.eyebrow{
+  font-family:var(--mono);font-size:11px;letter-spacing:.2em;
+  color:var(--ink-soft);text-transform:uppercase;margin:0 0 6px;
+}
+h1{font-family:var(--serif);font-size:27px;line-height:1.35;margin:0 0 8px;font-weight:600;letter-spacing:.02em}
+h2{font-family:var(--serif);font-size:20px;margin:30px 0 10px;font-weight:600;letter-spacing:.03em}
+h3{font-size:15px;margin:0 0 8px;font-weight:600;letter-spacing:.03em}
+p.lead{color:var(--ink-soft);margin:0 0 18px;font-size:14.5px}
+
+.card{
+  background:var(--card);border:1px solid var(--line);border-radius:14px;
+  padding:18px;margin:0 0 14px;box-shadow:var(--shadow);
+}
+
+/* ── 雙軌圖 ── */
+.rails{margin:6px 0 18px}
+.rail{
+  display:flex;align-items:center;gap:8px;
+  padding:10px 12px;border-radius:12px;margin-bottom:8px;
+  overflow-x:auto;scrollbar-width:none;
+}
+.rail::-webkit-scrollbar{display:none}
+.rail.now{background:var(--now-bg);border-left:4px solid var(--now)}
+.rail.past{background:var(--past-bg);border-left:4px solid var(--past)}
+.rail-label{
+  flex:0 0 auto;font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;
+  writing-mode:horizontal-tb;padding-right:8px;border-right:1px dotted rgba(0,0,0,.18);
+  margin-right:4px;line-height:1.4;
+}
+.rail.now .rail-label{color:var(--now)}
+.rail.past .rail-label{color:var(--past)}
+.chip{
+  flex:0 0 auto;border:1px solid transparent;border-radius:999px;
+  padding:5px 12px;font-family:var(--serif);font-size:15px;cursor:pointer;
+  background:var(--card);transition:transform .15s,box-shadow .15s;
+}
+.rail.now .chip{color:var(--now);border-color:rgba(15,110,100,.35)}
+.rail.past .chip{color:var(--past);border-color:rgba(46,74,125,.35)}
+.chip:hover,.chip.lit{transform:translateY(-2px);box-shadow:0 3px 10px rgba(27,35,33,.14)}
+.chip.lit{background:var(--ink);color:#fff;border-color:var(--ink)}
+.rail-empty{font-size:12.5px;color:var(--ink-soft);padding-left:4px}
+
+/* ── 短文 ── */
+.sent{display:flex;gap:8px;align-items:flex-start;margin:0 0 10px}
+.spk{
+  flex:0 0 auto;width:26px;height:26px;margin-top:4px;border-radius:50%;
+  border:1px solid var(--line);background:var(--card);color:var(--ink-soft);
+  font-size:12px;cursor:pointer;display:flex;align-items:center;justify-content:center;
+}
+.spk:hover{border-color:var(--now);color:var(--now)}
+.sent-en{font-family:var(--serif);font-size:18.5px;line-height:1.85;flex:1}
+v{
+  cursor:pointer;border-bottom:2px solid;padding:0 1px;border-radius:2px;
+  transition:background .18s;
+}
+v.pres{color:var(--now);border-color:var(--now)}
+v.past{color:var(--past);border-color:var(--past)}
+v.lit{background:var(--ink);color:#fff;border-color:var(--ink)}
+.zh{
+  font-size:14.5px;color:var(--ink-soft);border-left:2px solid var(--line);
+  padding-left:12px;margin:14px 0 0;display:none;
+}
+.zh.on{display:block}
+.note{
+  margin-top:14px;border-radius:12px;padding:12px 14px;font-size:14px;
+  background:#F6F7F5;border:1px dashed var(--line);min-height:52px;
+}
+.note b{font-family:var(--serif);font-size:16px}
+.note .tag{
+  display:inline-block;font-family:var(--mono);font-size:10px;letter-spacing:.12em;
+  padding:2px 7px;border-radius:999px;margin-left:8px;vertical-align:2px;color:#fff;
+}
+.tag.now{background:var(--now)} .tag.past{background:var(--past)}
+
+.toolbar{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin:14px 0 0}
+button.btn{
+  border:1px solid var(--line);background:var(--card);color:var(--ink);
+  font-family:var(--sans);font-size:13.5px;padding:8px 14px;border-radius:9px;cursor:pointer;
+  transition:border-color .18s,background .18s;
+}
+button.btn:hover{border-color:var(--ink)}
+button.btn.solid{background:var(--ink);color:#fff;border-color:var(--ink)}
+button.btn.solid:hover{background:#000}
+button.btn:disabled{opacity:.45;cursor:default}
+select.rate{
+  border:1px solid var(--line);background:var(--card);color:var(--ink-soft);
+  border-radius:9px;padding:8px 10px;font-size:13px;font-family:var(--sans);
+}
+
+/* ── 題目 ── */
+.q{border-top:1px solid var(--line);padding:16px 0 4px}
+.q:first-of-type{border-top:none}
+.q-stem{font-size:15px;margin:0 0 10px;font-family:var(--serif);font-size:16.5px}
+.q-stem .num{font-family:var(--mono);font-size:11px;color:var(--ink-soft);margin-right:8px;letter-spacing:.1em}
+.opts{display:flex;flex-direction:column;gap:7px}
+.opt{
+  text-align:left;border:1px solid var(--line);background:var(--card);
+  padding:9px 13px;border-radius:9px;cursor:pointer;font-size:15px;
+  font-family:var(--serif);transition:border-color .15s,background .15s;
+}
+.opt:hover{border-color:var(--ink-soft)}
+.opt.ok{border-color:var(--now);background:var(--now-bg);color:var(--now)}
+.opt.no{border-color:var(--wrong);background:#FAECEE;color:var(--wrong)}
+.opt:disabled{cursor:default}
+.fb{font-size:13.5px;margin:9px 0 0;color:var(--ink-soft);display:none}
+.fb.on{display:block}
+.fb b{color:var(--ink)}
+
+/* ── 導覽/進度 ── */
+.unitbar{display:flex;gap:6px;overflow-x:auto;padding:2px 0 12px;scrollbar-width:none}
+.unitbar::-webkit-scrollbar{display:none}
+.ubtn{
+  flex:0 0 auto;width:38px;height:38px;border-radius:10px;border:1px solid var(--line);
+  background:var(--card);font-family:var(--mono);font-size:13px;color:var(--ink-soft);cursor:pointer;
+}
+.ubtn[aria-current="true"]{background:var(--ink);color:#fff;border-color:var(--ink)}
+.ubtn.done{border-color:var(--now);color:var(--now);background:var(--now-bg)}
+.ubtn.done[aria-current="true"]{background:var(--now);color:#fff}
+.bar{height:6px;border-radius:999px;background:var(--line);overflow:hidden;margin:10px 0 4px}
+.bar i{display:block;height:100%;background:linear-gradient(90deg,var(--now),var(--past));width:0;transition:width .5s}
+.meta{font-family:var(--mono);font-size:11px;letter-spacing:.1em;color:var(--ink-soft)}
+
+/* ── 目錄 ── */
+.toc-item{
+  display:flex;gap:14px;align-items:baseline;padding:12px 4px;
+  border-bottom:1px solid var(--line);cursor:pointer;
+}
+.toc-item:last-child{border-bottom:none}
+.toc-no{font-family:var(--mono);font-size:12px;color:var(--gold);letter-spacing:.1em;flex:0 0 28px}
+.toc-tt{font-family:var(--serif);font-size:17px}
+.toc-en{font-size:12.5px;color:var(--ink-soft);display:block;letter-spacing:.03em}
+.toc-mark{margin-left:auto;font-size:11px;font-family:var(--mono);color:var(--ink-soft)}
+.toc-item.done .toc-mark{color:var(--now)}
+/* ── 時態時間線 ── */
+.tzone{
+  position:relative;padding:12px 0 12px 22px;margin:0;
+  border-left:3px solid var(--line);
+}
+.tzone.past{border-left-color:var(--past)}
+.tzone.bridge{border-left-color:transparent;background:linear-gradient(90deg,var(--past),var(--now)) left/3px 100% no-repeat}
+.tzone.now{border-left-color:var(--now)}
+.tzone.future{border-left-color:var(--gold);border-left-style:dashed}
+.tzone-head{display:flex;gap:10px;align-items:baseline;margin:0 0 8px}
+.tzone-l{font-family:var(--serif);font-size:14.5px;letter-spacing:.18em}
+.tzone.past .tzone-l{color:var(--past)}
+.tzone.now .tzone-l{color:var(--now)}
+.tzone.future .tzone-l{color:var(--gold)}
+.tzone-n{font-size:12px;color:var(--ink-soft)}
+.tcards{display:grid;grid-template-columns:1fr;gap:8px}
+@media(min-width:620px){.tcards{grid-template-columns:1fr 1fr}}
+.tcard{
+  display:flex;align-items:center;gap:11px;text-align:left;width:100%;
+  border:1px solid var(--line);background:var(--card);border-radius:12px;
+  padding:11px 13px;cursor:pointer;box-shadow:var(--shadow);
+  transition:transform .15s,border-color .15s;
+}
+.tcard:hover{transform:translateX(3px);border-color:var(--ink-soft)}
+.tcard.lit{border-color:var(--ink);box-shadow:0 4px 16px rgba(27,35,33,.14)}
+.tnum{
+  flex:0 0 24px;height:24px;border-radius:50%;background:var(--paper);
+  border:1px solid var(--line);font-family:var(--mono);font-size:12px;
+  display:flex;align-items:center;justify-content:center;color:var(--ink-soft);
+}
+.tcard.here .tnum{background:var(--now);border-color:var(--now);color:#fff}
+.tname{font-family:var(--serif);font-size:16px;flex:1;line-height:1.4}
+.tsub{display:block;font-family:var(--sans);font-size:11.5px;color:var(--ink-soft);letter-spacing:.02em}
+.tch,.tflag{font-family:var(--mono);font-size:10px;letter-spacing:.1em;padding:2px 8px;border-radius:999px;flex:0 0 auto}
+.tch{border:1px solid var(--line);color:var(--ink-soft)}
+.tflag{background:var(--now);color:#fff}
+.tf{display:flex;gap:10px;align-items:center;padding:7px 0;border-top:1px dotted var(--line);flex-wrap:wrap}
+.tf-l{font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;color:var(--ink-soft);flex:0 0 34px}
+.tf-v{font-size:15px}
+.tf-v.en{font-family:var(--serif);font-size:17px}
+
+
+/* ── 章節卡 ── */
+.verbar{display:flex;gap:6px;align-items:center;flex-wrap:wrap;margin:0 2px 12px}
+.verbar .meta{margin-right:4px}
+.mini.v[aria-selected="true"]{background:var(--ink);color:#fff;border-color:var(--ink)}
+.ch{
+  border:1px solid var(--line);border-radius:14px;background:var(--card);
+  margin:0 0 10px;box-shadow:var(--shadow);overflow:hidden;
+}
+.ch-head{display:flex;gap:10px;align-items:baseline;padding:14px 16px;cursor:pointer}
+.ch-no{font-family:var(--mono);font-size:11px;letter-spacing:.12em;color:var(--ink-soft);flex:0 0 46px}
+.ch.ready .ch-no{color:var(--now)}
+.ch-t{font-family:var(--serif);font-size:16.5px;flex:1;line-height:1.5}
+.ch-pg{font-family:var(--mono);font-size:11px;color:var(--ink-soft)}
+.ch-state{
+  font-family:var(--mono);font-size:10px;letter-spacing:.1em;padding:2px 8px;
+  border-radius:999px;border:1px solid var(--line);color:var(--ink-soft);flex:0 0 auto;
+}
+.ch-state.on{background:var(--now);border-color:var(--now);color:#fff}
+.ch:not(.ready){opacity:.72}
+.ch-body{display:none;padding:2px 16px 16px}
+.ch.open .ch-body{display:block}
+.subs{margin:6px 0 12px;padding-left:20px;font-size:14px;color:var(--ink-soft)}
+.subs li{margin-bottom:3px}
+.bver{display:flex;gap:6px;align-items:center;flex-wrap:wrap;margin-top:6px}
+.bver .vn{font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;color:var(--ink-soft);flex:0 0 34px}
+.bb{background:var(--past-bg);color:var(--past);border-radius:6px;padding:2px 9px;font-size:12px;font-family:var(--mono)}
+.bb.none{background:#F0F1EF;color:var(--ink-soft)}
+#chapterList[data-ver="翰林"] .bver:not([data-v="翰林"]),
+#chapterList[data-ver="康軒"] .bver:not([data-v="康軒"]),
+#chapterList[data-ver="南一"] .bver:not([data-v="南一"]){display:none}
+
+/* ── 動詞實驗室 ── */
+.drill{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin:12px 0}
+.drill-base{font-family:var(--serif);font-size:26px;letter-spacing:.02em}
+.drill-arrow{color:var(--ink-soft)}
+input.ans{
+  border:1px solid var(--line);border-radius:9px;padding:9px 12px;font-size:18px;
+  font-family:var(--serif);width:170px;background:var(--card);color:var(--ink);
+}
+input.ans.ok{border-color:var(--now);color:var(--now)}
+input.ans.no{border-color:var(--wrong);color:var(--wrong)}
+.tabs{display:flex;gap:6px;margin:0 0 12px}
+.tab{
+  border:1px solid var(--line);background:var(--card);border-radius:9px;
+  padding:7px 14px;font-size:13.5px;cursor:pointer;color:var(--ink-soft);
+}
+.tab[aria-selected="true"]{background:var(--ink);color:#fff;border-color:var(--ink)}
+
+/* ── 時間副詞分流 ── */
+.adv-grid{display:grid;grid-template-columns:1fr;gap:8px}
+.adv-row{
+  display:flex;align-items:center;gap:8px;border:1px solid var(--line);
+  border-radius:11px;padding:9px 12px;background:var(--card);flex-wrap:wrap;
+}
+.adv-word{font-family:var(--serif);font-size:17px;flex:1;min-width:120px}
+.adv-row.solved-now{background:var(--now-bg);border-color:var(--now)}
+.adv-row.solved-past{background:var(--past-bg);border-color:var(--past)}
+.mini{border:1px solid var(--line);background:var(--card);border-radius:8px;padding:5px 11px;font-size:12.5px;cursor:pointer}
+.mini.n:hover{border-color:var(--now);color:var(--now)}
+.mini.p:hover{border-color:var(--past);color:var(--past)}
+.adv-note{width:100%;font-size:12.5px;color:var(--ink-soft);display:none}
+.adv-row.done .adv-note{display:block}
+
+/* ── 不規則動詞表 ── */
+table.irr{width:100%;border-collapse:collapse;font-size:14.5px;margin-top:8px}
+table.irr th,table.irr td{border-bottom:1px solid var(--line);padding:8px 6px;text-align:left}
+table.irr th{font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;color:var(--ink-soft);font-weight:400}
+table.irr td:first-child{font-family:var(--serif);color:var(--now);font-size:16px}
+table.irr td:nth-child(2){font-family:var(--serif);color:var(--past);font-size:16px}
+table.irr td:last-child{font-size:13px;color:var(--ink-soft)}
+
+.rule-grid{display:grid;grid-template-columns:1fr;gap:10px}
+@media(min-width:660px){.rule-grid{grid-template-columns:1fr 1fr}}
+.rule{border:1px solid var(--line);border-radius:11px;padding:13px 15px;background:var(--card)}
+.rule h4{margin:0 0 6px;font-size:14px;letter-spacing:.04em}
+.rule p{margin:0;font-size:13.5px;color:var(--ink-soft)}
+.rule code{font-family:var(--serif);color:var(--ink);font-size:15px}
+.split{display:grid;grid-template-columns:1fr;gap:10px}
+@media(min-width:660px){.split{grid-template-columns:1fr 1fr}}
+.axis{border-radius:12px;padding:14px 16px}
+.axis.n{background:var(--now-bg);border-left:4px solid var(--now)}
+.axis.p{background:var(--past-bg);border-left:4px solid var(--past)}
+.axis h3{letter-spacing:.06em}
+.axis.n h3{color:var(--now)} .axis.p h3{color:var(--past)}
+.axis ul{margin:8px 0 0;padding-left:18px;font-size:14px}
+.axis li{margin-bottom:5px}
+.axis em{font-family:var(--serif);font-style:normal;font-size:15px}
+
+.footline{
+  text-align:center;font-family:var(--serif);font-size:13px;color:var(--ink-soft);
+  letter-spacing:.22em;padding:34px 0 10px;
+}
+.toast{
+  position:fixed;left:50%;bottom:22px;transform:translateX(-50%) translateY(20px);
+  background:var(--ink);color:#fff;font-size:13.5px;padding:9px 18px;border-radius:999px;
+  opacity:0;pointer-events:none;transition:opacity .25s,transform .25s;z-index:90;
+}
+.toast.on{opacity:1;transform:translateX(-50%)}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+/* ── 跨頁元件 ── */
+.backlink{
+  font-family:var(--mono);font-size:11px;letter-spacing:.14em;color:var(--ink-soft);
+  text-decoration:none;border:1px solid var(--line);border-radius:999px;padding:3px 10px;background:var(--card);
+}
+.backlink:hover{border-color:var(--ink);color:var(--ink)}
+a.btn{display:inline-block;text-decoration:none;line-height:1.4}
+a.btn.solid{color:#fff}
+.ch-open{
+  display:inline-block;margin-top:12px;text-decoration:none;font-size:13.5px;
+  border:1px solid var(--ink);background:var(--ink);color:#fff;border-radius:9px;padding:8px 14px;
+}
+.ch-open.ghost{background:var(--card);color:var(--ink-soft);border-color:var(--line)}
+.ch-open.ghost:hover{border-color:var(--ink-soft)}
+.hubgrid{display:grid;grid-template-columns:1fr;gap:10px;margin:0 0 16px}
+@media(min-width:660px){.hubgrid{grid-template-columns:1fr 1fr}}
+.hubcard{
+  border:1px solid var(--line);border-radius:14px;background:var(--card);
+  padding:16px 18px;box-shadow:var(--shadow);text-decoration:none;color:var(--ink);display:block;
+}
+.hubcard:hover{border-color:var(--ink-soft)}
+.hubcard h3{font-family:var(--serif);font-size:17px;margin:6px 0 4px}
+.hubcard p{margin:0;font-size:13.5px;color:var(--ink-soft)}
+.buildnote{
+  margin-top:14px;border-radius:12px;padding:12px 14px;font-size:13.5px;
+  background:#F6F7F5;border:1px dashed var(--line);color:var(--ink-soft);
+}
+
+/* ── 第三軌：不用進行式 ── */
+.rail.simple{background:#F5F0E4;border-left:4px solid var(--gold)}
+.rail.simple .rail-label{color:#8A6B22}
+.rail.simple .chip{color:#8A6B22;border-color:rgba(184,145,60,.45)}
+v.simple{color:#8A6B22;border-color:var(--gold)}
+.tag.simple{background:var(--gold)}
+
+/* ── 第三章軌道：未來 / 簡單式 ── */
+.rail.fut{background:#F5F0E4;border-left:4px solid var(--gold)}
+.rail.fut .rail-label{color:#8A6B22}
+.rail.fut .chip{color:#8A6B22;border-color:rgba(184,145,60,.45)}
+v.fut{color:#8A6B22;border-color:var(--gold)}
+.tag.fut{background:var(--gold)}
+.rail.plain{background:#EBEEEB;border-left:4px solid #8B958F}
+.rail.plain .rail-label{color:#5A6663}
+.rail.plain .chip{color:#5A6663;border-color:#C3CAC6}
+v.plain{color:#5A6663;border-color:#8B958F}
+.tag.plain{background:#5A6663}
+.axis.f{background:#F5F0E4;border-left:4px solid var(--gold)}
+.axis.f h3{color:#8A6B22}
+
+/* ══ 總複習：七態配色 ══ */
+:root{
+  --t-ps:#0F6E64; --t-ps-bg:#E4F0ED;
+  --t-pc:#2F8C6F; --t-pc-bg:#E6F2EC;
+  --t-pt:#2E4A7D; --t-pt-bg:#E5EAF3;
+  --t-xc:#5171A8; --t-xc-bg:#E9EDF5;
+  --t-pf:#8A6B22; --t-pf-bg:#F5F0E4;
+  --t-xf:#7A4A2E; --t-xf-bg:#F2E9E3;
+  --t-fu:#6B4E8A; --t-fu-bg:#EEE9F3;
+}
+.rail.ps{background:var(--t-ps-bg);border-left:4px solid var(--t-ps)}
+.rail.pc{background:var(--t-pc-bg);border-left:4px solid var(--t-pc)}
+.rail.pt{background:var(--t-pt-bg);border-left:4px solid var(--t-pt)}
+.rail.xc{background:var(--t-xc-bg);border-left:4px solid var(--t-xc)}
+.rail.pf{background:var(--t-pf-bg);border-left:4px solid var(--t-pf)}
+.rail.xf{background:var(--t-xf-bg);border-left:4px solid var(--t-xf)}
+.rail.fu{background:var(--t-fu-bg);border-left:4px solid var(--t-fu)}
+.rail.ps .rail-label,.rail.ps .chip{color:var(--t-ps);border-color:rgba(15,110,100,.35)}
+.rail.pc .rail-label,.rail.pc .chip{color:var(--t-pc);border-color:rgba(47,140,111,.35)}
+.rail.pt .rail-label,.rail.pt .chip{color:var(--t-pt);border-color:rgba(46,74,125,.35)}
+.rail.xc .rail-label,.rail.xc .chip{color:var(--t-xc);border-color:rgba(81,113,168,.35)}
+.rail.pf .rail-label,.rail.pf .chip{color:var(--t-pf);border-color:rgba(138,107,34,.35)}
+.rail.xf .rail-label,.rail.xf .chip{color:var(--t-xf);border-color:rgba(122,74,46,.35)}
+.rail.fu .rail-label,.rail.fu .chip{color:var(--t-fu);border-color:rgba(107,78,138,.35)}
+v.ps{color:var(--t-ps);border-color:var(--t-ps)}
+v.pc{color:var(--t-pc);border-color:var(--t-pc)}
+v.pt{color:var(--t-pt);border-color:var(--t-pt)}
+v.xc{color:var(--t-xc);border-color:var(--t-xc)}
+v.pf{color:var(--t-pf);border-color:var(--t-pf)}
+v.xf{color:var(--t-xf);border-color:var(--t-xf)}
+v.fu{color:var(--t-fu);border-color:var(--t-fu)}
+.tag.ps{background:var(--t-ps)} .tag.pc{background:var(--t-pc)}
+.tag.pt{background:var(--t-pt)} .tag.xc{background:var(--t-xc)}
+.tag.pf{background:var(--t-pf)} .tag.xf{background:var(--t-xf)}
+.tag.fu{background:var(--t-fu)}
+
+/* 判讀四步 */
+.steps{display:grid;gap:10px}
+.step{display:flex;gap:12px;align-items:flex-start;font-size:14px}
+.step .sn{
+  flex:0 0 26px;height:26px;border-radius:50%;background:var(--ink);color:#fff;
+  font-family:var(--mono);font-size:12px;display:flex;align-items:center;justify-content:center;
+}
+.step b{font-family:var(--serif);font-size:15.5px}
+
+/* 七態速查列 */
+.tcard.mx{display:flex;align-items:flex-start;gap:11px;margin-bottom:8px;cursor:default}
+.tcard.mx:hover{transform:none}
+.mxzone{
+  flex:0 0 76px;font-family:var(--mono);font-size:10px;letter-spacing:.08em;
+  padding:3px 6px;border-radius:6px;text-align:center;line-height:1.5;
+}
+.tcard.mx.ps .mxzone{background:var(--t-ps-bg);color:var(--t-ps)}
+.tcard.mx.pc .mxzone{background:var(--t-pc-bg);color:var(--t-pc)}
+.tcard.mx.pt .mxzone{background:var(--t-pt-bg);color:var(--t-pt)}
+.tcard.mx.xc .mxzone{background:var(--t-xc-bg);color:var(--t-xc)}
+.tcard.mx.pf .mxzone{background:var(--t-pf-bg);color:var(--t-pf)}
+.tcard.mx.xf .mxzone{background:var(--t-xf-bg);color:var(--t-xf)}
+.tcard.mx.fu .mxzone{background:var(--t-fu-bg);color:var(--t-fu)}
+.tcard.mx .tname{flex:0 0 auto;min-width:112px}
+.mxuse{flex:1;font-size:13.5px;color:var(--ink);line-height:1.6}
+.mxsig{display:block;font-family:var(--mono);font-size:11px;color:var(--ink-soft);margin-top:2px}
+@media(max-width:620px){
+  .tcard.mx{flex-wrap:wrap}
+  .tcard.mx .tname{flex:1 1 100%}
+  .mxuse{flex:1 1 100%}
+}
+
+/* 對照卡 */
+.vs{padding:10px 0;border-top:1px dotted var(--line)}
+.vs:first-child{border-top:none;padding-top:0}
+.vs-q{margin:0 0 6px;font-family:var(--serif);font-size:15.5px}
+.vs-a{margin:0;font-size:14px;color:var(--ink-soft);line-height:1.9}
+.mk{font-family:var(--serif);font-size:16px}
+.mk.pf{color:var(--t-pf)} .mk.pt{color:var(--t-pt)} .mk.xf{color:var(--t-xf)}
+
+/* 訊號判讀 */
+.sig{border:1px solid var(--line);border-radius:11px;padding:10px 12px;background:var(--card);margin-bottom:8px}
+.sig-w{margin:0 0 8px;font-family:var(--serif);font-size:17px}
+.sig-opts{display:flex;gap:6px;flex-wrap:wrap}
+.mini.s{font-size:12px;padding:5px 9px}
+.mini.s:hover{border-color:var(--ink);color:var(--ink)}
+.sig-note{margin:6px 0 0;font-size:12.5px;color:var(--ink-soft);display:none}
+.sig.done .sig-note{display:block}
+.sig.done.ps{background:var(--t-ps-bg);border-color:var(--t-ps)}
+.sig.done.pc{background:var(--t-pc-bg);border-color:var(--t-pc)}
+.sig.done.pt{background:var(--t-pt-bg);border-color:var(--t-pt)}
+.sig.done.xc{background:var(--t-xc-bg);border-color:var(--t-xc)}
+.sig.done.pf{background:var(--t-pf-bg);border-color:var(--t-pf)}
+.sig.done.xf{background:var(--t-xf-bg);border-color:var(--t-xf)}
+.sig.done.fu{background:var(--t-fu-bg);border-color:var(--t-fu)}
+
+/* ══ 一眼立判 ══ */
+:root{
+  --k-simple:#5A6663; --k-simple-bg:#EDEFEC;
+  --k-prog:#0F6E64;   --k-prog-bg:#E4F0ED;
+  --k-perf:#8A6B22;   --k-perf-bg:#F5F0E4;
+}
+/* 三步決策 */
+.flow{display:grid;gap:4px;justify-items:stretch}
+.fnode{border-radius:11px;padding:11px 14px;font-size:14.5px;border:1px solid var(--line);background:var(--card)}
+.fnode.q{background:var(--paper);color:var(--ink-soft);font-size:13.5px;text-align:center;border-style:dashed}
+.fnode.ask{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.fnode.ask b{font-family:var(--serif);font-size:16px}
+.fyes{
+  margin-left:auto;font-size:12.5px;font-family:var(--mono);letter-spacing:.06em;
+  background:var(--now);color:#fff;border-radius:999px;padding:3px 11px;
+}
+.fnode.ask:nth-of-type(5) .fyes{background:var(--gold)}
+.fnode.end{background:var(--ink);color:#fff;border-color:var(--ink);text-align:center}
+.fnode.end b{font-family:var(--serif);font-size:16.5px}
+.farrow{text-align:center;font-size:12px;color:var(--ink-soft);font-family:var(--mono);letter-spacing:.1em}
+
+/* 三個鏡頭 */
+.lens-grid{display:grid;grid-template-columns:1fr;gap:10px}
+@media(min-width:760px){.lens-grid{grid-template-columns:repeat(3,1fr)}}
+.lens{border:1px solid var(--line);border-radius:14px;padding:16px 17px;background:var(--card);box-shadow:var(--shadow)}
+.lens-ic{font-size:22px;line-height:1}
+.lens h3{font-family:var(--serif);font-size:16.5px;margin:8px 0 6px}
+.lens-f{
+  margin:0 0 10px;font-family:var(--mono);font-size:12px;letter-spacing:.03em;
+  border-radius:7px;padding:5px 9px;display:inline-block;
+}
+.lens-d{margin:0 0 10px;font-size:13.5px;color:var(--ink-soft);line-height:1.7}
+.lens-e{margin:0;font-family:var(--serif);font-size:16.5px}
+.lens-z{margin:2px 0 0;font-size:12.5px;color:var(--ink-soft)}
+.lens.simple{border-left:4px solid var(--k-simple)}
+.lens.simple .lens-f{background:var(--k-simple-bg);color:var(--k-simple)}
+.lens.simple .lens-e{color:var(--k-simple)}
+.lens.prog{border-left:4px solid var(--k-prog)}
+.lens.prog .lens-f{background:var(--k-prog-bg);color:var(--k-prog)}
+.lens.prog .lens-e{color:var(--k-prog)}
+.lens.perf{border-left:4px solid var(--k-perf)}
+.lens.perf .lens-f{background:var(--k-perf-bg);color:var(--k-perf)}
+.lens.perf .lens-e{color:var(--k-perf)}
+
+/* work 對照表 */
+table.irr.work td:first-child{font-family:var(--sans);font-size:13.5px;color:var(--ink);white-space:nowrap}
+table.irr.work td:nth-child(2){font-family:var(--mono);font-size:12.5px;color:var(--ink-soft)}
+table.irr.work td:last-child{font-family:var(--serif);font-size:15.5px;color:var(--ink)}
+
+/* 快問快答 */
+.qk-phrase{
+  font-family:var(--serif);font-size:30px;text-align:center;
+  margin:16px 0 14px;letter-spacing:.01em;line-height:1.3;
+}
+.qk-opts{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.btn.qk{width:100%;padding:11px 6px;font-size:14px}
+.btn.qk.ok{border-color:var(--now);background:var(--now-bg);color:var(--now)}
+.btn.qk.no{border-color:var(--wrong);background:#FAECEE;color:var(--wrong)}
+.qk-fb{display:none;margin-top:12px;border-radius:11px;padding:11px 14px;font-size:13.5px;line-height:1.7}
+.qk-fb.on{display:block}
+.qk-fb b{font-family:var(--serif);font-size:15.5px}
+.qk-fb.simple{background:var(--k-simple-bg);color:var(--k-simple)}
+.qk-fb.prog{background:var(--k-prog-bg);color:var(--k-prog)}
+.qk-fb.perf{background:var(--k-perf-bg);color:var(--k-perf)}
+
+/* ══ 解題三步 ══ */
+.kw{
+  display:flex;gap:10px;align-items:baseline;flex-wrap:wrap;
+  border:1px solid var(--line);border-radius:11px;background:var(--card);
+  padding:10px 13px;margin-bottom:8px;box-shadow:var(--shadow);
+}
+.kw-w{font-family:var(--serif);font-size:16px;flex:0 0 auto;min-width:190px}
+.kw-t{
+  font-family:var(--mono);font-size:10.5px;letter-spacing:.08em;
+  padding:3px 9px;border-radius:999px;color:#fff;flex:0 0 auto;
+}
+.kw.ps{border-left:4px solid var(--t-ps)} .kw.ps .kw-w{color:var(--t-ps)} .kw.ps .kw-t{background:var(--t-ps)}
+.kw.pt{border-left:4px solid var(--t-pt)} .kw.pt .kw-w{color:var(--t-pt)} .kw.pt .kw-t{background:var(--t-pt)}
+.kw.pc{border-left:4px solid var(--t-pc)} .kw.pc .kw-w{color:var(--t-pc)} .kw.pc .kw-t{background:var(--t-pc)}
+.kw.xc{border-left:4px solid var(--t-xc)} .kw.xc .kw-w{color:var(--t-xc)} .kw.xc .kw-t{background:var(--t-xc)}
+.kw.pf{border-left:4px solid var(--t-pf)} .kw.pf .kw-w{color:var(--t-pf)} .kw.pf .kw-t{background:var(--t-pf)}
+.kw.xf{border-left:4px solid var(--t-xf)} .kw.xf .kw-w{color:var(--t-xf)} .kw.xf .kw-t{background:var(--t-xf)}
+.kw.fu{border-left:4px solid var(--t-fu)} .kw.fu .kw-w{color:var(--t-fu)} .kw.fu .kw-t{background:var(--t-fu)}
+.kw-d{flex:1 1 240px;font-size:13px;color:var(--ink-soft);line-height:1.6}
+
+/* 動作關係 */
+.rel{padding:12px 0;border-top:1px dotted var(--line)}
+.rel:first-child{border-top:none;padding-top:0}
+.rel-t{margin:0 0 4px;font-family:var(--serif);font-size:16px}
+.rel-f{font-family:var(--mono);font-size:11px;color:var(--ink-soft);letter-spacing:.04em}
+.rel-d{margin:0 0 7px;font-size:13.5px;color:var(--ink-soft);line-height:1.7}
+.rel-e{margin:0;font-family:var(--serif);font-size:16.5px;line-height:1.7}
+.mk.xc{color:var(--t-xc)}
+
+/* 三大陷阱 */
+.trap{display:flex;gap:12px;padding:13px 0;border-top:1px dotted var(--line)}
+.trap:first-child{border-top:none;padding-top:0}
+.tno{
+  flex:0 0 auto;align-self:flex-start;font-family:var(--mono);font-size:10px;letter-spacing:.1em;
+  background:var(--wrong);color:#fff;border-radius:999px;padding:3px 9px;
+}
+.trap-t{margin:0 0 4px;font-family:var(--serif);font-size:16px}
+.trap-d{margin:0 0 8px;font-size:13.5px;color:var(--ink-soft);line-height:1.7}
+.trap-e{margin:0;font-family:var(--serif);font-size:15.5px;line-height:1.9}
+.no-x{color:var(--wrong)}
+.ok-v{color:var(--now)}
+
+/* 閱讀測驗 */
+#testRails .rail-label{border-right:1px dotted rgba(0,0,0,.18)}
+#testQuiz .q-stem .num{
+  display:inline-block;width:20px;height:20px;line-height:20px;text-align:center;
+  border-radius:50%;background:var(--ink);color:#fff;font-size:11px;margin-right:9px;
+}
+#testQuiz .opt{font-size:14.5px}
+
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <div class="brandline">
+      <a class="backlink" href="index.html">← 總覽</a>
+      <span class="brandmark">時態雙軌</span>
+      <span class="brandsub">CH.01　現在簡單式 × 過去簡單式</span>
+    </div>
+    <nav class="pills" id="nav">
+      <button class="pill" data-target="sec-home" aria-current="true">本章目次</button>
+      <button class="pill" data-target="sec-core">雙軌總覽</button>
+      <button class="pill" data-target="sec-read">十篇短文</button>
+      <button class="pill" data-target="sec-verb">動詞實驗室</button>
+      <button class="pill" data-target="sec-adv">時間副詞分流</button>
+      <button class="pill" data-target="sec-final">總複習</button>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap">
+
+<!-- ═══ 目錄 ═══ -->
+<section class="view on" id="sec-home">
+  <p class="eyebrow">Chapter 01　時態：現在簡單式與過去簡單式</p>
+  <h1>兩條時間軌道<br>把每個動詞放回它該站的位置</h1>
+  <p class="lead">同一個句子裡，動詞會告訴你「這件事還在發生」還是「這件事已經結束」。本章十篇短文，每篇都同時鋪著兩條軌道：常青的現在軌，與沉定的過去軌。點開短文裡的每個動詞，看它站在哪一軌、為什麼站在那裡。</p>
+
+  <div class="card">
+    <div class="bar"><i id="tocBar"></i></div>
+    <div class="meta" id="tocMeta">尚未開始</div>
+  </div>
+
+  <h2>本章十篇短文</h2>
+  <div class="card" id="tocList"></div>
+
+  <div class="toolbar">
+    <button class="btn solid" data-target="sec-read">從第一篇開始</button>
+    <button class="btn" data-target="sec-core">先看文法雙軌</button>
+    <button class="btn" id="resetAll">清除本章紀錄</button>
+  </div>
+</section>
+
+<!-- ═══ 雙軌總覽 ═══ -->
+<section class="view" id="sec-core">
+  <p class="eyebrow">Grammar Core</p>
+  <h1>雙軌總覽</h1>
+  <p class="lead">先認軌道，再認動詞。判斷順序永遠是：先看時間訊號 → 再決定時態 → 最後才處理動詞形態。</p>
+
+  <div class="split">
+    <div class="axis n">
+      <h3>現在軌　Present Simple</h3>
+      <ul>
+        <li><b>不變的真理</b>：<em>The sun rises in the east.</em></li>
+        <li><b>反覆的習慣</b>：<em>Tom plays basketball every weekend.</em></li>
+        <li><b>當下的狀態或事實</b>：<em>Now I live in Taipei.</em></li>
+        <li>訊號詞：always / usually / often / never / every day</li>
+      </ul>
+    </div>
+    <div class="axis p">
+      <h3>過去軌　Past Simple</h3>
+      <ul>
+        <li><b>已結束的單一事件</b>：<em>Yesterday it rained heavily.</em></li>
+        <li><b>過去的狀態</b>：<em>I was a middle school student then.</em></li>
+        <li>訊號詞：yesterday / last week / three years ago / the other day</li>
+        <li>只要事情「已經收尾」，不管多近都用過去式。</li>
+      </ul>
+    </div>
+  </div>
+
+  <h2>動詞形態四條規則</h2>
+  <div class="rule-grid">
+    <div class="rule"><h4>三單加 s</h4><p>主詞是 he / she / it 或單數名詞時，現在式動詞加 s。<code>rise → rises</code>、<code>get → gets</code></p></div>
+    <div class="rule"><h4>字尾 s, z, x, o, ch, sh 加 es</h4><p><code>miss → misses</code>、<code>go → goes</code>、<code>watch → watches</code></p></div>
+    <div class="rule"><h4>子音 + y 去 y 加 ies / ied</h4><p><code>study → studies / studied</code>；母音 + y 直接加：<code>stay → stays / stayed</code></p></div>
+    <div class="rule"><h4>過去式加 ed</h4><p>字尾已有 e 只加 d：<code>decide → decided</code>；短母音單子音要雙寫：<code>stop → stopped</code></p></div>
+  </div>
+
+  <h2>否定句的陷阱</h2>
+  <div class="card">
+    <p style="margin:0 0 8px;font-size:14.5px">助動詞一旦扛下時態，後面的動詞就必須回到原形。</p>
+    <p style="margin:0;font-family:var(--serif);font-size:17px;line-height:2">
+      <span style="color:var(--now)">She doesn't wake up on time.</span><br>
+      <span style="color:var(--past)">She didn't wake up on time.</span><br>
+      <span style="color:var(--wrong);text-decoration:line-through">She didn't woke up on time.</span>
+    </p>
+  </div>
+
+  <h2>本章不規則動詞</h2>
+  <div class="card">
+    <table class="irr"><thead><tr><th>原形</th><th>過去式</th><th>出處</th></tr></thead><tbody id="irrBody"></tbody></table>
+  </div>
+</section>
+
+<!-- ═══ 短文 ═══ -->
+<section class="view" id="sec-read">
+  <p class="eyebrow">Reading · 1–10</p>
+  <div class="unitbar" id="unitbar"></div>
+  <div id="passageHost"></div>
+  <div class="toolbar">
+    <button class="btn" id="prevP">← 上一篇</button>
+    <button class="btn" id="nextP">下一篇 →</button>
+    <button class="btn" data-target="sec-final">本章總複習</button>
+  </div>
+</section>
+
+<!-- ═══ 動詞實驗室 ═══ -->
+<section class="view" id="sec-verb">
+  <p class="eyebrow">Verb Lab</p>
+  <h1>動詞實驗室</h1>
+  <p class="lead">把原形動詞送進兩條軌道，看它會變成什麼樣子。輸入答案後按 Enter 或「檢查」。</p>
+  <div class="tabs">
+    <button class="tab" data-mode="s" aria-selected="true">現在軌　三單變化</button>
+    <button class="tab" data-mode="p" aria-selected="false">過去軌　過去式</button>
+  </div>
+  <div class="card">
+    <div class="meta" id="drillMeta"></div>
+    <div class="drill">
+      <span class="drill-base" id="drillBase">—</span>
+      <span class="drill-arrow">⟶</span>
+      <input class="ans" id="drillInput" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="輸入變化後的動詞">
+    </div>
+    <p class="fb" id="drillFb"></p>
+    <div class="toolbar">
+      <button class="btn solid" id="drillCheck">檢查</button>
+      <button class="btn" id="drillNext">下一題</button>
+      <button class="btn" id="drillRestart">重新開始</button>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ 時間副詞分流 ═══ -->
+<section class="view" id="sec-adv">
+  <p class="eyebrow">Time Signals</p>
+  <h1>時間副詞分流</h1>
+  <p class="lead">時間副詞是分軌員。把每個詞送上正確的軌道，全部答對就完成分流。</p>
+  <div class="card">
+    <div class="meta" id="advMeta"></div>
+    <div class="bar"><i id="advBar"></i></div>
+    <div class="adv-grid" id="advGrid" style="margin-top:14px"></div>
+    <div class="toolbar"><button class="btn" id="advRestart">重新分流</button></div>
+  </div>
+</section>
+
+<!-- ═══ 總複習 ═══ -->
+<section class="view" id="sec-final">
+  <p class="eyebrow">Chapter Review</p>
+  <h1>總複習測驗</h1>
+  <p class="lead">從十篇短文的題庫中隨機抽出 12 題，選項順序也會重排。作答後可看到錯題出自哪一篇。</p>
+  <div class="card" id="finalHost"></div>
+  <div class="toolbar">
+    <button class="btn solid" id="finalStart">開始測驗</button>
+    <button class="btn" id="finalGrade" disabled>交卷</button>
+    <a class="btn" href="review.html">跨章時態總複習 →</a>
+  </div>
+</section>
+
+<p class="footline">溯源，塑局</p>
+</main>
+
+<div class="toast" id="toast"></div>
+
+<script>
+/* ═══════════════ 資料 ═══════════════ */
+/* 短文標記：[[原字|pres|說明]] 或 [[原字|past|說明]] */
+const PASSAGES = [
+{
+ n:1, zhT:"不同的早晨", enT:"A Different Morning",
+ text:`The sun [[rises|pres|rise + s。太陽東升是不會改變的自然真理，永遠站在現在軌。]] in the east. My mother usually [[gets|pres|usually 表習慣。My mother 是第三人稱單數，get 加 s。]] up early to make breakfast. However, this morning, she [[was|past|is 的過去式。this morning 指已經過完的早上，所以是過去軌。]] very tired. She [[didn't wake|past|過去否定：didn't 已扛下時態，後面必須用原形 wake，不能寫 didn't woke。]] up on time, so I [[bought|past|buy 的過去式，不規則變化。]] a sandwich for breakfast.`,
+ zh:"太陽從東方升起。我媽媽通常很早起床做早餐。然而，今天早上她非常累。她沒有準時醒來，所以我買了三明治當早餐。",
+ key:"「rises」是不變的道理；「gets up」是現在的習慣，三單加 s；「was」與「didn't wake up」描述今天早上的過去事件與否定句構。",
+ quiz:[
+  {q:"The sun ___ in the east.",o:["rise","rises","rose"],a:1,e:"自然真理用現在簡單式；The sun 為三單，加 s。"},
+  {q:"She ___ up on time this morning.",o:["doesn't wake","didn't wake","didn't woke"],a:1,e:"this morning 已過去 → didn't；助動詞後接原形 wake。"},
+  {q:"「I bought a sandwich」中 bought 的原形是？",o:["buy","bring","build"],a:0,e:"buy → bought，不規則變化。"}
+ ]},
+{
+ n:2, zhT:"週末休閒", enT:"Weekend Leisure",
+ text:`Tom [[plays|pres|every weekend 表習慣；Tom 是三單，play 加 s。]] basketball with his friends every weekend. He [[is|pres|描述現在的能力與狀態，be 動詞用 is。]] very good at it. But yesterday, it [[rained|past|yesterday 是過去訊號；rain 為規則動詞，直接加 ed。]] heavily. They [[stayed|past|stay 是母音 + y，直接加 ed，不可寫成 staied。]] home and [[played|past|與 stayed 並列，同樣落在過去軌。]] video games instead.`,
+ zh:"Tom 每個週末都和朋友打籃球。他非常擅長。但昨天雨下得很大。他們改待在家裡玩電動。",
+ key:"every weekend 搭配現在簡單式表習慣；yesterday 搭配過去簡單式，rain、stay 加 ed 形成規則過去式。",
+ quiz:[
+  {q:"But yesterday, it ___ heavily.",o:["rains","rained","raining"],a:1,e:"yesterday 要求過去式，規則變化加 ed。"},
+  {q:"Tom ___ basketball every weekend.",o:["play","plays","played"],a:1,e:"習慣用現在式；Tom 三單加 s。"},
+  {q:"下列哪個時間副詞會把動詞推向過去軌？",o:["every weekend","yesterday","usually"],a:1,e:"every weekend 與 usually 都表習慣，屬現在軌。"}
+ ]},
+{
+ n:3, zhT:"搬家前後", enT:"Before and After Moving",
+ text:`Three years ago, I [[lived|past|Three years ago 是明確的過去時間；live 字尾有 e，只加 d。]] in Tainan. I [[was|past|主詞 I 的過去 be 動詞是 was，不是 were。]] a middle school student then. Now, I [[live|pres|Now 之後回到現在軌；主詞 I 不加 s。]] in Taipei and [[study|pres|與 live 並列，同樣是現在的事實。]] at a high school. I [[like|pres|表達現在的感受與狀態。]] my new city very much.`,
+ zh:"三年前，我住在台南。我那時是個國中生。現在，我住在台北並且就讀高中。我非常喜歡我的新城市。",
+ key:"Three years ago 表過去事實用過去簡單式；Now 之後接現在的居住與就學事實，改用現在簡單式。",
+ quiz:[
+  {q:"Three years ago, I ___ in Tainan.",o:["live","lived","am living"],a:1,e:"ago 是過去訊號；live 字尾 e 只加 d。"},
+  {q:"I ___ a middle school student then.",o:["am","was","were"],a:1,e:"主詞 I 的過去式 be 動詞是 was。"},
+  {q:"Now, I ___ in Taipei.",o:["lived","live","living"],a:1,e:"Now 把句子拉回現在軌；主詞 I 用原形。"}
+ ]},
+{
+ n:4, zhT:"飲食改變", enT:"A Change in Diet",
+ text:`My brother usually [[eats|pres|usually 表常態；My brother 三單，eat 加 s。]] a lot of junk food. He [[loves|pres|描述持續的喜好，屬現在軌。]] hamburgers and cola. But last week, he [[had|past|have 的過去式是 had，不規則變化。]] a terrible stomachache. He [[visited|past|visit 為規則動詞，加 ed。]] a doctor and [[decided|past|decide 字尾已有 e，只加 d，不是 decideed。]] to eat healthy food.`,
+ zh:"我弟弟通常吃很多垃圾食物。他喜歡漢堡和可樂。但上週，他肚子痛得很厲害。他去看了醫生，並決定要吃健康的食物。",
+ key:"usually 搭配現在式表常態；last week 表示過去發生的單一事件。",
+ quiz:[
+  {q:"But last week, he ___ a terrible stomachache.",o:["has","had","have"],a:1,e:"last week 為過去；have → had。"},
+  {q:"He ___ a doctor and decided to eat healthy food.",o:["visit","visits","visited"],a:2,e:"與 decided 並列，同為過去式。"},
+  {q:"decide 的過去式怎麼拼？",o:["decideed","decided","decidded"],a:1,e:"字尾已經有 e，只加 d。"}
+ ]},
+{
+ n:5, zhT:"難忘的旅行", enT:"An Unforgettable Trip",
+ text:`Japan [[is|pres|描述國家特色是持續的事實。]] a beautiful country. Many tourists [[visit|pres|主詞 Many tourists 是複數，動詞不加 s。]] there every year. Last summer, my family and I [[traveled|past|Last summer 是過去訊號，travel 加 ed。]] to Tokyo. We [[ate|past|eat 的過去式是 ate，不規則變化。]] delicious sushi and [[bought|past|buy → bought，與 ate 同屬過去軌。]] many souvenirs.`,
+ zh:"日本是一個美麗的國家。每年都有許多遊客造訪。去年夏天，我和家人去東京旅行。我們吃了美味的壽司，還買了許多紀念品。",
+ key:"描述國家的特色為現在事實；Last summer 為過去時間，搭配動詞過去式。",
+ quiz:[
+  {q:"Many tourists ___ there every year.",o:["visit","visits","visited"],a:0,e:"主詞是複數 tourists，現在式動詞不加 s。"},
+  {q:"We ___ delicious sushi in Tokyo.",o:["eat","ate","eaten"],a:1,e:"eat → ate；eaten 是過去分詞，本章不用。"},
+  {q:"Japan ___ a beautiful country.",o:["is","was","are"],a:0,e:"國家的特色是持續事實，用現在式 is。"}
+ ]},
+{
+ n:6, zhT:"天氣變化", enT:"Weather Changes",
+ text:`The weather in Taiwan [[is|pres|氣候常態屬於現在軌；主詞是 The weather，用 is。]] usually hot in July. People [[turn|pres|People 是複數主詞，動詞不加 s。]] on their air conditioners every day. However, a strong typhoon [[hit|past|hit 的過去式與原形同形，靠 the other day 判斷時態。]] the island the other day. The wind [[was|past|描述當時的狀態，用過去 be 動詞 was。]] very strong and it [[caused|past|cause 字尾有 e，只加 d。]] some damage.`,
+ zh:"台灣七月的天氣通常很熱。人們每天都會開冷氣。然而，幾天前一個強烈颱風侵襲了這座島嶼。風非常大，並造成了一些損害。",
+ key:"氣候常態使用現在簡單式；the other day（不久前的某一天）為過去時間副詞，必須使用過去簡單式。",
+ quiz:[
+  {q:"A strong typhoon ___ the island the other day.",o:["hit","hits","hitted"],a:0,e:"hit 原形與過去式同形，且沒有 hitted 這個字。"},
+  {q:"The wind ___ very strong.",o:["is","was","were"],a:1,e:"描述颱風當時的狀態；The wind 為單數，用 was。"},
+  {q:"People ___ on their air conditioners every day.",o:["turn","turns","turned"],a:0,e:"every day 表習慣，主詞 People 為複數不加 s。"}
+ ]},
+{
+ n:7, zhT:"遺失物品", enT:"Lost and Found",
+ text:`I always [[keep|pres|always 表習慣；主詞 I 動詞不加 s。]] my keys in my backpack. It [[is|pres|對習慣的評價，屬現在的事實。]] a good habit. But I [[lost|past|lose 的過去式是 lost，不規則變化，也不是 losed。]] them this morning on the bus. I [[looked|past|look 為規則動詞加 ed。]] for them everywhere, but I [[couldn't find|past|can 的過去式是 could；助動詞後接原形 find。]] them.`,
+ zh:"我總是把鑰匙放在背包裡。這是一個好習慣。但我今天早上在公車上把它們弄丟了。我到處找，但就是找不到。",
+ key:"always 表示習慣；this morning 若指已經過去的早上，則搭配過去簡單式。",
+ quiz:[
+  {q:"I always ___ my keys in my backpack.",o:["keep","keeps","kept"],a:0,e:"always 表習慣；主詞 I 用原形。"},
+  {q:"But I ___ them this morning on the bus.",o:["lose","lost","losed"],a:1,e:"lose → lost，不規則變化。"},
+  {q:"I looked everywhere, but I ___ them.",o:["couldn't find","didn't could find","can't found"],a:0,e:"can 的過去式 could，加 not 後接原形 find。"}
+ ]},
+{
+ n:8, zhT:"學習英文", enT:"Learning English",
+ text:`English [[is|pres|客觀事實，用現在簡單式。]] an important language in the world. I [[study|pres|every day 表每日習慣；主詞 I 不加 s。]] it hard every day. I [[started|past|start 為規則動詞加 ed，指過去的起點。]] learning English when I [[was|past|when I was seven 指過去那個時間點的狀態。]] seven years old. At first, it [[was|past|At first 指當年剛開始的狀況。]] difficult, but now it [[is|pres|but now 把句子切回現在軌。]] fun.`,
+ zh:"英文在世界上是一個重要的語言。我每天都很努力學習。我七歲的時候開始學英文。一開始很困難，但現在很有趣。",
+ key:"客觀事實與每日習慣使用現在簡單式；描述七歲時的起點與當時的狀態則使用過去簡單式。",
+ quiz:[
+  {q:"I ___ English hard every day.",o:["study","studies","studied"],a:0,e:"every day 表習慣；主詞 I 不加 s。"},
+  {q:"I started learning English when I ___ seven years old.",o:["am","was","were"],a:1,e:"從屬子句同樣落在過去軌；主詞 I 用 was。"},
+  {q:"At first, it ___ difficult, but now it ___ fun.",o:["was / is","is / was","was / was"],a:0,e:"At first 是過去、now 是現在，一句話跨兩條軌道。"}
+ ]},
+{
+ n:9, zhT:"寵物貓", enT:"My Pet Cat",
+ text:`Cats [[are|pres|泛指全體貓的天性；複數主詞用 are。]] cute animals. They [[like|pres|動物的天性屬於不變的事實。]] to sleep in warm places. Yesterday, my cat [[slept|past|sleep 的過去式是 slept，不規則變化。]] on my bed all afternoon. When I [[called|past|call 為規則動詞加 ed。]] his name, he [[didn't open|past|didn't 已表過去，後面用原形 open。]] his eyes.`,
+ zh:"貓是可愛的動物。牠們喜歡睡在溫暖的地方。昨天，我的貓在我的床上睡了整個下午。當我叫牠的名字時，牠連眼睛都沒睜開。",
+ key:"動物的天性（事實）使用現在簡單式；Yesterday 搭配過去簡單式，以及過去否定句構 didn't + 原形動詞。",
+ quiz:[
+  {q:"Cats ___ cute animals.",o:["is","are","were"],a:1,e:"泛指全體用複數現在式 are。"},
+  {q:"Yesterday, my cat ___ on my bed all afternoon.",o:["sleeps","slept","sleeped"],a:1,e:"sleep → slept，沒有 sleeped 這個字。"},
+  {q:"When I called his name, he ___ his eyes.",o:["didn't opened","didn't open","doesn't opened"],a:1,e:"didn't 後面永遠接原形動詞。"}
+ ]},
+{
+ n:10, zhT:"用功的學生", enT:"A Hardworking Student",
+ text:`Lisa [[is|pres|描述目前的身分與特質。]] the smartest student in our class. She never [[misses|pres|never 表習慣；miss 字尾是 s，三單要加 es。]] any homework. Two weeks ago, we [[had|past|Two weeks ago 是過去訊號；have → had。]] a difficult math test. She [[studied|past|study 是子音 + y，去 y 加 ied。]] for days and [[got|past|get 的過去式是 got，不規則變化。]] a perfect score.`,
+ zh:"Lisa 是我們班最聰明的學生。她從不缺交任何作業。兩週前，我們有一場困難的數學考試。她讀了好幾天，並拿到了滿分。",
+ key:"字尾為 s、z、x、o、ch、sh 時，三單須加 es 變成 misses；Two weeks ago 搭配過去式，study 去 y 加 ied 成為 studied。",
+ quiz:[
+  {q:"She never ___ any homework.",o:["miss","misses","missed"],a:1,e:"never 表習慣；miss 字尾 s，三單加 es。"},
+  {q:"She ___ for days and got a perfect score.",o:["studyed","studied","studies"],a:1,e:"子音 + y，去 y 加 ied。"},
+  {q:"Two weeks ago, we ___ a difficult math test.",o:["have","has","had"],a:2,e:"ago 是過去訊號；have → had。"}
+ ]}
+];
+
+const IRREGULAR=[
+ ["rise","rose","第 1 篇"],["buy","bought","第 1、5 篇"],["is / am","was","第 1、3、6 篇"],
+ ["are","were","be 動詞複數"],["eat","ate","第 5 篇"],["have / has","had","第 4、10 篇"],
+ ["hit","hit","第 6 篇（同形）"],["lose","lost","第 7 篇"],["can","could","第 7 篇"],
+ ["sleep","slept","第 9 篇"],["get","got","第 1、10 篇"],["wake","woke","第 1 篇"]
+];
+
+const DRILL_S=[
+ ["rise","rises","一般動詞直接加 s"],["get","gets","一般動詞直接加 s"],
+ ["study","studies","子音 + y，去 y 加 ies"],["miss","misses","字尾 s，加 es"],
+ ["watch","watches","字尾 ch，加 es"],["go","goes","字尾 o，加 es"],
+ ["have","has","不規則：have → has"],["like","likes","一般動詞直接加 s"],
+ ["stay","stays","母音 + y，直接加 s"],["turn","turns","一般動詞直接加 s"]
+];
+const DRILL_P=[
+ ["rain","rained","規則動詞加 ed"],["stay","stayed","母音 + y，直接加 ed"],
+ ["study","studied","子音 + y，去 y 加 ied"],["decide","decided","字尾有 e，只加 d"],
+ ["stop","stopped","短母音單子音，雙寫再加 ed"],["buy","bought","不規則"],
+ ["eat","ate","不規則"],["sleep","slept","不規則"],["hit","hit","原形與過去式同形"],
+ ["lose","lost","不規則"],["keep","kept","不規則"],["get","got","不規則"]
+];
+
+const ADVERBS=[
+ ["every day","n","表每日習慣，落在現在軌"],["yesterday","p","明確的過去時間"],
+ ["usually","n","表常態習慣"],["last week","p","last + 時間 = 過去"],
+ ["always","n","表一貫的習慣"],["three years ago","p","ago 一律搭配過去式"],
+ ["never","n","表從不發生的習慣，仍屬現在軌"],["the other day","p","指前幾天，已經結束"],
+ ["every weekend","n","表反覆發生的習慣"],["last summer","p","已經過完的夏天"],
+ ["two weeks ago","p","ago 是過去訊號"],["every year","n","表年年反覆的習慣"]
+];
+
+/* ═══════════════ 狀態 ═══════════════ */
+const KEY="tense_ch1_v1";
+let S={done:{},best:{},final:null};
+function load(){try{const r=localStorage.getItem(KEY);if(r)S=Object.assign(S,JSON.parse(r));}catch(e){}}
+function save(){try{localStorage.setItem(KEY,JSON.stringify(S));}catch(e){}}
+load();
+
+function toast(m){const t=document.getElementById("toast");t.textContent=m;t.classList.add("on");clearTimeout(t._h);t._h=setTimeout(()=>t.classList.remove("on"),1800);}
+
+/* ═══════════════ 導覽 ═══════════════ */
+function go(id){
+  document.querySelectorAll("section.view").forEach(s=>s.classList.toggle("on",s.id===id));
+  document.querySelectorAll("#nav .pill").forEach(p=>p.setAttribute("aria-current",p.dataset.target===id?"true":"false"));
+  window.scrollTo({top:0,behavior:"smooth"});
+}
+document.addEventListener("click",e=>{
+  const b=e.target.closest("[data-target]");
+  if(b){go(b.dataset.target);}
+});
+
+/* ═══════════════ 語音 ═══════════════ */
+let watchdog=null;
+function speak(text,rate){
+  if(!("speechSynthesis" in window)){toast("此瀏覽器不支援語音朗讀");return;}
+  const synth=window.speechSynthesis;
+  synth.cancel();
+  if(watchdog){clearInterval(watchdog);watchdog=null;}
+  const u=new SpeechSynthesisUtterance(text);
+  u.lang="en-US";
+  u.rate=rate||parseFloat(document.getElementById("rateSel")?document.getElementById("rateSel").value:0.9);
+  u.onend=()=>{if(watchdog){clearInterval(watchdog);watchdog=null;}};
+  synth.speak(u);
+  /* Chrome 長句會靜默中斷，用 pause/resume 續命 */
+  watchdog=setInterval(()=>{
+    if(!synth.speaking){clearInterval(watchdog);watchdog=null;return;}
+    synth.pause();synth.resume();
+  },9000);
+}
+function stopSpeak(){
+  if("speechSynthesis" in window)window.speechSynthesis.cancel();
+  if(watchdog){clearInterval(watchdog);watchdog=null;}
+}
+window.addEventListener("beforeunload",stopSpeak);
+
+/* ═══════════════ 短文解析與繪製 ═══════════════ */
+function parsePassage(p){
+  /* 先把標記遮成 \u0001n\u0001，斷句才不會被註解裡的標點切斷 */
+  const store=[];
+  const masked=p.text.replace(/\[\[(.+?)\]\]/g,(m,b)=>{store.push(b.split("|"));return "\u0001"+(store.length-1)+"\u0001";});
+  const raws=(masked.match(/[^.!?]+[.!?]*/g)||[masked]).map(s=>s.trim()).filter(Boolean);
+  const verbs=[];
+  const sentences=raws.map(s=>{
+    const inner=s.replace(/\u0001(\d+)\u0001/g,(m,k)=>{
+      const [w,type,note]=store[k];
+      const id="v"+k;
+      verbs.push({id,w,type,note});
+      return '<v class="'+type+'" data-v="'+id+'">'+w+'</v>';
+    });
+    const plain=s.replace(/\u0001(\d+)\u0001/g,(m,k)=>store[k][0]);
+    return {inner,plain};
+  });
+  return {sentences,verbs,plain:sentences.map(s=>s.plain).join(" ")};
+}
+
+let current=0;
+function renderPassage(i){
+  current=i;
+  const p=PASSAGES[i];const d=parsePassage(p);
+  const now=d.verbs.filter(v=>v.type==="pres"),past=d.verbs.filter(v=>v.type==="past");
+  const host=document.getElementById("passageHost");
+  host.innerHTML=
+   '<p class="eyebrow">Passage '+String(p.n).padStart(2,"0")+'</p>'+
+   '<h1>'+p.zhT+'<span style="display:block;font-size:15px;color:var(--ink-soft);letter-spacing:.06em;margin-top:4px">'+p.enT+'</span></h1>'+
+   '<div class="rails">'+
+     '<div class="rail now"><span class="rail-label">現在軌<br>PRESENT</span>'+
+       (now.length?now.map(v=>'<button class="chip" data-jump="'+v.id+'">'+v.w+'</button>').join(""):'<span class="rail-empty">本篇無</span>')+'</div>'+
+     '<div class="rail past"><span class="rail-label">過去軌<br>PAST</span>'+
+       (past.length?past.map(v=>'<button class="chip" data-jump="'+v.id+'">'+v.w+'</button>').join(""):'<span class="rail-empty">本篇無</span>')+'</div>'+
+   '</div>'+
+   '<div class="card">'+
+     d.sentences.map((s,k)=>'<div class="sent"><button class="spk" data-say="'+k+'" aria-label="朗讀這一句">▶</button><div class="sent-en">'+s.inner+'</div></div>').join("")+
+     '<div class="zh" id="zhBox"><b>中譯</b>　'+p.zh+'<br><br><b>文法重點</b>　'+p.key+'</div>'+
+     '<div class="note" id="noteBox">點短文裡有底線的動詞，或點上方軌道上的詞，看它為什麼站在那一軌。</div>'+
+     '<div class="toolbar">'+
+       '<button class="btn solid" id="playAll">朗讀全文</button>'+
+       '<button class="btn" id="stopAll">停止</button>'+
+       '<select class="rate" id="rateSel"><option value="0.7">慢速</option><option value="0.9" selected>常速</option><option value="1.05">快速</option></select>'+
+       '<button class="btn" id="toggleZh">顯示中譯與解析</button>'+
+     '</div>'+
+   '</div>'+
+   '<h2>小試　三題</h2>'+
+   '<div class="card" id="quizBox"></div>';
+
+  host.dataset.plain=d.plain;
+  host._sentences=d.sentences.map(s=>s.plain);
+  host._verbs=d.verbs;
+
+  renderQuiz(p,i);
+  document.querySelectorAll("#unitbar .ubtn").forEach((b,k)=>{
+    b.setAttribute("aria-current",k===i?"true":"false");
+    b.classList.toggle("done",!!S.done[k]);
+  });
+  document.getElementById("prevP").disabled=(i===0);
+  document.getElementById("nextP").disabled=(i===PASSAGES.length-1);
+  stopSpeak();
+}
+
+function showNote(v){
+  const box=document.getElementById("noteBox");
+  if(!box)return;
+  box.innerHTML='<b>'+v.w+'</b><span class="tag '+v.type+'">'+(v.type==="pres"?"現在軌":"過去軌")+'</span><br>'+v.note;
+  document.querySelectorAll("v").forEach(el=>el.classList.toggle("lit",el.dataset.v===v.id));
+  document.querySelectorAll(".chip").forEach(el=>el.classList.toggle("lit",el.dataset.jump===v.id));
+}
+
+document.getElementById("passageHost").addEventListener("click",e=>{
+  const host=document.getElementById("passageHost");
+  const vEl=e.target.closest("v");
+  if(vEl){const v=host._verbs.find(x=>x.id===vEl.dataset.v);if(v)showNote(v);return;}
+  const chip=e.target.closest("[data-jump]");
+  if(chip){const v=host._verbs.find(x=>x.id===chip.dataset.jump);if(v)showNote(v);return;}
+  const say=e.target.closest("[data-say]");
+  if(say){speak(host._sentences[+say.dataset.say]);return;}
+  if(e.target.id==="playAll"){speak(host.dataset.plain);return;}
+  if(e.target.id==="stopAll"){stopSpeak();return;}
+  if(e.target.id==="toggleZh"){
+    const z=document.getElementById("zhBox");z.classList.toggle("on");
+    e.target.textContent=z.classList.contains("on")?"隱藏中譯與解析":"顯示中譯與解析";
+    return;
+  }
+});
+
+/* ── 每篇小測 ── */
+function renderQuiz(p,idx){
+  const box=document.getElementById("quizBox");
+  box.innerHTML=p.quiz.map((q,qi)=>
+    '<div class="q" data-q="'+qi+'">'+
+      '<p class="q-stem"><span class="num">Q'+(qi+1)+'</span>'+q.q+'</p>'+
+      '<div class="opts">'+q.o.map((o,oi)=>'<button class="opt" data-oi="'+oi+'">'+o+'</button>').join("")+'</div>'+
+      '<p class="fb"></p>'+
+    '</div>').join("");
+  box.onclick=ev=>{
+    const b=ev.target.closest(".opt");if(!b)return;
+    const qEl=b.closest(".q"),qi=+qEl.dataset.q,q=p.quiz[qi];
+    if(qEl.dataset.locked)return;
+    qEl.dataset.locked="1";
+    qEl.querySelectorAll(".opt").forEach((o,oi)=>{
+      o.disabled=true;
+      if(oi===q.a)o.classList.add("ok");
+      else if(o===b)o.classList.add("no");
+    });
+    const fb=qEl.querySelector(".fb");
+    fb.innerHTML=(+b.dataset.oi===q.a?"<b>答對了。</b> ":"<b>正解："+q.o[q.a]+"</b>　")+q.e;
+    fb.classList.add("on");
+    const answered=box.querySelectorAll(".q[data-locked]").length;
+    const right=box.querySelectorAll(".opt.ok:disabled").length;
+    if(answered===p.quiz.length){
+      const score=[...box.querySelectorAll(".q")].filter(el=>!el.querySelector(".opt.no")).length;
+      S.done[idx]=true;
+      S.best[idx]=Math.max(S.best[idx]||0,score);
+      save();updateProgress();
+      document.querySelectorAll("#unitbar .ubtn")[idx].classList.add("done");
+      toast("第 "+p.n+" 篇完成　"+score+" / "+p.quiz.length);
+    }
+  };
+}
+
+/* ── 單元列與導覽 ── */
+document.getElementById("unitbar").innerHTML=
+  PASSAGES.map((p,i)=>'<button class="ubtn'+(S.done[i]?" done":"")+'" data-u="'+i+'">'+p.n+'</button>').join("");
+document.getElementById("unitbar").onclick=e=>{
+  const b=e.target.closest(".ubtn");if(b)renderPassage(+b.dataset.u);
+};
+document.getElementById("prevP").onclick=()=>{if(current>0)renderPassage(current-1);};
+document.getElementById("nextP").onclick=()=>{if(current<PASSAGES.length-1)renderPassage(current+1);};
+
+/* ═══════════════ 本章目次 ═══════════════ */
+function renderToc(){
+  const host=document.getElementById("tocList");
+  if(!host)return;
+  host.innerHTML=PASSAGES.map((p,i)=>
+    '<div class="toc-item'+(S.done[i]?" done":"")+'" data-u="'+i+'">'+
+      '<span class="toc-no">'+String(p.n).padStart(2,"0")+'</span>'+
+      '<span class="toc-tt">'+p.zhT+'<span class="toc-en">'+p.enT+'</span></span>'+
+      '<span class="toc-mark">'+(S.done[i]?(S.best[i]||0)+"/3 ✓":"未完成")+'</span>'+
+    '</div>').join("");
+}
+document.getElementById("tocList").onclick=e=>{
+  const it=e.target.closest(".toc-item");if(!it)return;
+  renderPassage(+it.dataset.u);go("sec-read");
+};
+function updateProgress(){
+  const n=Object.keys(S.done).length;
+  document.getElementById("tocBar").style.width=(n/PASSAGES.length*100)+"%";
+  document.getElementById("tocMeta").textContent=n===0?"尚未開始":"已完成 "+n+" / "+PASSAGES.length+" 篇"+(S.final!=null?"　·　總複習最佳成績 "+S.final+" / 12":"");
+  renderToc();
+}
+document.getElementById("resetAll").onclick=()=>{
+  S={done:{},best:{},final:null};save();
+  updateProgress();
+  document.querySelectorAll("#unitbar .ubtn").forEach(b=>b.classList.remove("done"));
+  renderPassage(current);
+  toast("紀錄已清除");
+};
+
+/* ═══════════════ 不規則動詞表 ═══════════════ */
+document.getElementById("irrBody").innerHTML=
+  IRREGULAR.map(r=>"<tr><td>"+r[0]+"</td><td>"+r[1]+"</td><td>"+r[2]+"</td></tr>").join("");
+
+/* ═══════════════ 動詞實驗室 ═══════════════ */
+let dMode="s",dList=[],dIdx=0,dRight=0;
+function shuffle(a){a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
+function drillStart(){
+  dList=shuffle(dMode==="s"?DRILL_S:DRILL_P);dIdx=0;dRight=0;drillShow();
+}
+function drillShow(){
+  const inp=document.getElementById("drillInput"),fb=document.getElementById("drillFb");
+  inp.value="";inp.className="ans";fb.classList.remove("on");
+  if(dIdx>=dList.length){
+    document.getElementById("drillBase").textContent="完成";
+    document.getElementById("drillMeta").textContent="本輪結束　答對 "+dRight+" / "+dList.length;
+    inp.disabled=true;return;
+  }
+  inp.disabled=false;
+  document.getElementById("drillBase").textContent=dList[dIdx][0];
+  document.getElementById("drillMeta").textContent=(dMode==="s"?"現在軌　三單變化":"過去軌　過去式")+"　"+(dIdx+1)+" / "+dList.length+"　答對 "+dRight;
+}
+function drillCheck(){
+  if(dIdx>=dList.length)return;
+  const inp=document.getElementById("drillInput"),fb=document.getElementById("drillFb");
+  const ans=inp.value.trim().toLowerCase();
+  if(!ans){toast("請先輸入答案");return;}
+  const cur=dList[dIdx];
+  if(ans===cur[1]){inp.className="ans ok";dRight++;fb.innerHTML="<b>答對了。</b> "+cur[2];}
+  else{inp.className="ans no";fb.innerHTML="<b>正解："+cur[1]+"</b>　"+cur[2];}
+  fb.classList.add("on");
+  document.getElementById("drillMeta").textContent=(dMode==="s"?"現在軌　三單變化":"過去軌　過去式")+"　"+(dIdx+1)+" / "+dList.length+"　答對 "+dRight;
+}
+document.getElementById("drillCheck").onclick=drillCheck;
+document.getElementById("drillNext").onclick=()=>{dIdx++;drillShow();document.getElementById("drillInput").focus();};
+document.getElementById("drillRestart").onclick=drillStart;
+document.getElementById("drillInput").addEventListener("keydown",e=>{
+  if(e.key==="Enter"){
+    if(document.getElementById("drillFb").classList.contains("on")){dIdx++;drillShow();}
+    else drillCheck();
+  }
+});
+document.querySelectorAll(".tab").forEach(t=>t.onclick=()=>{
+  document.querySelectorAll(".tab").forEach(x=>x.setAttribute("aria-selected","false"));
+  t.setAttribute("aria-selected","true");dMode=t.dataset.mode;drillStart();
+});
+
+/* ═══════════════ 時間副詞分流 ═══════════════ */
+function advRender(){
+  document.getElementById("advGrid").innerHTML=shuffle(ADVERBS).map((a,i)=>
+    '<div class="adv-row" data-side="'+a[1]+'" data-note="'+a[2]+'">'+
+      '<span class="adv-word">'+a[0]+'</span>'+
+      '<button class="mini n" data-pick="n">現在軌</button>'+
+      '<button class="mini p" data-pick="p">過去軌</button>'+
+      '<span class="adv-note"></span>'+
+    '</div>').join("");
+  advUpdate();
+}
+function advUpdate(){
+  const rows=document.querySelectorAll(".adv-row");
+  const done=document.querySelectorAll(".adv-row.done").length;
+  document.getElementById("advBar").style.width=(done/rows.length*100)+"%";
+  document.getElementById("advMeta").textContent=done===rows.length?"分流完成，十二個時間訊號全部歸位。":"已分流 "+done+" / "+rows.length;
+}
+document.getElementById("advGrid").onclick=e=>{
+  const b=e.target.closest("[data-pick]");if(!b)return;
+  const row=b.closest(".adv-row");
+  if(row.classList.contains("done"))return;
+  const ok=b.dataset.pick===row.dataset.side;
+  if(ok){
+    row.classList.add("done",row.dataset.side==="n"?"solved-now":"solved-past");
+    row.querySelector(".adv-note").textContent="✓ "+row.dataset.note;
+    row.querySelectorAll(".mini").forEach(m=>m.remove());
+  }else{
+    b.style.borderColor="var(--wrong)";b.style.color="var(--wrong)";
+    toast("再想一次：這個詞指的是已結束，還是反覆發生？");
+    setTimeout(()=>{b.style.borderColor="";b.style.color="";},900);
+  }
+  advUpdate();
+};
+document.getElementById("advRestart").onclick=advRender;
+
+/* ═══════════════ 總複習 ═══════════════ */
+let fPool=[];
+function finalStart(){
+  const all=[];
+  PASSAGES.forEach((p,pi)=>p.quiz.forEach(q=>all.push({...q,from:p.n,zhT:p.zhT,pi})));
+  fPool=shuffle(all).slice(0,12).map(q=>{
+    const pairs=q.o.map((t,i)=>({t,ok:i===q.a}));
+    const mixed=shuffle(pairs);
+    return {...q,o:mixed.map(m=>m.t),a:mixed.findIndex(m=>m.ok)};
+  });
+  document.getElementById("finalHost").innerHTML=fPool.map((q,i)=>
+    '<div class="q" data-q="'+i+'">'+
+      '<p class="q-stem"><span class="num">'+String(i+1).padStart(2,"0")+'</span>'+q.q+'</p>'+
+      '<div class="opts">'+q.o.map((o,oi)=>'<button class="opt" data-oi="'+oi+'">'+o+'</button>').join("")+'</div>'+
+      '<p class="fb"></p>'+
+    '</div>').join("");
+  document.getElementById("finalGrade").disabled=false;
+  document.getElementById("finalStart").textContent="重抽一份";
+}
+document.getElementById("finalHost").onclick=e=>{
+  const b=e.target.closest(".opt");if(!b)return;
+  const qEl=b.closest(".q");
+  qEl.querySelectorAll(".opt").forEach(o=>o.classList.remove("sel"));
+  qEl.querySelectorAll(".opt").forEach(o=>o.style.borderColor="");
+  b.style.borderColor="var(--ink)";
+  qEl.dataset.pick=b.dataset.oi;
+};
+document.getElementById("finalStart").onclick=finalStart;
+document.getElementById("finalGrade").onclick=()=>{
+  if(!fPool.length)return;
+  let score=0;
+  document.querySelectorAll("#finalHost .q").forEach((qEl,i)=>{
+    const q=fPool[i],pick=qEl.dataset.pick!=null?+qEl.dataset.pick:-1;
+    qEl.querySelectorAll(".opt").forEach((o,oi)=>{
+      o.disabled=true;o.style.borderColor="";
+      if(oi===q.a)o.classList.add("ok");
+      else if(oi===pick)o.classList.add("no");
+    });
+    const fb=qEl.querySelector(".fb");
+    if(pick===q.a){score++;fb.innerHTML="<b>答對了。</b> "+q.e;}
+    else fb.innerHTML="<b>正解："+q.o[q.a]+"</b>　"+q.e+"　<span style='color:var(--gold)'>出自第 "+q.from+" 篇《"+q.zhT+"》</span>";
+    fb.classList.add("on");
+  });
+  S.final=Math.max(S.final||0,score);save();updateProgress();
+  document.getElementById("finalGrade").disabled=true;
+  toast("總複習得分　"+score+" / 12");
+  document.getElementById("finalHost").scrollIntoView({behavior:"smooth",block:"start"});
+};
+
+/* ═══════════════ 啟動 ═══════════════ */
+renderPassage(0);
+updateProgress();
+advRender();
+drillStart();
+</script>
+</body>
+</html>
