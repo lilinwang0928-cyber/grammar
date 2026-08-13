@@ -890,6 +890,108 @@ v.lit{background:currentColor;color:#fff !important;border-radius:3px;padding:0 
   background:var(--gold-bg);color:#8A6B2C;border-radius:999px;padding:3px 10px;
 }
 
+/* ═══ 時態全景：時間尺 ═══ */
+.tl{
+  background:var(--card);border:1px solid var(--line);border-radius:16px;
+  padding:20px 18px 14px;box-shadow:var(--shadow);margin-bottom:14px;
+}
+/* 尺規 */
+.tl-ruler{position:relative;height:26px;margin:0 0 6px}
+.tl-ruler{margin-left:var(--tl-label,132px)}
+.tl-line{
+  position:absolute;left:0;right:0;top:19px;height:2px;border-radius:2px;
+  background:linear-gradient(90deg,var(--t-xf),var(--t-pt) 34%,var(--t-ps) 66%,var(--t-fu));
+  opacity:.55;
+}
+.tl-tick{
+  position:absolute;top:0;transform:translateX(-50%);
+  font-family:var(--mono);font-size:10px;letter-spacing:.1em;color:var(--ink-soft);
+  white-space:nowrap;
+}
+.tl-tick::after{
+  content:"";position:absolute;left:50%;top:17px;width:1px;height:9px;
+  background:var(--line);transform:translateX(-50%);
+}
+.tl-tick.now{color:var(--ink);font-weight:600}
+.tl-tick.now::after{background:var(--ink);height:11px;width:2px}
+
+/* 每一列 */
+.tl-rows{display:grid;gap:5px}
+.tl-row{
+  display:flex;align-items:center;gap:0;width:100%;
+  background:transparent;border:1px solid transparent;border-radius:10px;
+  padding:7px 8px;cursor:pointer;text-align:left;font-family:inherit;
+  transition:background .16s,border-color .16s;
+}
+.tl-row:hover{background:var(--paper);border-color:var(--line)}
+.tl-row.lit{background:var(--paper);border-color:var(--ink)}
+.tl-name{
+  flex:0 0 var(--tl-label,132px);font-family:var(--serif);font-size:14.5px;
+  line-height:1.35;color:var(--ink);padding-right:10px;
+}
+.tl-f{
+  display:block;font-family:var(--mono);font-size:9.5px;letter-spacing:.03em;
+  color:var(--ink-soft);margin-top:2px;
+}
+.tl-track{position:relative;flex:1;height:22px}
+.tl-nowline{
+  position:absolute;left:66%;top:-3px;bottom:-3px;width:1px;
+  background:var(--line);
+}
+.tl-bar{position:absolute;top:6px;height:10px;border-radius:999px}
+/* 四種形狀 */
+.tl-bar.dot{border-radius:999px}
+.tl-bar.bridge{
+  border-radius:999px;
+  background-image:linear-gradient(90deg,rgba(255,255,255,.55),rgba(255,255,255,0) 40%);
+}
+.tl-bar.rep{
+  background-image:repeating-linear-gradient(90deg,rgba(255,255,255,.75) 0 3px,transparent 3px 9px);
+}
+/* 各時態上色 */
+.tl-row.ps .tl-bar{background-color:var(--t-ps)}
+.tl-row.pc .tl-bar{background-color:var(--t-pc)}
+.tl-row.pt .tl-bar{background-color:var(--t-pt)}
+.tl-row.xc .tl-bar{background-color:var(--t-xc)}
+.tl-row.pf .tl-bar{background-color:var(--t-pf)}
+.tl-row.xf .tl-bar{background-color:var(--t-xf)}
+.tl-row.fu .tl-bar{background-color:var(--t-fu)}
+.tl-row.ps .tl-name{color:var(--t-ps)} .tl-row.pc .tl-name{color:var(--t-pc)}
+.tl-row.pt .tl-name{color:var(--t-pt)} .tl-row.xc .tl-name{color:var(--t-xc)}
+.tl-row.pf .tl-name{color:var(--t-pf)} .tl-row.xf .tl-name{color:var(--t-xf)}
+.tl-row.fu .tl-name{color:var(--t-fu)}
+/* 章別標記 */
+.tl-ch{
+  flex:0 0 auto;margin-left:10px;font-family:var(--mono);font-size:9.5px;
+  letter-spacing:.06em;color:var(--ink-soft);border:1px solid var(--line);
+  border-radius:999px;padding:2px 8px;white-space:nowrap;
+}
+.tl-ch.on{color:var(--now);border-color:var(--now);background:var(--now-bg)}
+/* 圖例 */
+.tl-legend{
+  display:flex;gap:14px;flex-wrap:wrap;margin:14px 0 0;padding-top:12px;
+  border-top:1px dotted var(--line);
+  font-size:11.5px;color:var(--ink-soft);
+}
+.tl-legend span{display:inline-flex;align-items:center;gap:6px}
+i.lg{display:inline-block;height:8px;border-radius:999px;background:var(--ink-soft)}
+i.lg.dot{width:10px}
+i.lg.bar{width:24px}
+i.lg.bridge{width:34px;background:linear-gradient(90deg,var(--t-pf),var(--t-ps))}
+i.lg.rep{width:24px;background-image:repeating-linear-gradient(90deg,rgba(255,255,255,.8) 0 3px,transparent 3px 9px)}
+
+@media(max-width:620px){
+  .tl{--tl-label:96px;padding:16px 13px 12px}
+  .tl-name{font-size:13px}
+  .tl-ch{display:none}
+  .tl-tick{font-size:9px}
+}
+
+/* 本節中文導覽列 */
+.guide-bar{display:flex;gap:6px;flex-wrap:wrap;margin:-6px 0 18px}
+/* 目次標題朗讀鈕 */
+.spk.inline.tocsay{margin:0 0 2px 8px}
+
 </style>
 </head>
 <body>
@@ -940,22 +1042,23 @@ v.lit{background:currentColor;color:#fff !important;border-radius:3px;padding:0 
   <p class="eyebrow">Grammar Core</p>
   <h1>雙軌總覽</h1>
   <p class="lead">先認軌道，再認動詞。判斷順序永遠是：先看時間訊號 → 再決定時態 → 最後才處理動詞形態。</p>
+  <p class="guide-bar"><button class="btn tiny" data-sayzh="這一章有兩條軌道。現在軌用來說不變的真理、反覆的習慣，還有當下的狀態，訊號詞是 always、usually、every day 這一類。過去軌用來說已經收尾的單一事件，訊號詞是 yesterday、last week、還有 ago。判斷的順序永遠一樣：先看時間訊號，再決定時態，最後才處理動詞的形態。要特別小心兩件事：第一，主詞是第三人稱單數時，現在式動詞要加 s 或 es。第二，助動詞一旦扛下時態，後面的動詞就必須回到原形，所以是 didn't wake，不是 didn't woke。">🔈 本節中文導覽</button><button class="btn tiny" data-stopsay="1">停止</button></p>
 
   <div class="split">
     <div class="axis n">
       <h3>現在軌　Present Simple</h3>
       <ul>
-        <li><b>不變的真理</b>：<em>The sun rises in the east.</em></li>
-        <li><b>反覆的習慣</b>：<em>Tom plays basketball every weekend.</em></li>
-        <li><b>當下的狀態或事實</b>：<em>Now I live in Taipei.</em></li>
+        <li><b>不變的真理</b>：<button class="spk inline" data-sayen="The sun rises in the east." aria-label="朗讀例句">▶</button><em>The sun rises in the east.</em></li>
+        <li><b>反覆的習慣</b>：<button class="spk inline" data-sayen="Tom plays basketball every weekend." aria-label="朗讀例句">▶</button><em>Tom plays basketball every weekend.</em></li>
+        <li><b>當下的狀態或事實</b>：<button class="spk inline" data-sayen="Now I live in Taipei." aria-label="朗讀例句">▶</button><em>Now I live in Taipei.</em></li>
         <li>訊號詞：always / usually / often / never / every day</li>
       </ul>
     </div>
     <div class="axis p">
       <h3>過去軌　Past Simple</h3>
       <ul>
-        <li><b>已結束的單一事件</b>：<em>Yesterday it rained heavily.</em></li>
-        <li><b>過去的狀態</b>：<em>I was a middle school student then.</em></li>
+        <li><b>已結束的單一事件</b>：<button class="spk inline" data-sayen="Yesterday it rained heavily." aria-label="朗讀例句">▶</button><em>Yesterday it rained heavily.</em></li>
+        <li><b>過去的狀態</b>：<button class="spk inline" data-sayen="I was a middle school student then." aria-label="朗讀例句">▶</button><em>I was a middle school student then.</em></li>
         <li>訊號詞：yesterday / last week / three years ago / the other day</li>
         <li>只要事情「已經收尾」，不管多近都用過去式。</li>
       </ul>
@@ -974,8 +1077,8 @@ v.lit{background:currentColor;color:#fff !important;border-radius:3px;padding:0 
   <div class="card">
     <p style="margin:0 0 8px;font-size:14.5px">助動詞一旦扛下時態，後面的動詞就必須回到原形。</p>
     <p style="margin:0;font-family:var(--serif);font-size:17px;line-height:2">
-      <span style="color:var(--now)">She doesn't wake up on time.</span><br>
-      <span style="color:var(--past)">She didn't wake up on time.</span><br>
+      <button class="spk inline" data-sayen="She doesn't wake up on time." aria-label="朗讀例句">▶</button><span style="color:var(--now)">She doesn't wake up on time.</span><br>
+      <button class="spk inline" data-sayen="She didn't wake up on time." aria-label="朗讀例句">▶</button><span style="color:var(--past)">She didn't wake up on time.</span><br>
       <span style="color:var(--wrong);text-decoration:line-through">She didn't woke up on time.</span>
     </p>
   </div>
@@ -1390,11 +1493,12 @@ function renderToc(){
   host.innerHTML=PASSAGES.map((p,i)=>
     '<div class="toc-item'+(S.done[i]?" done":"")+'" data-u="'+i+'">'+
       '<span class="toc-no">'+String(p.n).padStart(2,"0")+'</span>'+
-      '<span class="toc-tt">'+p.zhT+'<span class="toc-en">'+p.enT+'</span></span>'+
+      '<span class="toc-tt">'+p.zhT+'<span class="toc-en">'+p.enT+'<button class="spk inline tocsay" data-sayen="'+p.enT+'" aria-label="朗讀標題">▶</button></span></span>'+
       '<span class="toc-mark">'+(S.done[i]?(S.best[i]||0)+"/3 ✓":"未完成")+'</span>'+
     '</div>').join("");
 }
 document.getElementById("tocList").onclick=e=>{
+  if(e.target.closest("[data-sayen]"))return;
   const it=e.target.closest(".toc-item");if(!it)return;
   renderPassage(+it.dataset.u);go("sec-read");
 };
@@ -1560,6 +1664,31 @@ const RG={
   {s:"We ______ a new bike two months ago.",a:"past",why:"… ago 指過去。",forms:["buy","buys","bought"],fa:2,e:"buy 的過去式是不規則的 bought。"},
   {s:"He never ______ any class.",a:"now",why:"never 是頻率副詞，描述一貫的狀況。",forms:["miss","misses","missed"],fa:1,e:"三單且字尾 ss，加 es 變成 misses。"}
  ]};
+
+
+/* ── 中文語音導覽 ── */
+function speakZh(text){
+  if(!("speechSynthesis" in window)){toast("此瀏覽器不支援語音朗讀");return;}
+  const synth=window.speechSynthesis;
+  synth.cancel();if(watchdog){clearInterval(watchdog);watchdog=null;}
+  const u=new SpeechSynthesisUtterance(text);
+  u.lang="zh-TW";u.rate=0.95;
+  u.onend=()=>{if(watchdog){clearInterval(watchdog);watchdog=null;}};
+  synth.speak(u);
+  watchdog=setInterval(()=>{
+    if(!synth.speaking){clearInterval(watchdog);watchdog=null;return;}
+    synth.pause();synth.resume();
+  },9000);
+}
+/* 全域朗讀按鈕：data-sayen 讀英文、data-sayzh 讀中文導覽 */
+document.addEventListener("click",function(e){
+  const en=e.target.closest("[data-sayen]");
+  if(en){e.stopPropagation();speak(en.getAttribute("data-sayen"),0.85);return;}
+  const zh=e.target.closest("[data-sayzh]");
+  if(zh){e.stopPropagation();speakZh(zh.getAttribute("data-sayzh"));return;}
+  const st=e.target.closest("[data-stopsay]");
+  if(st){e.stopPropagation();stopSpeak();return;}
+},true);
 
 /* ═══════════════ 軌道分派闖關 ═══════════════ */
 function rgShuffle(a){a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}

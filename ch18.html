@@ -890,6 +890,108 @@ v.lit{background:currentColor;color:#fff !important;border-radius:3px;padding:0 
   background:var(--gold-bg);color:#8A6B2C;border-radius:999px;padding:3px 10px;
 }
 
+/* ═══ 時態全景：時間尺 ═══ */
+.tl{
+  background:var(--card);border:1px solid var(--line);border-radius:16px;
+  padding:20px 18px 14px;box-shadow:var(--shadow);margin-bottom:14px;
+}
+/* 尺規 */
+.tl-ruler{position:relative;height:26px;margin:0 0 6px}
+.tl-ruler{margin-left:var(--tl-label,132px)}
+.tl-line{
+  position:absolute;left:0;right:0;top:19px;height:2px;border-radius:2px;
+  background:linear-gradient(90deg,var(--t-xf),var(--t-pt) 34%,var(--t-ps) 66%,var(--t-fu));
+  opacity:.55;
+}
+.tl-tick{
+  position:absolute;top:0;transform:translateX(-50%);
+  font-family:var(--mono);font-size:10px;letter-spacing:.1em;color:var(--ink-soft);
+  white-space:nowrap;
+}
+.tl-tick::after{
+  content:"";position:absolute;left:50%;top:17px;width:1px;height:9px;
+  background:var(--line);transform:translateX(-50%);
+}
+.tl-tick.now{color:var(--ink);font-weight:600}
+.tl-tick.now::after{background:var(--ink);height:11px;width:2px}
+
+/* 每一列 */
+.tl-rows{display:grid;gap:5px}
+.tl-row{
+  display:flex;align-items:center;gap:0;width:100%;
+  background:transparent;border:1px solid transparent;border-radius:10px;
+  padding:7px 8px;cursor:pointer;text-align:left;font-family:inherit;
+  transition:background .16s,border-color .16s;
+}
+.tl-row:hover{background:var(--paper);border-color:var(--line)}
+.tl-row.lit{background:var(--paper);border-color:var(--ink)}
+.tl-name{
+  flex:0 0 var(--tl-label,132px);font-family:var(--serif);font-size:14.5px;
+  line-height:1.35;color:var(--ink);padding-right:10px;
+}
+.tl-f{
+  display:block;font-family:var(--mono);font-size:9.5px;letter-spacing:.03em;
+  color:var(--ink-soft);margin-top:2px;
+}
+.tl-track{position:relative;flex:1;height:22px}
+.tl-nowline{
+  position:absolute;left:66%;top:-3px;bottom:-3px;width:1px;
+  background:var(--line);
+}
+.tl-bar{position:absolute;top:6px;height:10px;border-radius:999px}
+/* 四種形狀 */
+.tl-bar.dot{border-radius:999px}
+.tl-bar.bridge{
+  border-radius:999px;
+  background-image:linear-gradient(90deg,rgba(255,255,255,.55),rgba(255,255,255,0) 40%);
+}
+.tl-bar.rep{
+  background-image:repeating-linear-gradient(90deg,rgba(255,255,255,.75) 0 3px,transparent 3px 9px);
+}
+/* 各時態上色 */
+.tl-row.ps .tl-bar{background-color:var(--t-ps)}
+.tl-row.pc .tl-bar{background-color:var(--t-pc)}
+.tl-row.pt .tl-bar{background-color:var(--t-pt)}
+.tl-row.xc .tl-bar{background-color:var(--t-xc)}
+.tl-row.pf .tl-bar{background-color:var(--t-pf)}
+.tl-row.xf .tl-bar{background-color:var(--t-xf)}
+.tl-row.fu .tl-bar{background-color:var(--t-fu)}
+.tl-row.ps .tl-name{color:var(--t-ps)} .tl-row.pc .tl-name{color:var(--t-pc)}
+.tl-row.pt .tl-name{color:var(--t-pt)} .tl-row.xc .tl-name{color:var(--t-xc)}
+.tl-row.pf .tl-name{color:var(--t-pf)} .tl-row.xf .tl-name{color:var(--t-xf)}
+.tl-row.fu .tl-name{color:var(--t-fu)}
+/* 章別標記 */
+.tl-ch{
+  flex:0 0 auto;margin-left:10px;font-family:var(--mono);font-size:9.5px;
+  letter-spacing:.06em;color:var(--ink-soft);border:1px solid var(--line);
+  border-radius:999px;padding:2px 8px;white-space:nowrap;
+}
+.tl-ch.on{color:var(--now);border-color:var(--now);background:var(--now-bg)}
+/* 圖例 */
+.tl-legend{
+  display:flex;gap:14px;flex-wrap:wrap;margin:14px 0 0;padding-top:12px;
+  border-top:1px dotted var(--line);
+  font-size:11.5px;color:var(--ink-soft);
+}
+.tl-legend span{display:inline-flex;align-items:center;gap:6px}
+i.lg{display:inline-block;height:8px;border-radius:999px;background:var(--ink-soft)}
+i.lg.dot{width:10px}
+i.lg.bar{width:24px}
+i.lg.bridge{width:34px;background:linear-gradient(90deg,var(--t-pf),var(--t-ps))}
+i.lg.rep{width:24px;background-image:repeating-linear-gradient(90deg,rgba(255,255,255,.8) 0 3px,transparent 3px 9px)}
+
+@media(max-width:620px){
+  .tl{--tl-label:96px;padding:16px 13px 12px}
+  .tl-name{font-size:13px}
+  .tl-ch{display:none}
+  .tl-tick{font-size:9px}
+}
+
+/* 本節中文導覽列 */
+.guide-bar{display:flex;gap:6px;flex-wrap:wrap;margin:-6px 0 18px}
+/* 目次標題朗讀鈕 */
+.spk.inline.tocsay{margin:0 0 2px 8px}
+
 </style>
 </head>
 <body data-ch="18">
@@ -1007,7 +1109,7 @@ function verRows(ch){
 document.getElementById("host").innerHTML=
   '<h3>本章小節</h3><ol class="subs">'+ch.subs.map(s=>"<li>"+s+"</li>").join("")+'</ol>'+
   (ch.novers?"":'<h3 style="margin-top:16px">版本對照</h3>'+verRows(ch))+
-  '<div class="buildnote">本章互動內容尚未建置。建置後會沿用第一章的骨架：短文與軌道圖、逐句朗讀、動詞解析、每篇小測、專項練習與總複習，進度同樣存在本機瀏覽器。</div>'+
+  '<div class="buildnote">本章互動內容尚未建置。建置後會沿用第一章的完整模式：軌道總覽與中文語音導覽、十篇短文與逐句朗讀、動詞解析、軌道分派闖關、專項練習與總複習，進度同樣存在本機瀏覽器。</div>'+
   '<div class="toolbar">'+
     '<a class="btn solid" href="ch01.html">先去第 1 章</a>'+
     '<a class="btn" href="review.html">時態總複習</a>'+

@@ -890,6 +890,108 @@ v.lit{background:currentColor;color:#fff !important;border-radius:3px;padding:0 
   background:var(--gold-bg);color:#8A6B2C;border-radius:999px;padding:3px 10px;
 }
 
+/* ═══ 時態全景：時間尺 ═══ */
+.tl{
+  background:var(--card);border:1px solid var(--line);border-radius:16px;
+  padding:20px 18px 14px;box-shadow:var(--shadow);margin-bottom:14px;
+}
+/* 尺規 */
+.tl-ruler{position:relative;height:26px;margin:0 0 6px}
+.tl-ruler{margin-left:var(--tl-label,132px)}
+.tl-line{
+  position:absolute;left:0;right:0;top:19px;height:2px;border-radius:2px;
+  background:linear-gradient(90deg,var(--t-xf),var(--t-pt) 34%,var(--t-ps) 66%,var(--t-fu));
+  opacity:.55;
+}
+.tl-tick{
+  position:absolute;top:0;transform:translateX(-50%);
+  font-family:var(--mono);font-size:10px;letter-spacing:.1em;color:var(--ink-soft);
+  white-space:nowrap;
+}
+.tl-tick::after{
+  content:"";position:absolute;left:50%;top:17px;width:1px;height:9px;
+  background:var(--line);transform:translateX(-50%);
+}
+.tl-tick.now{color:var(--ink);font-weight:600}
+.tl-tick.now::after{background:var(--ink);height:11px;width:2px}
+
+/* 每一列 */
+.tl-rows{display:grid;gap:5px}
+.tl-row{
+  display:flex;align-items:center;gap:0;width:100%;
+  background:transparent;border:1px solid transparent;border-radius:10px;
+  padding:7px 8px;cursor:pointer;text-align:left;font-family:inherit;
+  transition:background .16s,border-color .16s;
+}
+.tl-row:hover{background:var(--paper);border-color:var(--line)}
+.tl-row.lit{background:var(--paper);border-color:var(--ink)}
+.tl-name{
+  flex:0 0 var(--tl-label,132px);font-family:var(--serif);font-size:14.5px;
+  line-height:1.35;color:var(--ink);padding-right:10px;
+}
+.tl-f{
+  display:block;font-family:var(--mono);font-size:9.5px;letter-spacing:.03em;
+  color:var(--ink-soft);margin-top:2px;
+}
+.tl-track{position:relative;flex:1;height:22px}
+.tl-nowline{
+  position:absolute;left:66%;top:-3px;bottom:-3px;width:1px;
+  background:var(--line);
+}
+.tl-bar{position:absolute;top:6px;height:10px;border-radius:999px}
+/* 四種形狀 */
+.tl-bar.dot{border-radius:999px}
+.tl-bar.bridge{
+  border-radius:999px;
+  background-image:linear-gradient(90deg,rgba(255,255,255,.55),rgba(255,255,255,0) 40%);
+}
+.tl-bar.rep{
+  background-image:repeating-linear-gradient(90deg,rgba(255,255,255,.75) 0 3px,transparent 3px 9px);
+}
+/* 各時態上色 */
+.tl-row.ps .tl-bar{background-color:var(--t-ps)}
+.tl-row.pc .tl-bar{background-color:var(--t-pc)}
+.tl-row.pt .tl-bar{background-color:var(--t-pt)}
+.tl-row.xc .tl-bar{background-color:var(--t-xc)}
+.tl-row.pf .tl-bar{background-color:var(--t-pf)}
+.tl-row.xf .tl-bar{background-color:var(--t-xf)}
+.tl-row.fu .tl-bar{background-color:var(--t-fu)}
+.tl-row.ps .tl-name{color:var(--t-ps)} .tl-row.pc .tl-name{color:var(--t-pc)}
+.tl-row.pt .tl-name{color:var(--t-pt)} .tl-row.xc .tl-name{color:var(--t-xc)}
+.tl-row.pf .tl-name{color:var(--t-pf)} .tl-row.xf .tl-name{color:var(--t-xf)}
+.tl-row.fu .tl-name{color:var(--t-fu)}
+/* 章別標記 */
+.tl-ch{
+  flex:0 0 auto;margin-left:10px;font-family:var(--mono);font-size:9.5px;
+  letter-spacing:.06em;color:var(--ink-soft);border:1px solid var(--line);
+  border-radius:999px;padding:2px 8px;white-space:nowrap;
+}
+.tl-ch.on{color:var(--now);border-color:var(--now);background:var(--now-bg)}
+/* 圖例 */
+.tl-legend{
+  display:flex;gap:14px;flex-wrap:wrap;margin:14px 0 0;padding-top:12px;
+  border-top:1px dotted var(--line);
+  font-size:11.5px;color:var(--ink-soft);
+}
+.tl-legend span{display:inline-flex;align-items:center;gap:6px}
+i.lg{display:inline-block;height:8px;border-radius:999px;background:var(--ink-soft)}
+i.lg.dot{width:10px}
+i.lg.bar{width:24px}
+i.lg.bridge{width:34px;background:linear-gradient(90deg,var(--t-pf),var(--t-ps))}
+i.lg.rep{width:24px;background-image:repeating-linear-gradient(90deg,rgba(255,255,255,.8) 0 3px,transparent 3px 9px)}
+
+@media(max-width:620px){
+  .tl{--tl-label:96px;padding:16px 13px 12px}
+  .tl-name{font-size:13px}
+  .tl-ch{display:none}
+  .tl-tick{font-size:9px}
+}
+
+/* 本節中文導覽列 */
+.guide-bar{display:flex;gap:6px;flex-wrap:wrap;margin:-6px 0 18px}
+/* 目次標題朗讀鈕 */
+.spk.inline.tocsay{margin:0 0 2px 8px}
+
 </style>
 </head>
 <body>
@@ -927,11 +1029,6 @@ v.lit{background:currentColor;color:#fff !important;border-radius:3px;padding:0 
   <h2>使用方式</h2>
   <div class="card">
     <p style="margin:0 0 10px;font-size:14.5px">手機或平板開任一章即可開始。每章固定五個關卡：<b>雙軌總覽</b>看規則、<b>十篇短文</b>點動詞、<b>動詞實驗室</b>練變化、<b>分流練習</b>做判斷、<b>總複習</b>驗收。</p>
-    <details class="teach">
-      <summary>教師端說明</summary>
-      <p style="margin:8px 0 6px;font-size:13.5px">部署：把整個 tense-book 資料夾拖進 Netlify，或推上 GitHub Pages。每一頁都是完整的單檔 HTML，也可以單獨傳給同事開啟。</p>
-      <p style="margin:0;font-size:13.5px">新增一章：複製 ch01.html，換掉短文與題目資料，再把該章的 ready 標記打開，總覽與時態全景會自動更新。</p>
-    </details>
     <div class="toolbar"><button class="btn" id="resetAll">清除全書作答紀錄</button></div>
   </div>
 </section>
@@ -939,8 +1036,8 @@ v.lit{background:currentColor;color:#fff !important;border-radius:3px;padding:0 
 <!-- ═══ 時態全景 ═══ -->
 <section class="view" id="sec-map">
   <p class="eyebrow">Overview　時態的介紹</p>
-  <h1>七個時態<br>其實只是同一條時間線上的七個站</h1>
-  <p class="lead">課本用一面時鐘把七個時態排在一起。這裡把它拉直成一條時間線：由最早的「過去的過去」，一路走到「未來」。點任一個時態，看它的定義、公式與例句，以及它落在課本的哪一章。</p>
+  <h1>七個時態<br>在同一把時間尺上各占一段</h1>
+  <p class="lead">與其把時態當成七條規則背下來，不如看它們各自蓋在時間尺的哪一段。有的是一個點，有的是一段持續，有的像橋一樣橫跨兩個時間點。點任一條，看它的定義、公式與例句。</p>
   <div id="tlHost"></div>
   <div class="card" id="tenseDetail">
     <p style="margin:0;font-size:14px;color:var(--ink-soft)">點上方任一個時態，看它站在時間線的哪個位置。</p>
@@ -1078,26 +1175,44 @@ function speak(text,rate){
 window.addEventListener("beforeunload",()=>{if("speechSynthesis" in window)window.speechSynthesis.cancel();});
 
 /* ── 時態全景 ── */
-const ZONES=[
- {k:"past",label:"過　去",note:"事情已經收尾"},
- {k:"bridge",label:"過去 → 現在",note:"一頭連著過去，一頭連著現在"},
- {k:"now",label:"現　在",note:"此刻仍然成立"},
- {k:"future",label:"未　來",note:"還沒發生"}
-];
+const SPAN={
+ 7:{a:4, b:26, k:"xf", type:"bar"},
+ 2:{a:29,b:39, k:"pt", type:"dot"},
+ 4:{a:27,b:44, k:"xc", type:"bar"},
+ 6:{a:24,b:68, k:"pf", type:"bridge"},
+ 1:{a:52,b:80, k:"ps", type:"rep"},
+ 3:{a:60,b:72, k:"pc", type:"bar"},
+ 5:{a:80,b:98, k:"fu", type:"bar"}
+};
+const ROWS=[7,2,4,6,1,3,5];
+const TICKS=[[15,"更早的過去"],[34,"過去"],[66,"現在"],[89,"未來"]];
 function isReady(n){const c=CHAPTERS.find(x=>x.n===n);return !!(c&&c.ready);}
 function renderTimeline(){
-  document.getElementById("tlHost").innerHTML=ZONES.map(z=>
-    '<div class="tzone '+z.k+'">'+
-      '<div class="tzone-head"><span class="tzone-l">'+z.label+'</span><span class="tzone-n">'+z.note+'</span></div>'+
-      '<div class="tcards">'+
-        TENSES.filter(t=>t.zone===z.k).map(t=>
-          '<button class="tcard'+(isReady(t.ch)?" here":"")+'" data-t="'+t.i+'">'+
-            '<span class="tnum">'+t.i+'</span>'+
-            '<span class="tname">'+t.t+'<span class="tsub">'+t.sub+'</span></span>'+
-            (isReady(t.ch)?'<span class="tflag">已建置</span>':'<span class="tch">第 '+t.ch+' 章</span>')+
-          '</button>').join("")+
-      '</div>'+
-    '</div>').join("");
+  const ruler='<div class="tl-ruler">'+
+    '<div class="tl-line"></div>'+
+    TICKS.map(t=>'<span class="tl-tick'+(t[1]==="現在"?" now":"")+'" style="left:'+t[0]+'%">'+t[1]+'</span>').join("")+
+  '</div>';
+  const rows=ROWS.map(i=>{
+    const t=TENSES.find(x=>x.i===i),sp=SPAN[i];
+    return '<button class="tl-row '+sp.k+'" data-t="'+i+'">'+
+      '<span class="tl-name">'+t.t+
+        '<span class="tl-f">'+t.f+'</span>'+
+      '</span>'+
+      '<span class="tl-track">'+
+        '<span class="tl-bar '+sp.type+'" style="left:'+sp.a+'%;width:'+(sp.b-sp.a)+'%"></span>'+
+        '<span class="tl-nowline"></span>'+
+      '</span>'+
+      (isReady(t.ch)?'<span class="tl-ch on">第 '+t.ch+' 章</span>':'<span class="tl-ch">第 '+t.ch+' 章</span>')+
+    '</button>';
+  }).join("");
+  document.getElementById("tlHost").innerHTML=
+    '<div class="tl">'+ruler+'<div class="tl-rows">'+rows+'</div>'+
+    '<p class="tl-legend">'+
+      '<span><i class="lg dot"></i>一個點</span>'+
+      '<span><i class="lg bar"></i>一段持續</span>'+
+      '<span><i class="lg bridge"></i>橫跨兩點</span>'+
+      '<span><i class="lg rep"></i>反覆發生</span>'+
+    '</p></div>';
 }
 function showTense(i){
   const t=TENSES.find(x=>x.i===i);if(!t)return;
