@@ -1,0 +1,804 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CH.16 疑問詞 · 時態雙軌</title>
+<style>
+:root{
+  --paper:#F2F4F1;
+  --card:#FFFFFF;
+  --ink:#1B2321;
+  --ink-soft:#5A6663;
+  --line:#D8DEDA;
+  --now:#0F6E64;        /* 現在軌：常青 */
+  --now-bg:#E4F0ED;
+  --past:#2E4A7D;       /* 過去軌：沉靛 */
+  --past-bg:#E5EAF3;
+  --gold:#B8913C;
+  --wrong:#B23A48;
+  --shadow:0 1px 2px rgba(27,35,33,.05),0 8px 24px rgba(27,35,33,.06);
+  --serif:"Iowan Old Style","Noto Serif TC","Songti TC","Source Han Serif TC",Georgia,serif;
+  --sans:"PingFang TC","Noto Sans TC","Microsoft JhengHei",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;padding:0}
+body{
+  background:var(--paper);
+  color:var(--ink);
+  font-family:var(--sans);
+  font-size:16px;line-height:1.75;
+  padding-bottom:64px;
+}
+.wrap{max-width:860px;margin:0 auto;padding:0 16px}
+
+/* ── 頁首 ── */
+header.top{
+  position:sticky;top:0;z-index:40;
+  background:rgba(242,244,241,.93);
+  backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--line);
+}
+.brandline{display:flex;align-items:baseline;gap:10px;padding:10px 0 6px;flex-wrap:wrap}
+.brandmark{
+  font-family:var(--serif);font-size:18px;letter-spacing:.14em;
+  color:var(--ink);font-weight:600;
+}
+.brandsub{font-size:11px;letter-spacing:.22em;color:var(--ink-soft)}
+nav.pills{display:flex;gap:6px;overflow-x:auto;padding:0 0 10px;scrollbar-width:none}
+nav.pills::-webkit-scrollbar{display:none}
+.pill{
+  flex:0 0 auto;border:1px solid var(--line);background:var(--card);
+  color:var(--ink-soft);font-family:var(--sans);font-size:13px;
+  padding:7px 14px;border-radius:999px;cursor:pointer;
+  transition:background .18s,color .18s,border-color .18s;
+}
+.pill:hover{border-color:var(--now)}
+.pill[aria-current="true"]{background:var(--ink);color:#fff;border-color:var(--ink)}
+.pill:focus-visible,button:focus-visible,input:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+
+/* ── 區塊 ── */
+section.view{display:none;padding:22px 0 8px}
+section.view.on{display:block;animation:fade .3s ease}
+@keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+.eyebrow{
+  font-family:var(--mono);font-size:11px;letter-spacing:.2em;
+  color:var(--ink-soft);text-transform:uppercase;margin:0 0 6px;
+}
+h1{font-family:var(--serif);font-size:27px;line-height:1.35;margin:0 0 8px;font-weight:600;letter-spacing:.02em}
+h2{font-family:var(--serif);font-size:20px;margin:30px 0 10px;font-weight:600;letter-spacing:.03em}
+h3{font-size:15px;margin:0 0 8px;font-weight:600;letter-spacing:.03em}
+p.lead{color:var(--ink-soft);margin:0 0 18px;font-size:14.5px}
+
+.card{
+  background:var(--card);border:1px solid var(--line);border-radius:14px;
+  padding:18px;margin:0 0 14px;box-shadow:var(--shadow);
+}
+
+/* ── 雙軌圖 ── */
+.rails{margin:6px 0 18px}
+.rail{
+  display:flex;align-items:center;gap:8px;
+  padding:10px 12px;border-radius:12px;margin-bottom:8px;
+  overflow-x:auto;scrollbar-width:none;
+}
+.rail::-webkit-scrollbar{display:none}
+.rail.now{background:var(--now-bg);border-left:4px solid var(--now)}
+.rail.past{background:var(--past-bg);border-left:4px solid var(--past)}
+.rail-label{
+  flex:0 0 auto;font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;
+  writing-mode:horizontal-tb;padding-right:8px;border-right:1px dotted rgba(0,0,0,.18);
+  margin-right:4px;line-height:1.4;
+}
+.rail.now .rail-label{color:var(--now)}
+.rail.past .rail-label{color:var(--past)}
+.chip{
+  flex:0 0 auto;border:1px solid transparent;border-radius:999px;
+  padding:5px 12px;font-family:var(--serif);font-size:15px;cursor:pointer;
+  background:var(--card);transition:transform .15s,box-shadow .15s;
+}
+.rail.now .chip{color:var(--now);border-color:rgba(15,110,100,.35)}
+.rail.past .chip{color:var(--past);border-color:rgba(46,74,125,.35)}
+.chip:hover,.chip.lit{transform:translateY(-2px);box-shadow:0 3px 10px rgba(27,35,33,.14)}
+.chip.lit{background:var(--ink);color:#fff;border-color:var(--ink)}
+.rail-empty{font-size:12.5px;color:var(--ink-soft);padding-left:4px}
+
+/* ── 短文 ── */
+.sent{display:flex;gap:8px;align-items:flex-start;margin:0 0 10px}
+.spk{
+  flex:0 0 auto;width:26px;height:26px;margin-top:4px;border-radius:50%;
+  border:1px solid var(--line);background:var(--card);color:var(--ink-soft);
+  font-size:12px;cursor:pointer;display:flex;align-items:center;justify-content:center;
+}
+.spk:hover{border-color:var(--now);color:var(--now)}
+.sent-en{font-family:var(--serif);font-size:18.5px;line-height:1.85;flex:1}
+v{
+  cursor:pointer;border-bottom:2px solid;padding:0 1px;border-radius:2px;
+  transition:background .18s;
+}
+v.pres{color:var(--now);border-color:var(--now)}
+v.past{color:var(--past);border-color:var(--past)}
+v.lit{background:var(--ink);color:#fff;border-color:var(--ink)}
+.zh{
+  font-size:14.5px;color:var(--ink-soft);border-left:2px solid var(--line);
+  padding-left:12px;margin:14px 0 0;display:none;
+}
+.zh.on{display:block}
+.note{
+  margin-top:14px;border-radius:12px;padding:12px 14px;font-size:14px;
+  background:#F6F7F5;border:1px dashed var(--line);min-height:52px;
+}
+.note b{font-family:var(--serif);font-size:16px}
+.note .tag{
+  display:inline-block;font-family:var(--mono);font-size:10px;letter-spacing:.12em;
+  padding:2px 7px;border-radius:999px;margin-left:8px;vertical-align:2px;color:#fff;
+}
+.tag.now{background:var(--now)} .tag.past{background:var(--past)}
+
+.toolbar{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin:14px 0 0}
+button.btn{
+  border:1px solid var(--line);background:var(--card);color:var(--ink);
+  font-family:var(--sans);font-size:13.5px;padding:8px 14px;border-radius:9px;cursor:pointer;
+  transition:border-color .18s,background .18s;
+}
+button.btn:hover{border-color:var(--ink)}
+button.btn.solid{background:var(--ink);color:#fff;border-color:var(--ink)}
+button.btn.solid:hover{background:#000}
+button.btn:disabled{opacity:.45;cursor:default}
+select.rate{
+  border:1px solid var(--line);background:var(--card);color:var(--ink-soft);
+  border-radius:9px;padding:8px 10px;font-size:13px;font-family:var(--sans);
+}
+
+/* ── 題目 ── */
+.q{border-top:1px solid var(--line);padding:16px 0 4px}
+.q:first-of-type{border-top:none}
+.q-stem{font-size:15px;margin:0 0 10px;font-family:var(--serif);font-size:16.5px}
+.q-stem .num{font-family:var(--mono);font-size:11px;color:var(--ink-soft);margin-right:8px;letter-spacing:.1em}
+.opts{display:flex;flex-direction:column;gap:7px}
+.opt{
+  text-align:left;border:1px solid var(--line);background:var(--card);
+  padding:9px 13px;border-radius:9px;cursor:pointer;font-size:15px;
+  font-family:var(--serif);transition:border-color .15s,background .15s;
+}
+.opt:hover{border-color:var(--ink-soft)}
+.opt.ok{border-color:var(--now);background:var(--now-bg);color:var(--now)}
+.opt.no{border-color:var(--wrong);background:#FAECEE;color:var(--wrong)}
+.opt:disabled{cursor:default}
+.fb{font-size:13.5px;margin:9px 0 0;color:var(--ink-soft);display:none}
+.fb.on{display:block}
+.fb b{color:var(--ink)}
+
+/* ── 導覽/進度 ── */
+.unitbar{display:flex;gap:6px;overflow-x:auto;padding:2px 0 12px;scrollbar-width:none}
+.unitbar::-webkit-scrollbar{display:none}
+.ubtn{
+  flex:0 0 auto;width:38px;height:38px;border-radius:10px;border:1px solid var(--line);
+  background:var(--card);font-family:var(--mono);font-size:13px;color:var(--ink-soft);cursor:pointer;
+}
+.ubtn[aria-current="true"]{background:var(--ink);color:#fff;border-color:var(--ink)}
+.ubtn.done{border-color:var(--now);color:var(--now);background:var(--now-bg)}
+.ubtn.done[aria-current="true"]{background:var(--now);color:#fff}
+.bar{height:6px;border-radius:999px;background:var(--line);overflow:hidden;margin:10px 0 4px}
+.bar i{display:block;height:100%;background:linear-gradient(90deg,var(--now),var(--past));width:0;transition:width .5s}
+.meta{font-family:var(--mono);font-size:11px;letter-spacing:.1em;color:var(--ink-soft)}
+
+/* ── 目錄 ── */
+.toc-item{
+  display:flex;gap:14px;align-items:baseline;padding:12px 4px;
+  border-bottom:1px solid var(--line);cursor:pointer;
+}
+.toc-item:last-child{border-bottom:none}
+.toc-no{font-family:var(--mono);font-size:12px;color:var(--gold);letter-spacing:.1em;flex:0 0 28px}
+.toc-tt{font-family:var(--serif);font-size:17px}
+.toc-en{font-size:12.5px;color:var(--ink-soft);display:block;letter-spacing:.03em}
+.toc-mark{margin-left:auto;font-size:11px;font-family:var(--mono);color:var(--ink-soft)}
+.toc-item.done .toc-mark{color:var(--now)}
+/* ── 時態時間線 ── */
+.tzone{
+  position:relative;padding:12px 0 12px 22px;margin:0;
+  border-left:3px solid var(--line);
+}
+.tzone.past{border-left-color:var(--past)}
+.tzone.bridge{border-left-color:transparent;background:linear-gradient(90deg,var(--past),var(--now)) left/3px 100% no-repeat}
+.tzone.now{border-left-color:var(--now)}
+.tzone.future{border-left-color:var(--gold);border-left-style:dashed}
+.tzone-head{display:flex;gap:10px;align-items:baseline;margin:0 0 8px}
+.tzone-l{font-family:var(--serif);font-size:14.5px;letter-spacing:.18em}
+.tzone.past .tzone-l{color:var(--past)}
+.tzone.now .tzone-l{color:var(--now)}
+.tzone.future .tzone-l{color:var(--gold)}
+.tzone-n{font-size:12px;color:var(--ink-soft)}
+.tcards{display:grid;grid-template-columns:1fr;gap:8px}
+@media(min-width:620px){.tcards{grid-template-columns:1fr 1fr}}
+.tcard{
+  display:flex;align-items:center;gap:11px;text-align:left;width:100%;
+  border:1px solid var(--line);background:var(--card);border-radius:12px;
+  padding:11px 13px;cursor:pointer;box-shadow:var(--shadow);
+  transition:transform .15s,border-color .15s;
+}
+.tcard:hover{transform:translateX(3px);border-color:var(--ink-soft)}
+.tcard.lit{border-color:var(--ink);box-shadow:0 4px 16px rgba(27,35,33,.14)}
+.tnum{
+  flex:0 0 24px;height:24px;border-radius:50%;background:var(--paper);
+  border:1px solid var(--line);font-family:var(--mono);font-size:12px;
+  display:flex;align-items:center;justify-content:center;color:var(--ink-soft);
+}
+.tcard.here .tnum{background:var(--now);border-color:var(--now);color:#fff}
+.tname{font-family:var(--serif);font-size:16px;flex:1;line-height:1.4}
+.tsub{display:block;font-family:var(--sans);font-size:11.5px;color:var(--ink-soft);letter-spacing:.02em}
+.tch,.tflag{font-family:var(--mono);font-size:10px;letter-spacing:.1em;padding:2px 8px;border-radius:999px;flex:0 0 auto}
+.tch{border:1px solid var(--line);color:var(--ink-soft)}
+.tflag{background:var(--now);color:#fff}
+.tf{display:flex;gap:10px;align-items:center;padding:7px 0;border-top:1px dotted var(--line);flex-wrap:wrap}
+.tf-l{font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;color:var(--ink-soft);flex:0 0 34px}
+.tf-v{font-size:15px}
+.tf-v.en{font-family:var(--serif);font-size:17px}
+
+
+/* ── 章節卡 ── */
+.verbar{display:flex;gap:6px;align-items:center;flex-wrap:wrap;margin:0 2px 12px}
+.verbar .meta{margin-right:4px}
+.mini.v[aria-selected="true"]{background:var(--ink);color:#fff;border-color:var(--ink)}
+.ch{
+  border:1px solid var(--line);border-radius:14px;background:var(--card);
+  margin:0 0 10px;box-shadow:var(--shadow);overflow:hidden;
+}
+.ch-head{display:flex;gap:10px;align-items:baseline;padding:14px 16px;cursor:pointer}
+.ch-no{font-family:var(--mono);font-size:11px;letter-spacing:.12em;color:var(--ink-soft);flex:0 0 46px}
+.ch.ready .ch-no{color:var(--now)}
+.ch-t{font-family:var(--serif);font-size:16.5px;flex:1;line-height:1.5}
+.ch-pg{font-family:var(--mono);font-size:11px;color:var(--ink-soft)}
+.ch-state{
+  font-family:var(--mono);font-size:10px;letter-spacing:.1em;padding:2px 8px;
+  border-radius:999px;border:1px solid var(--line);color:var(--ink-soft);flex:0 0 auto;
+}
+.ch-state.on{background:var(--now);border-color:var(--now);color:#fff}
+.ch:not(.ready){opacity:.72}
+.ch-body{display:none;padding:2px 16px 16px}
+.ch.open .ch-body{display:block}
+.subs{margin:6px 0 12px;padding-left:20px;font-size:14px;color:var(--ink-soft)}
+.subs li{margin-bottom:3px}
+.bver{display:flex;gap:6px;align-items:center;flex-wrap:wrap;margin-top:6px}
+.bver .vn{font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;color:var(--ink-soft);flex:0 0 34px}
+.bb{background:var(--past-bg);color:var(--past);border-radius:6px;padding:2px 9px;font-size:12px;font-family:var(--mono)}
+.bb.none{background:#F0F1EF;color:var(--ink-soft)}
+#chapterList[data-ver="翰林"] .bver:not([data-v="翰林"]),
+#chapterList[data-ver="康軒"] .bver:not([data-v="康軒"]),
+#chapterList[data-ver="南一"] .bver:not([data-v="南一"]){display:none}
+
+/* ── 動詞實驗室 ── */
+.drill{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin:12px 0}
+.drill-base{font-family:var(--serif);font-size:26px;letter-spacing:.02em}
+.drill-arrow{color:var(--ink-soft)}
+input.ans{
+  border:1px solid var(--line);border-radius:9px;padding:9px 12px;font-size:18px;
+  font-family:var(--serif);width:170px;background:var(--card);color:var(--ink);
+}
+input.ans.ok{border-color:var(--now);color:var(--now)}
+input.ans.no{border-color:var(--wrong);color:var(--wrong)}
+.tabs{display:flex;gap:6px;margin:0 0 12px}
+.tab{
+  border:1px solid var(--line);background:var(--card);border-radius:9px;
+  padding:7px 14px;font-size:13.5px;cursor:pointer;color:var(--ink-soft);
+}
+.tab[aria-selected="true"]{background:var(--ink);color:#fff;border-color:var(--ink)}
+
+/* ── 時間副詞分流 ── */
+.adv-grid{display:grid;grid-template-columns:1fr;gap:8px}
+.adv-row{
+  display:flex;align-items:center;gap:8px;border:1px solid var(--line);
+  border-radius:11px;padding:9px 12px;background:var(--card);flex-wrap:wrap;
+}
+.adv-word{font-family:var(--serif);font-size:17px;flex:1;min-width:120px}
+.adv-row.solved-now{background:var(--now-bg);border-color:var(--now)}
+.adv-row.solved-past{background:var(--past-bg);border-color:var(--past)}
+.mini{border:1px solid var(--line);background:var(--card);border-radius:8px;padding:5px 11px;font-size:12.5px;cursor:pointer}
+.mini.n:hover{border-color:var(--now);color:var(--now)}
+.mini.p:hover{border-color:var(--past);color:var(--past)}
+.adv-note{width:100%;font-size:12.5px;color:var(--ink-soft);display:none}
+.adv-row.done .adv-note{display:block}
+
+/* ── 不規則動詞表 ── */
+table.irr{width:100%;border-collapse:collapse;font-size:14.5px;margin-top:8px}
+table.irr th,table.irr td{border-bottom:1px solid var(--line);padding:8px 6px;text-align:left}
+table.irr th{font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;color:var(--ink-soft);font-weight:400}
+table.irr td:first-child{font-family:var(--serif);color:var(--now);font-size:16px}
+table.irr td:nth-child(2){font-family:var(--serif);color:var(--past);font-size:16px}
+table.irr td:last-child{font-size:13px;color:var(--ink-soft)}
+
+.rule-grid{display:grid;grid-template-columns:1fr;gap:10px}
+@media(min-width:660px){.rule-grid{grid-template-columns:1fr 1fr}}
+.rule{border:1px solid var(--line);border-radius:11px;padding:13px 15px;background:var(--card)}
+.rule h4{margin:0 0 6px;font-size:14px;letter-spacing:.04em}
+.rule p{margin:0;font-size:13.5px;color:var(--ink-soft)}
+.rule code{font-family:var(--serif);color:var(--ink);font-size:15px}
+.split{display:grid;grid-template-columns:1fr;gap:10px}
+@media(min-width:660px){.split{grid-template-columns:1fr 1fr}}
+.axis{border-radius:12px;padding:14px 16px}
+.axis.n{background:var(--now-bg);border-left:4px solid var(--now)}
+.axis.p{background:var(--past-bg);border-left:4px solid var(--past)}
+.axis h3{letter-spacing:.06em}
+.axis.n h3{color:var(--now)} .axis.p h3{color:var(--past)}
+.axis ul{margin:8px 0 0;padding-left:18px;font-size:14px}
+.axis li{margin-bottom:5px}
+.axis em{font-family:var(--serif);font-style:normal;font-size:15px}
+
+.footline{
+  text-align:center;font-family:var(--serif);font-size:13px;color:var(--ink-soft);
+  letter-spacing:.22em;padding:34px 0 10px;
+}
+.toast{
+  position:fixed;left:50%;bottom:22px;transform:translateX(-50%) translateY(20px);
+  background:var(--ink);color:#fff;font-size:13.5px;padding:9px 18px;border-radius:999px;
+  opacity:0;pointer-events:none;transition:opacity .25s,transform .25s;z-index:90;
+}
+.toast.on{opacity:1;transform:translateX(-50%)}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+/* ── 跨頁元件 ── */
+.backlink{
+  font-family:var(--mono);font-size:11px;letter-spacing:.14em;color:var(--ink-soft);
+  text-decoration:none;border:1px solid var(--line);border-radius:999px;padding:3px 10px;background:var(--card);
+}
+.backlink:hover{border-color:var(--ink);color:var(--ink)}
+a.btn{display:inline-block;text-decoration:none;line-height:1.4}
+a.btn.solid{color:#fff}
+.ch-open{
+  display:inline-block;margin-top:12px;text-decoration:none;font-size:13.5px;
+  border:1px solid var(--ink);background:var(--ink);color:#fff;border-radius:9px;padding:8px 14px;
+}
+.ch-open.ghost{background:var(--card);color:var(--ink-soft);border-color:var(--line)}
+.ch-open.ghost:hover{border-color:var(--ink-soft)}
+.hubgrid{display:grid;grid-template-columns:1fr;gap:10px;margin:0 0 16px}
+@media(min-width:660px){.hubgrid{grid-template-columns:1fr 1fr}}
+.hubcard{
+  border:1px solid var(--line);border-radius:14px;background:var(--card);
+  padding:16px 18px;box-shadow:var(--shadow);text-decoration:none;color:var(--ink);display:block;
+}
+.hubcard:hover{border-color:var(--ink-soft)}
+.hubcard h3{font-family:var(--serif);font-size:17px;margin:6px 0 4px}
+.hubcard p{margin:0;font-size:13.5px;color:var(--ink-soft)}
+.buildnote{
+  margin-top:14px;border-radius:12px;padding:12px 14px;font-size:13.5px;
+  background:#F6F7F5;border:1px dashed var(--line);color:var(--ink-soft);
+}
+
+/* ── 第三軌：不用進行式 ── */
+.rail.simple{background:#F5F0E4;border-left:4px solid var(--gold)}
+.rail.simple .rail-label{color:#8A6B22}
+.rail.simple .chip{color:#8A6B22;border-color:rgba(184,145,60,.45)}
+v.simple{color:#8A6B22;border-color:var(--gold)}
+.tag.simple{background:var(--gold)}
+
+/* ── 第三章軌道：未來 / 簡單式 ── */
+.rail.fut{background:#F5F0E4;border-left:4px solid var(--gold)}
+.rail.fut .rail-label{color:#8A6B22}
+.rail.fut .chip{color:#8A6B22;border-color:rgba(184,145,60,.45)}
+v.fut{color:#8A6B22;border-color:var(--gold)}
+.tag.fut{background:var(--gold)}
+.rail.plain{background:#EBEEEB;border-left:4px solid #8B958F}
+.rail.plain .rail-label{color:#5A6663}
+.rail.plain .chip{color:#5A6663;border-color:#C3CAC6}
+v.plain{color:#5A6663;border-color:#8B958F}
+.tag.plain{background:#5A6663}
+.axis.f{background:#F5F0E4;border-left:4px solid var(--gold)}
+.axis.f h3{color:#8A6B22}
+
+/* ══ 總複習：七態配色 ══ */
+:root{
+  --t-ps:#0F6E64; --t-ps-bg:#E4F0ED;
+  --t-pc:#2F8C6F; --t-pc-bg:#E6F2EC;
+  --t-pt:#2E4A7D; --t-pt-bg:#E5EAF3;
+  --t-xc:#5171A8; --t-xc-bg:#E9EDF5;
+  --t-pf:#8A6B22; --t-pf-bg:#F5F0E4;
+  --t-xf:#7A4A2E; --t-xf-bg:#F2E9E3;
+  --t-fu:#6B4E8A; --t-fu-bg:#EEE9F3;
+}
+.rail.ps{background:var(--t-ps-bg);border-left:4px solid var(--t-ps)}
+.rail.pc{background:var(--t-pc-bg);border-left:4px solid var(--t-pc)}
+.rail.pt{background:var(--t-pt-bg);border-left:4px solid var(--t-pt)}
+.rail.xc{background:var(--t-xc-bg);border-left:4px solid var(--t-xc)}
+.rail.pf{background:var(--t-pf-bg);border-left:4px solid var(--t-pf)}
+.rail.xf{background:var(--t-xf-bg);border-left:4px solid var(--t-xf)}
+.rail.fu{background:var(--t-fu-bg);border-left:4px solid var(--t-fu)}
+.rail.ps .rail-label,.rail.ps .chip{color:var(--t-ps);border-color:rgba(15,110,100,.35)}
+.rail.pc .rail-label,.rail.pc .chip{color:var(--t-pc);border-color:rgba(47,140,111,.35)}
+.rail.pt .rail-label,.rail.pt .chip{color:var(--t-pt);border-color:rgba(46,74,125,.35)}
+.rail.xc .rail-label,.rail.xc .chip{color:var(--t-xc);border-color:rgba(81,113,168,.35)}
+.rail.pf .rail-label,.rail.pf .chip{color:var(--t-pf);border-color:rgba(138,107,34,.35)}
+.rail.xf .rail-label,.rail.xf .chip{color:var(--t-xf);border-color:rgba(122,74,46,.35)}
+.rail.fu .rail-label,.rail.fu .chip{color:var(--t-fu);border-color:rgba(107,78,138,.35)}
+v.ps{color:var(--t-ps);border-color:var(--t-ps)}
+v.pc{color:var(--t-pc);border-color:var(--t-pc)}
+v.pt{color:var(--t-pt);border-color:var(--t-pt)}
+v.xc{color:var(--t-xc);border-color:var(--t-xc)}
+v.pf{color:var(--t-pf);border-color:var(--t-pf)}
+v.xf{color:var(--t-xf);border-color:var(--t-xf)}
+v.fu{color:var(--t-fu);border-color:var(--t-fu)}
+.tag.ps{background:var(--t-ps)} .tag.pc{background:var(--t-pc)}
+.tag.pt{background:var(--t-pt)} .tag.xc{background:var(--t-xc)}
+.tag.pf{background:var(--t-pf)} .tag.xf{background:var(--t-xf)}
+.tag.fu{background:var(--t-fu)}
+
+/* 判讀四步 */
+.steps{display:grid;gap:10px}
+.step{display:flex;gap:12px;align-items:flex-start;font-size:14px}
+.step .sn{
+  flex:0 0 26px;height:26px;border-radius:50%;background:var(--ink);color:#fff;
+  font-family:var(--mono);font-size:12px;display:flex;align-items:center;justify-content:center;
+}
+.step b{font-family:var(--serif);font-size:15.5px}
+
+/* 七態速查列 */
+.tcard.mx{display:flex;align-items:flex-start;gap:11px;margin-bottom:8px;cursor:default}
+.tcard.mx:hover{transform:none}
+.mxzone{
+  flex:0 0 76px;font-family:var(--mono);font-size:10px;letter-spacing:.08em;
+  padding:3px 6px;border-radius:6px;text-align:center;line-height:1.5;
+}
+.tcard.mx.ps .mxzone{background:var(--t-ps-bg);color:var(--t-ps)}
+.tcard.mx.pc .mxzone{background:var(--t-pc-bg);color:var(--t-pc)}
+.tcard.mx.pt .mxzone{background:var(--t-pt-bg);color:var(--t-pt)}
+.tcard.mx.xc .mxzone{background:var(--t-xc-bg);color:var(--t-xc)}
+.tcard.mx.pf .mxzone{background:var(--t-pf-bg);color:var(--t-pf)}
+.tcard.mx.xf .mxzone{background:var(--t-xf-bg);color:var(--t-xf)}
+.tcard.mx.fu .mxzone{background:var(--t-fu-bg);color:var(--t-fu)}
+.tcard.mx .tname{flex:0 0 auto;min-width:112px}
+.mxuse{flex:1;font-size:13.5px;color:var(--ink);line-height:1.6}
+.mxsig{display:block;font-family:var(--mono);font-size:11px;color:var(--ink-soft);margin-top:2px}
+@media(max-width:620px){
+  .tcard.mx{flex-wrap:wrap}
+  .tcard.mx .tname{flex:1 1 100%}
+  .mxuse{flex:1 1 100%}
+}
+
+/* 對照卡 */
+.vs{padding:10px 0;border-top:1px dotted var(--line)}
+.vs:first-child{border-top:none;padding-top:0}
+.vs-q{margin:0 0 6px;font-family:var(--serif);font-size:15.5px}
+.vs-a{margin:0;font-size:14px;color:var(--ink-soft);line-height:1.9}
+.mk{font-family:var(--serif);font-size:16px}
+.mk.pf{color:var(--t-pf)} .mk.pt{color:var(--t-pt)} .mk.xf{color:var(--t-xf)}
+
+/* 訊號判讀 */
+.sig{border:1px solid var(--line);border-radius:11px;padding:10px 12px;background:var(--card);margin-bottom:8px}
+.sig-w{margin:0 0 8px;font-family:var(--serif);font-size:17px}
+.sig-opts{display:flex;gap:6px;flex-wrap:wrap}
+.mini.s{font-size:12px;padding:5px 9px}
+.mini.s:hover{border-color:var(--ink);color:var(--ink)}
+.sig-note{margin:6px 0 0;font-size:12.5px;color:var(--ink-soft);display:none}
+.sig.done .sig-note{display:block}
+.sig.done.ps{background:var(--t-ps-bg);border-color:var(--t-ps)}
+.sig.done.pc{background:var(--t-pc-bg);border-color:var(--t-pc)}
+.sig.done.pt{background:var(--t-pt-bg);border-color:var(--t-pt)}
+.sig.done.xc{background:var(--t-xc-bg);border-color:var(--t-xc)}
+.sig.done.pf{background:var(--t-pf-bg);border-color:var(--t-pf)}
+.sig.done.xf{background:var(--t-xf-bg);border-color:var(--t-xf)}
+.sig.done.fu{background:var(--t-fu-bg);border-color:var(--t-fu)}
+
+/* ══ 一眼立判 ══ */
+:root{
+  --k-simple:#5A6663; --k-simple-bg:#EDEFEC;
+  --k-prog:#0F6E64;   --k-prog-bg:#E4F0ED;
+  --k-perf:#8A6B22;   --k-perf-bg:#F5F0E4;
+}
+/* 三步決策 */
+.flow{display:grid;gap:4px;justify-items:stretch}
+.fnode{border-radius:11px;padding:11px 14px;font-size:14.5px;border:1px solid var(--line);background:var(--card)}
+.fnode.q{background:var(--paper);color:var(--ink-soft);font-size:13.5px;text-align:center;border-style:dashed}
+.fnode.ask{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.fnode.ask b{font-family:var(--serif);font-size:16px}
+.fyes{
+  margin-left:auto;font-size:12.5px;font-family:var(--mono);letter-spacing:.06em;
+  background:var(--now);color:#fff;border-radius:999px;padding:3px 11px;
+}
+.fnode.ask:nth-of-type(5) .fyes{background:var(--gold)}
+.fnode.end{background:var(--ink);color:#fff;border-color:var(--ink);text-align:center}
+.fnode.end b{font-family:var(--serif);font-size:16.5px}
+.farrow{text-align:center;font-size:12px;color:var(--ink-soft);font-family:var(--mono);letter-spacing:.1em}
+
+/* 三個鏡頭 */
+.lens-grid{display:grid;grid-template-columns:1fr;gap:10px}
+@media(min-width:760px){.lens-grid{grid-template-columns:repeat(3,1fr)}}
+.lens{border:1px solid var(--line);border-radius:14px;padding:16px 17px;background:var(--card);box-shadow:var(--shadow)}
+.lens-ic{font-size:22px;line-height:1}
+.lens h3{font-family:var(--serif);font-size:16.5px;margin:8px 0 6px}
+.lens-f{
+  margin:0 0 10px;font-family:var(--mono);font-size:12px;letter-spacing:.03em;
+  border-radius:7px;padding:5px 9px;display:inline-block;
+}
+.lens-d{margin:0 0 10px;font-size:13.5px;color:var(--ink-soft);line-height:1.7}
+.lens-e{margin:0;font-family:var(--serif);font-size:16.5px}
+.lens-z{margin:2px 0 0;font-size:12.5px;color:var(--ink-soft)}
+.lens.simple{border-left:4px solid var(--k-simple)}
+.lens.simple .lens-f{background:var(--k-simple-bg);color:var(--k-simple)}
+.lens.simple .lens-e{color:var(--k-simple)}
+.lens.prog{border-left:4px solid var(--k-prog)}
+.lens.prog .lens-f{background:var(--k-prog-bg);color:var(--k-prog)}
+.lens.prog .lens-e{color:var(--k-prog)}
+.lens.perf{border-left:4px solid var(--k-perf)}
+.lens.perf .lens-f{background:var(--k-perf-bg);color:var(--k-perf)}
+.lens.perf .lens-e{color:var(--k-perf)}
+
+/* work 對照表 */
+table.irr.work td:first-child{font-family:var(--sans);font-size:13.5px;color:var(--ink);white-space:nowrap}
+table.irr.work td:nth-child(2){font-family:var(--mono);font-size:12.5px;color:var(--ink-soft)}
+table.irr.work td:last-child{font-family:var(--serif);font-size:15.5px;color:var(--ink)}
+
+/* 快問快答 */
+.qk-phrase{
+  font-family:var(--serif);font-size:30px;text-align:center;
+  margin:16px 0 14px;letter-spacing:.01em;line-height:1.3;
+}
+.qk-opts{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.btn.qk{width:100%;padding:11px 6px;font-size:14px}
+.btn.qk.ok{border-color:var(--now);background:var(--now-bg);color:var(--now)}
+.btn.qk.no{border-color:var(--wrong);background:#FAECEE;color:var(--wrong)}
+.qk-fb{display:none;margin-top:12px;border-radius:11px;padding:11px 14px;font-size:13.5px;line-height:1.7}
+.qk-fb.on{display:block}
+.qk-fb b{font-family:var(--serif);font-size:15.5px}
+.qk-fb.simple{background:var(--k-simple-bg);color:var(--k-simple)}
+.qk-fb.prog{background:var(--k-prog-bg);color:var(--k-prog)}
+.qk-fb.perf{background:var(--k-perf-bg);color:var(--k-perf)}
+
+/* ══ 解題三步 ══ */
+.kw{
+  display:flex;gap:10px;align-items:baseline;flex-wrap:wrap;
+  border:1px solid var(--line);border-radius:11px;background:var(--card);
+  padding:10px 13px;margin-bottom:8px;box-shadow:var(--shadow);
+}
+.kw-w{font-family:var(--serif);font-size:16px;flex:0 0 auto;min-width:190px}
+.kw-t{
+  font-family:var(--mono);font-size:10.5px;letter-spacing:.08em;
+  padding:3px 9px;border-radius:999px;color:#fff;flex:0 0 auto;
+}
+.kw.ps{border-left:4px solid var(--t-ps)} .kw.ps .kw-w{color:var(--t-ps)} .kw.ps .kw-t{background:var(--t-ps)}
+.kw.pt{border-left:4px solid var(--t-pt)} .kw.pt .kw-w{color:var(--t-pt)} .kw.pt .kw-t{background:var(--t-pt)}
+.kw.pc{border-left:4px solid var(--t-pc)} .kw.pc .kw-w{color:var(--t-pc)} .kw.pc .kw-t{background:var(--t-pc)}
+.kw.xc{border-left:4px solid var(--t-xc)} .kw.xc .kw-w{color:var(--t-xc)} .kw.xc .kw-t{background:var(--t-xc)}
+.kw.pf{border-left:4px solid var(--t-pf)} .kw.pf .kw-w{color:var(--t-pf)} .kw.pf .kw-t{background:var(--t-pf)}
+.kw.xf{border-left:4px solid var(--t-xf)} .kw.xf .kw-w{color:var(--t-xf)} .kw.xf .kw-t{background:var(--t-xf)}
+.kw.fu{border-left:4px solid var(--t-fu)} .kw.fu .kw-w{color:var(--t-fu)} .kw.fu .kw-t{background:var(--t-fu)}
+.kw-d{flex:1 1 240px;font-size:13px;color:var(--ink-soft);line-height:1.6}
+
+/* 動作關係 */
+.rel{padding:12px 0;border-top:1px dotted var(--line)}
+.rel:first-child{border-top:none;padding-top:0}
+.rel-t{margin:0 0 4px;font-family:var(--serif);font-size:16px}
+.rel-f{font-family:var(--mono);font-size:11px;color:var(--ink-soft);letter-spacing:.04em}
+.rel-d{margin:0 0 7px;font-size:13.5px;color:var(--ink-soft);line-height:1.7}
+.rel-e{margin:0;font-family:var(--serif);font-size:16.5px;line-height:1.7}
+.mk.xc{color:var(--t-xc)}
+
+/* 三大陷阱 */
+.trap{display:flex;gap:12px;padding:13px 0;border-top:1px dotted var(--line)}
+.trap:first-child{border-top:none;padding-top:0}
+.tno{
+  flex:0 0 auto;align-self:flex-start;font-family:var(--mono);font-size:10px;letter-spacing:.1em;
+  background:var(--wrong);color:#fff;border-radius:999px;padding:3px 9px;
+}
+.trap-t{margin:0 0 4px;font-family:var(--serif);font-size:16px}
+.trap-d{margin:0 0 8px;font-size:13.5px;color:var(--ink-soft);line-height:1.7}
+.trap-e{margin:0;font-family:var(--serif);font-size:15.5px;line-height:1.9}
+.no-x{color:var(--wrong)}
+.ok-v{color:var(--now)}
+
+/* 閱讀測驗 */
+#testRails .rail-label{border-right:1px dotted rgba(0,0,0,.18)}
+#testQuiz .q-stem .num{
+  display:inline-block;width:20px;height:20px;line-height:20px;text-align:center;
+  border-radius:50%;background:var(--ink);color:#fff;font-size:11px;margin-right:9px;
+}
+#testQuiz .opt{font-size:14.5px}
+
+/* ══ 遊戲化元件 ══ */
+.card.game{border-color:var(--ink);box-shadow:0 2px 0 var(--line),var(--shadow)}
+.game-bar{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:6px}
+.gscore,.gstreak{font-family:var(--mono);font-size:11px;letter-spacing:.06em;color:var(--ink-soft)}
+.gstreak{background:var(--paper);border-radius:999px;padding:3px 10px}
+.spk.inline{
+  display:inline-flex;width:20px;height:20px;font-size:9px;vertical-align:middle;
+  margin:0 6px 2px 0;flex:0 0 auto;
+}
+.btn.tiny{padding:5px 10px;font-size:12px;border-radius:8px}
+
+/* 步驟式提問 */
+.fstep{border:1px solid var(--line);border-radius:11px;padding:11px 13px;margin-bottom:8px;background:var(--card)}
+.fstep.past{opacity:.72;background:var(--paper)}
+.fstep-q{margin:0 0 9px;font-size:14.5px}
+.fstep-q b{font-family:var(--serif);font-size:16px}
+.fstep-o{display:flex;gap:8px;flex-wrap:wrap}
+.btn.fo{flex:1 1 auto;min-width:96px;justify-content:center}
+.btn.fo.ok{border-color:var(--now);background:var(--now-bg);color:var(--now)}
+.btn.fo.no{border-color:var(--wrong);background:#FAECEE;color:var(--wrong)}
+.fstep-e{display:none;margin:9px 0 0;font-size:12.5px;color:var(--ink-soft);line-height:1.7}
+.fstep-e.on{display:block}
+.flow-done{margin:0;text-align:center;font-family:var(--serif);font-size:16px;color:var(--ink-soft);padding:14px 0}
+.fpath{font-family:var(--mono);font-size:11px;opacity:.75;display:block;margin-top:4px}
+
+/* 判讀四步 */
+.fs-sent{
+  font-family:var(--serif);font-size:20px;line-height:1.65;
+  margin:10px 0 14px;padding:12px 14px;border-radius:11px;background:var(--paper);
+}
+.st-prompt{margin:6px 0 4px;font-size:13px;color:var(--ink-soft)}
+.st-sent{font-family:var(--serif);font-size:19px;line-height:1.6;margin:0 0 14px}
+
+/* 關卡分頁 */
+.stage-tabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px}
+.stab{
+  font-family:var(--sans);font-size:12.5px;padding:6px 12px;border-radius:999px;
+  border:1px solid var(--line);background:var(--card);color:var(--ink-soft);cursor:pointer;
+}
+.stab.on{background:var(--ink);color:#fff;border-color:var(--ink)}
+.stab.done::after{content:" ✓";color:var(--now)}
+.stab.on.done::after{color:#fff}
+.stab:disabled{opacity:.4;cursor:not-allowed}
+
+/* 七態速查例句 */
+.mxex{display:block;font-family:var(--serif);font-size:14.5px;color:var(--ink);margin-top:6px}
+
+/* 鏡頭語音列 */
+.lens-say{display:flex;gap:6px;flex-wrap:wrap;margin:0 0 10px}
+
+/* 全文閱讀情境 */
+.sub-h{font-family:var(--serif);font-size:17px;margin:26px 0 6px}
+.card.exam{background:#FFFDF8}
+.exam-p{
+  font-family:var(--serif);font-size:17.5px;line-height:2.05;
+  margin:0 0 14px;text-align:justify;
+}
+.exam-p:last-of-type{margin-bottom:4px}
+.card.exam .exam-mark{display:none}
+.card.exam.marked .exam-clean{display:none}
+.card.exam.marked .exam-mark{display:inline}
+
+/* ══ 雙軌總覽闖關 ══ */
+.rg-sent{
+  font-family:var(--serif);font-size:20px;line-height:1.7;
+  margin:10px 0 14px;padding:13px 15px;border-radius:11px;background:var(--paper);
+}
+.rg-sent u{text-decoration-color:var(--gold);text-underline-offset:4px}
+/* 軌道選項按鈕：染上該軌顏色 */
+.btn.fo.rg-now,.btn.fo.rg-pres{color:var(--now);border-color:rgba(15,110,100,.4)}
+.btn.fo.rg-past{color:var(--past);border-color:rgba(46,74,125,.4)}
+.btn.fo.rg-fut,.btn.fo.rg-simple{color:#8A6B22;border-color:rgba(184,145,60,.45)}
+.btn.fo.rg-plain{color:#5A6663;border-color:#C3CAC6}
+.btn.fo.ok,.btn.fo.no{border-width:1px}
+.btn.fo.rg-now.no,.btn.fo.rg-pres.no,.btn.fo.rg-past.no,
+.btn.fo.rg-fut.no,.btn.fo.rg-simple.no,.btn.fo.rg-plain.no{
+  color:var(--wrong);border-color:var(--wrong);background:#FAECEE;
+}
+.btn.fo.rg-now.ok,.btn.fo.rg-pres.ok,.btn.fo.rg-past.ok,
+.btn.fo.rg-fut.ok,.btn.fo.rg-simple.ok,.btn.fo.rg-plain.ok{
+  color:var(--now);border-color:var(--now);background:var(--now-bg);
+}
+/* 回饋框依軌道著色 */
+.qk-fb.rg-now,.qk-fb.rg-pres{background:#E4F0ED;color:var(--now)}
+.qk-fb.rg-past{background:#E5EAF3;color:var(--past)}
+.qk-fb.rg-fut,.qk-fb.rg-simple{background:#F5F0E4;color:#8A6B22}
+.qk-fb.rg-plain{background:#EDEFEC;color:#5A6663}
+.qk-fb b{font-family:var(--serif);font-size:15.5px}
+
+</style>
+</head>
+<body data-ch="16">
+<header class="top">
+  <div class="wrap">
+    <div class="brandline">
+      <a class="backlink" href="index.html">← 總覽</a>
+      <span class="brandmark">時態雙軌</span>
+      <span class="brandsub">CH.16</span>
+    </div>
+  </div>
+</header>
+<main class="wrap">
+  <section class="view on">
+    <p class="eyebrow">CH.16</p>
+    <h1>疑問詞</h1>
+    <div class="card" id="host"></div>
+    <div class="toolbar">
+      <a class="btn" href="index.html">回總覽</a>
+      <a class="btn solid" href="ch01.html">看已完成的第一章</a>
+    </div>
+  </section>
+</main>
+<p class="footline">溯源，塑局</p>
+<script>
+const CHAPTERS=[
+ {n:1,t:"時態：現在簡單式與過去簡單式",ready:true,units:10,
+  subs:["現在簡單式","過去簡單式"],
+  v:{"翰林":["B1 L1","B2 L1.L2.L5"],"康軒":["B1 L1","B2 L2.L3.L6","B3 L1"],"南一":["B1 L1.L2","B2 L1.L2","B3 L1.L2"]}},
+ {n:2,t:"時態：現在進行式與過去進行式",ready:true,units:10,
+  subs:["現在進行式","過去進行式"],
+  v:{"翰林":["B1 L4","B3 L3"],"康軒":["B1 L6","B3 L3"],"南一":["B1 L5","B3 L3"]}},
+ {n:3,t:"時態：未來簡單式與現在／過去完成式",ready:true,units:10,
+  subs:["未來簡單式","現在完成式","過去完成式"],
+  v:{"翰林":["B3 L3","B5 L1"],"康軒":["B3 L5","B5 L1"],"南一":["B3 L6","B5 L1"]}},
+ {n:4,t:"助動詞",
+  subs:["情狀助動詞 can / could、may / might、will / would","情狀助動詞 shall / should、need、must","情狀助動詞 had better、used to"],
+  v:{"翰林":["B1 L3","B3 L3","B4 L4"],"康軒":["B2 L2","B4 L4"],"南一":["B1 L6"]}},
+ {n:5,t:"介系詞",
+  subs:["時間介系詞","地方介系詞","其他介系詞","介系詞片語","含有介系詞的動詞片語（非授與動詞的用法）","不及物動詞＋介系詞＋受詞"],
+  v:{"翰林":["B1 L4","B2 L6","B3 L5"],"康軒":["B1 L3","B3 L6","B5 L5"],"南一":["B2 L6","B5 L5"]}},
+ {n:6,t:"名詞與代名詞",
+  subs:["名詞","代名詞"],
+  v:{"翰林":["B1 L1.L3","B2 L3","B3 L6","B4 L4.L5"],"康軒":["B1 L2","B2 L4","B3 L5","B4 L1.L5.L6"],"南一":["B1 L1","B3 L5","B4 L2.L5"]}},
+ {n:7,t:"形容詞",
+  subs:["形容詞的用法","數字（基數、序數）","數量形容詞","指示形容詞","現在分詞與過去分詞","名詞變成的形容詞","多個形容詞共同修飾同一名詞","形容詞字詞的後位修飾","非修飾人的形容詞","常用的「形容詞＋介系詞」的連用片語"],
+  v:{"翰林":["B1 L1.L2","B2 L4"],"康軒":["B1 L1.L2","B2 L4"],"南一":["B2 L4"]}},
+ {n:8,t:"副詞",
+  subs:["頻率副詞","情狀副詞","程度副詞"],
+  v:{"翰林":["B2 L1","B4 L4"],"康軒":["B2 L5","B4 L4"],"南一":["B2 L5","B4 L3"]}},
+ {n:9,t:"形容詞與副詞的級",
+  subs:["形容詞的比較級","形容詞的最高級","情狀副詞的級"],
+  v:{"翰林":["B4 L1.L2.L3.L4"],"康軒":["B4 L1.L2.L4"],"南一":["B4 L1.L2.L3"]}},
+ {n:10,t:"動名詞與不定詞",
+  subs:["動名詞","不定詞"],
+  v:{"翰林":["B3 L4"],"康軒":["B3 L4"],"南一":["B3 L4"]}},
+ {n:11,t:"情緒動詞與情緒形容詞",
+  subs:["情緒動詞","分詞當情緒形容詞","分詞當其他用法的形容詞"],
+  v:{"翰林":["B5 L2"],"康軒":[],"南一":[]}},
+ {n:12,t:"被動語態",
+  subs:["各種時態的被動語態句","有情狀助動詞的被動語態句","有感官動詞的被動語態句","有使役動詞的被動語態句","有授與動詞的被動語態句","有介系詞的被動語態句","否定的被動語態句","疑問句的被動語態","問句的被動語態","祈使句的被動語態","主詞非特定","瞬間被動 get + p.p.","使役動詞、感官動詞的受詞補語為被動","及物動詞的受詞為被動","情緒形容詞","使用被動句構的動詞"],
+  v:{"翰林":["B5 L3"],"康軒":["B5 L4"],"南一":["B5 L2"]}},
+ {n:13,t:"特殊動詞（一）",
+  subs:["連綴動詞","授與動詞","使役動詞","感官動詞","可拆式（〈介〉副詞動詞）與不可拆式動詞片語（介詞動詞）"],
+  v:{"翰林":["B3 L1","B4 L3.L4"],"康軒":["B3 L2.L5","B4 L3.L5"],"南一":["B3 L2.L4.L6"]}},
+ {n:14,t:"特殊動詞（二）",
+  subs:["說：跟「說」有關的動作有及物動詞的 say、speak、tell 和不及物動詞的 talk、chat","看：跟「看」有關的動詞有 see、look、look at、watch 和 read","聽：「聽」的動作有 hear、listen、listen to","hurt：有多種用法，可當動詞也可當形容詞使用","lose：有多種用法，可當動詞也可當形容詞使用","花費：跟「花費」相關的動詞有 spend、cost、take、pay、buy"],
+  v:{"翰林":["B3 L5.L6"],"康軒":["B3 L6"],"南一":["B3 L4.L5.L6"]}},
+ {n:15,t:"倒裝句型",
+  subs:["Here / There 開頭句型","附加問句","附和句","間接問句","地方副詞導引出的 there is / there are 倒裝句"],
+  v:{"翰林":["B3 L5","B4 L6"],"康軒":["B5 L3"],"南一":[]}},
+ {n:16,t:"疑問詞",
+  subs:["疑問代名詞","疑問形容詞","疑問副詞","由 how 延伸出的疑問副詞片語"],
+  v:{"翰林":["B1 L1.L2.L4.L5.L6","B2 L3.L4"],"康軒":["B1 L1.L3.L4.L5","B2 L1.L3.L4.L5.L6","B3 L2"],"南一":["B1 L2.L4.L6","B2 L1.L2.L3.L4.L5.L6","B3 L2"]}},
+ {n:17,t:"連接詞",
+  subs:["對等連接詞","附屬連接詞","其他附屬連接詞"],
+  v:{"翰林":["B2 L6","B3 L2","B4 L5"],"康軒":["B3 L2.L3","B4 L6","B6 L1.L2"],"南一":["B3 L2.L3","B4 L6"]}},
+ {n:18,t:"關係代名詞",
+  subs:["關代主格與受格","關代所有格、複合關代 what","關係副詞","關代限用 that 的情形","關代不可用 that 的情形","關代的特殊用法"],
+  v:{"翰林":["B5 L5.L6"],"康軒":["B5 L5.L6"],"南一":["B5 L5.L6"]}},
+ {n:19,t:"其他重要句型文法",
+  subs:["祈使句","there be 句型","感嘆句","that 子句","及物動詞＋whether... (or not) / if..."],
+  v:{"翰林":["B1 L6","B4 L6","B6 L2.L4"],"康軒":["B1 L5","B2 L6","B5 L2.L4"],"南一":["B1 L3.L4","B5 L3.L4"]}},
+ {n:20,t:"假設語氣",
+  subs:["if 的假設語氣","wish 的假設語氣","其他假設語氣的使用"],
+  v:{"翰林":[],"康軒":[],"南一":[]}},
+ {n:21,no:"附　錄",t:"常見不規則變化動詞三態表",novers:true,
+  subs:["常見不規則變化動詞三態表"],
+  v:{"翰林":[],"康軒":[],"南一":[]}}
+];
+
+/* 時態全景：七大時態 */
+const TENSES=[
+ {i:7,zone:"past",t:"過去完成式",sub:"過去的過去",d:"表達比過去某個時間點更早的事情或動作的結果、持續的時間、經驗",f:"had + p.p.",ex:"I had lived in Tainan before I moved to Taipei.",ch:3},
+ {i:2,zone:"past",t:"過去簡單式",sub:"發生在過去",d:"表達過去時間裡的行為事件或事實、習慣而今不再繼續",f:"V-ed／不規則變化",ex:"Yesterday, it rained heavily.",ch:1,here:true},
+ {i:4,zone:"past",t:"過去進行式",sub:"發生在過去的當下",d:"表達過去的時間點所正在發生的事情或動作",f:"was / were + V-ing",ex:"My cat was sleeping when I called his name.",ch:2},
+ {i:6,zone:"bridge",t:"現在完成式",sub:"從過去到現在",d:"表達從過去到現在所發生事情或動作的結果、持續的時間、經驗",f:"have / has + p.p.",ex:"I have lived in Taipei for three years.",ch:3},
+ {i:1,zone:"now",t:"現在簡單式",sub:"現在或永遠",d:"表達事實、定律、習慣或不變的道理",f:"V／V-s",ex:"The sun rises in the east.",ch:1,here:true},
+ {i:3,zone:"now",t:"現在進行式",sub:"發生在現在的當下",d:"表達現在的時間點所正在發生的事情或動作",f:"am / is / are + V-ing",ex:"My cat is sleeping on my bed now.",ch:2},
+ {i:5,zone:"future",t:"未來簡單式",sub:"發生在未來",d:"表達未來的時間所將發生的事情或動作",f:"will + V／be going to + V",ex:"My family will travel to Tokyo next summer.",ch:3}
+];
+
+
+</script>
+<script>
+const n=+document.body.dataset.ch;
+const ch=CHAPTERS.find(c=>c.n===n);
+function verRows(ch){
+  return ["翰林","康軒","南一"].map(k=>{
+    const l=ch.v[k]||[];
+    return '<div class="bver" data-v="'+k+'"><span class="vn">'+k+'</span>'+
+      (l.length?l.map(x=>'<span class="bb">'+x+'</span>').join(""):'<span class="bb none">未列</span>')+'</div>';
+  }).join("");
+}
+document.getElementById("host").innerHTML=
+  '<h3>本章小節</h3><ol class="subs">'+ch.subs.map(s=>"<li>"+s+"</li>").join("")+'</ol>'+
+  (ch.novers?"":'<h3 style="margin-top:16px">版本對照</h3>'+verRows(ch))+
+  '<div class="buildnote">本章互動內容尚未建置。建置後這一頁會沿用第一章的骨架：短文與軌道圖、逐句朗讀、動詞解析、每篇小測、專項練習與總複習，進度同樣存在本機瀏覽器。</div>';
+</script>
+</body>
+</html>
