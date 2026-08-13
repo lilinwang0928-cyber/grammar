@@ -6,18 +6,18 @@
 <title>CH.12 被動語態 · 時態雙軌</title>
 <style>
 :root{
-  --paper:#F2F4F1;
+  --paper:#F4F2EC;
   --card:#FFFFFF;
-  --ink:#1B2321;
-  --ink-soft:#5A6663;
-  --line:#D8DEDA;
-  --now:#0F6E64;        /* 現在軌：常青 */
-  --now-bg:#E4F0ED;
-  --past:#2E4A7D;       /* 過去軌：沉靛 */
-  --past-bg:#E5EAF3;
-  --gold:#B8913C;
-  --wrong:#B23A48;
-  --shadow:0 1px 2px rgba(27,35,33,.05),0 8px 24px rgba(27,35,33,.06);
+  --ink:#22282A;
+  --ink-soft:#66706B;
+  --line:#E0DCD1;
+  --now:#166B5F;        /* 現在軌：常青 */
+  --now-bg:#E7F1EC;
+  --past:#3A5384;       /* 過去軌：沉靛 */
+  --past-bg:#E9EDF6;
+  --gold:#B08A3E;
+  --wrong:#AE4250;
+  --shadow:0 1px 2px rgba(34,40,42,.05),0 8px 24px rgba(34,40,42,.06);
   --serif:"Iowan Old Style","Noto Serif TC","Songti TC","Source Han Serif TC",Georgia,serif;
   --sans:"PingFang TC","Noto Sans TC","Microsoft JhengHei",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
   --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
@@ -36,7 +36,7 @@ body{
 /* ── 頁首 ── */
 header.top{
   position:sticky;top:0;z-index:40;
-  background:rgba(242,244,241,.93);
+  background:rgba(244,242,236,.93);
   backdrop-filter:blur(10px);
   border-bottom:1px solid var(--line);
 }
@@ -98,9 +98,9 @@ p.lead{color:var(--ink-soft);margin:0 0 18px;font-size:14.5px}
   padding:5px 12px;font-family:var(--serif);font-size:15px;cursor:pointer;
   background:var(--card);transition:transform .15s,box-shadow .15s;
 }
-.rail.now .chip{color:var(--now);border-color:rgba(15,110,100,.35)}
-.rail.past .chip{color:var(--past);border-color:rgba(46,74,125,.35)}
-.chip:hover,.chip.lit{transform:translateY(-2px);box-shadow:0 3px 10px rgba(27,35,33,.14)}
+.rail.now .chip{color:var(--now);border-color:rgba(22,107,95,.35)}
+.rail.past .chip{color:var(--past);border-color:rgba(58,83,132,.35)}
+.chip:hover,.chip.lit{transform:translateY(-2px);box-shadow:0 3px 10px rgba(34,40,42,.14)}
 .chip.lit{background:var(--ink);color:#fff;border-color:var(--ink)}
 .rail-empty{font-size:12.5px;color:var(--ink-soft);padding-left:4px}
 
@@ -127,7 +127,7 @@ v.lit{background:var(--ink);color:#fff;border-color:var(--ink)}
 .zh.on{display:block}
 .note{
   margin-top:14px;border-radius:12px;padding:12px 14px;font-size:14px;
-  background:#F6F7F5;border:1px dashed var(--line);min-height:52px;
+  background:#FAF8F3;border:1px dashed var(--line);min-height:52px;
 }
 .note b{font-family:var(--serif);font-size:16px}
 .note .tag{
@@ -219,7 +219,7 @@ select.rate{
   transition:transform .15s,border-color .15s;
 }
 .tcard:hover{transform:translateX(3px);border-color:var(--ink-soft)}
-.tcard.lit{border-color:var(--ink);box-shadow:0 4px 16px rgba(27,35,33,.14)}
+.tcard.lit{border-color:var(--ink);box-shadow:0 4px 16px rgba(34,40,42,.14)}
 .tnum{
   flex:0 0 24px;height:24px;border-radius:50%;background:var(--paper);
   border:1px solid var(--line);font-family:var(--mono);font-size:12px;
@@ -263,7 +263,7 @@ select.rate{
 .bver{display:flex;gap:6px;align-items:center;flex-wrap:wrap;margin-top:6px}
 .bver .vn{font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;color:var(--ink-soft);flex:0 0 34px}
 .bb{background:var(--past-bg);color:var(--past);border-radius:6px;padding:2px 9px;font-size:12px;font-family:var(--mono)}
-.bb.none{background:#F0F1EF;color:var(--ink-soft)}
+.bb.none{background:#F1EFE8;color:var(--ink-soft)}
 #chapterList[data-ver="翰林"] .bver:not([data-v="翰林"]),
 #chapterList[data-ver="康軒"] .bver:not([data-v="康軒"]),
 #chapterList[data-ver="南一"] .bver:not([data-v="南一"]){display:none}
@@ -361,39 +361,39 @@ a.btn.solid{color:#fff}
 .hubcard p{margin:0;font-size:13.5px;color:var(--ink-soft)}
 .buildnote{
   margin-top:14px;border-radius:12px;padding:12px 14px;font-size:13.5px;
-  background:#F6F7F5;border:1px dashed var(--line);color:var(--ink-soft);
+  background:#FAF8F3;border:1px dashed var(--line);color:var(--ink-soft);
 }
 
 /* ── 第三軌：不用進行式 ── */
-.rail.simple{background:#F5F0E4;border-left:4px solid var(--gold)}
-.rail.simple .rail-label{color:#8A6B22}
-.rail.simple .chip{color:#8A6B22;border-color:rgba(184,145,60,.45)}
-v.simple{color:#8A6B22;border-color:var(--gold)}
+.rail.simple{background:#F6F0E0;border-left:4px solid var(--gold)}
+.rail.simple .rail-label{color:#8A6B2C}
+.rail.simple .chip{color:#8A6B2C;border-color:rgba(176,138,62,.45)}
+v.simple{color:#8A6B2C;border-color:var(--gold)}
 .tag.simple{background:var(--gold)}
 
 /* ── 第三章軌道：未來 / 簡單式 ── */
-.rail.fut{background:#F5F0E4;border-left:4px solid var(--gold)}
-.rail.fut .rail-label{color:#8A6B22}
-.rail.fut .chip{color:#8A6B22;border-color:rgba(184,145,60,.45)}
-v.fut{color:#8A6B22;border-color:var(--gold)}
+.rail.fut{background:#F6F0E0;border-left:4px solid var(--gold)}
+.rail.fut .rail-label{color:#8A6B2C}
+.rail.fut .chip{color:#8A6B2C;border-color:rgba(176,138,62,.45)}
+v.fut{color:#8A6B2C;border-color:var(--gold)}
 .tag.fut{background:var(--gold)}
-.rail.plain{background:#EBEEEB;border-left:4px solid #8B958F}
-.rail.plain .rail-label{color:#5A6663}
-.rail.plain .chip{color:#5A6663;border-color:#C3CAC6}
-v.plain{color:#5A6663;border-color:#8B958F}
-.tag.plain{background:#5A6663}
-.axis.f{background:#F5F0E4;border-left:4px solid var(--gold)}
-.axis.f h3{color:#8A6B22}
+.rail.plain{background:#EDEEEA;border-left:4px solid #97A09A}
+.rail.plain .rail-label{color:#66706B}
+.rail.plain .chip{color:#66706B;border-color:#C6CCC8}
+v.plain{color:#66706B;border-color:#97A09A}
+.tag.plain{background:#66706B}
+.axis.f{background:#F6F0E0;border-left:4px solid var(--gold)}
+.axis.f h3{color:#8A6B2C}
 
 /* ══ 總複習：七態配色 ══ */
 :root{
-  --t-ps:#0F6E64; --t-ps-bg:#E4F0ED;
-  --t-pc:#2F8C6F; --t-pc-bg:#E6F2EC;
-  --t-pt:#2E4A7D; --t-pt-bg:#E5EAF3;
-  --t-xc:#5171A8; --t-xc-bg:#E9EDF5;
-  --t-pf:#8A6B22; --t-pf-bg:#F5F0E4;
-  --t-xf:#7A4A2E; --t-xf-bg:#F2E9E3;
-  --t-fu:#6B4E8A; --t-fu-bg:#EEE9F3;
+  --t-ps:#166B5F; --t-ps-bg:#E7F1EC;
+  --t-pc:#2E8C74; --t-pc-bg:#E8F3ED;
+  --t-pt:#3A5384; --t-pt-bg:#E9EDF6;
+  --t-xc:#5C7AB0; --t-xc-bg:#ECEFF7;
+  --t-pf:#8A6B2C; --t-pf-bg:#F6F0E0;
+  --t-xf:#7C5238; --t-xf-bg:#F3EAE3;
+  --t-fu:#6E538E; --t-fu-bg:#EFEAF4;
 }
 .rail.ps{background:var(--t-ps-bg);border-left:4px solid var(--t-ps)}
 .rail.pc{background:var(--t-pc-bg);border-left:4px solid var(--t-pc)}
@@ -402,13 +402,13 @@ v.plain{color:#5A6663;border-color:#8B958F}
 .rail.pf{background:var(--t-pf-bg);border-left:4px solid var(--t-pf)}
 .rail.xf{background:var(--t-xf-bg);border-left:4px solid var(--t-xf)}
 .rail.fu{background:var(--t-fu-bg);border-left:4px solid var(--t-fu)}
-.rail.ps .rail-label,.rail.ps .chip{color:var(--t-ps);border-color:rgba(15,110,100,.35)}
-.rail.pc .rail-label,.rail.pc .chip{color:var(--t-pc);border-color:rgba(47,140,111,.35)}
-.rail.pt .rail-label,.rail.pt .chip{color:var(--t-pt);border-color:rgba(46,74,125,.35)}
-.rail.xc .rail-label,.rail.xc .chip{color:var(--t-xc);border-color:rgba(81,113,168,.35)}
-.rail.pf .rail-label,.rail.pf .chip{color:var(--t-pf);border-color:rgba(138,107,34,.35)}
-.rail.xf .rail-label,.rail.xf .chip{color:var(--t-xf);border-color:rgba(122,74,46,.35)}
-.rail.fu .rail-label,.rail.fu .chip{color:var(--t-fu);border-color:rgba(107,78,138,.35)}
+.rail.ps .rail-label,.rail.ps .chip{color:var(--t-ps);border-color:rgba(22,107,95,.35)}
+.rail.pc .rail-label,.rail.pc .chip{color:var(--t-pc);border-color:rgba(46,140,116,.35)}
+.rail.pt .rail-label,.rail.pt .chip{color:var(--t-pt);border-color:rgba(58,83,132,.35)}
+.rail.xc .rail-label,.rail.xc .chip{color:var(--t-xc);border-color:rgba(92,122,176,.35)}
+.rail.pf .rail-label,.rail.pf .chip{color:var(--t-pf);border-color:rgba(138,107,44,.35)}
+.rail.xf .rail-label,.rail.xf .chip{color:var(--t-xf);border-color:rgba(124,82,56,.35)}
+.rail.fu .rail-label,.rail.fu .chip{color:var(--t-fu);border-color:rgba(110,83,142,.35)}
 v.ps{color:var(--t-ps);border-color:var(--t-ps)}
 v.pc{color:var(--t-pc);border-color:var(--t-pc)}
 v.pt{color:var(--t-pt);border-color:var(--t-pt)}
@@ -479,9 +479,9 @@ v.fu{color:var(--t-fu);border-color:var(--t-fu)}
 
 /* ══ 一眼立判 ══ */
 :root{
-  --k-simple:#5A6663; --k-simple-bg:#EDEFEC;
-  --k-prog:#0F6E64;   --k-prog-bg:#E4F0ED;
-  --k-perf:#8A6B22;   --k-perf-bg:#F5F0E4;
+  --k-simple:#66706B; --k-simple-bg:#EDEEEA;
+  --k-prog:#166B5F;   --k-prog-bg:#E7F1EC;
+  --k-perf:#8A6B2C;   --k-perf-bg:#F6F0E0;
 }
 /* 三步決策 */
 .flow{display:grid;gap:4px;justify-items:stretch}
@@ -644,7 +644,7 @@ table.irr.work td:last-child{font-family:var(--serif);font-size:15.5px;color:var
 
 /* 全文閱讀情境 */
 .sub-h{font-family:var(--serif);font-size:17px;margin:26px 0 6px}
-.card.exam{background:#FFFDF8}
+.card.exam{background:#FBF8F0}
 .exam-p{
   font-family:var(--serif);font-size:17.5px;line-height:2.05;
   margin:0 0 14px;text-align:justify;
@@ -661,10 +661,10 @@ table.irr.work td:last-child{font-family:var(--serif);font-size:15.5px;color:var
 }
 .rg-sent u{text-decoration-color:var(--gold);text-underline-offset:4px}
 /* 軌道選項按鈕：染上該軌顏色 */
-.btn.fo.rg-now,.btn.fo.rg-pres{color:var(--now);border-color:rgba(15,110,100,.4)}
-.btn.fo.rg-past{color:var(--past);border-color:rgba(46,74,125,.4)}
-.btn.fo.rg-fut,.btn.fo.rg-simple{color:#8A6B22;border-color:rgba(184,145,60,.45)}
-.btn.fo.rg-plain{color:#5A6663;border-color:#C3CAC6}
+.btn.fo.rg-now,.btn.fo.rg-pres{color:var(--now);border-color:rgba(22,107,95,.4)}
+.btn.fo.rg-past{color:var(--past);border-color:rgba(58,83,132,.4)}
+.btn.fo.rg-fut,.btn.fo.rg-simple{color:#8A6B2C;border-color:rgba(176,138,62,.45)}
+.btn.fo.rg-plain{color:#66706B;border-color:#C6CCC8}
 .btn.fo.ok,.btn.fo.no{border-width:1px}
 .btn.fo.rg-now.no,.btn.fo.rg-pres.no,.btn.fo.rg-past.no,
 .btn.fo.rg-fut.no,.btn.fo.rg-simple.no,.btn.fo.rg-plain.no{
@@ -675,11 +675,220 @@ table.irr.work td:last-child{font-family:var(--serif);font-size:15.5px;color:var
   color:var(--now);border-color:var(--now);background:var(--now-bg);
 }
 /* 回饋框依軌道著色 */
-.qk-fb.rg-now,.qk-fb.rg-pres{background:#E4F0ED;color:var(--now)}
-.qk-fb.rg-past{background:#E5EAF3;color:var(--past)}
-.qk-fb.rg-fut,.qk-fb.rg-simple{background:#F5F0E4;color:#8A6B22}
-.qk-fb.rg-plain{background:#EDEFEC;color:#5A6663}
+.qk-fb.rg-now,.qk-fb.rg-pres{background:#E7F1EC;color:var(--now)}
+.qk-fb.rg-past{background:#E9EDF6;color:var(--past)}
+.qk-fb.rg-fut,.qk-fb.rg-simple{background:#F6F0E0;color:#8A6B2C}
+.qk-fb.rg-plain{background:#EDEEEA;color:#66706B}
 .qk-fb b{font-family:var(--serif);font-size:15.5px}
+
+/* ═══════════════════════════════════════════════
+   優化層　Refinement Layer
+   統一色彩、質感與節奏；置於檔尾覆寫前面的定義
+   ═══════════════════════════════════════════════ */
+
+:root{
+  /* 紙色轉暖：由灰綠調成米白書頁 */
+  --paper:#F4F2EC;
+  --card:#FFFEFB;
+  --ink:#22282A;
+  --ink-soft:#66706B;
+  --line:#E0DCD1;
+  --shadow:0 1px 2px rgba(34,40,42,.04),0 10px 28px rgba(34,40,42,.07);
+  --shadow-lift:0 2px 4px rgba(34,40,42,.06),0 16px 40px rgba(34,40,42,.11);
+  /* 主色微調：同一飽和度層級 */
+  --now:#166B5F;  --now-bg:#E7F1EC;
+  --past:#3A5384; --past-bg:#E9EDF6;
+  --gold:#B08A3E; --gold-bg:#F6F0E0;
+  --gray:#5F6A66; --gray-bg:#EDEEEA;
+  --wrong:#AE4250;
+}
+
+/* 背景加一層極淡的紙紋（雙色描邊網點） */
+body{
+  background:
+    radial-gradient(rgba(34,40,42,.028) 1px, transparent 1px) 0 0/22px 22px,
+    var(--paper);
+}
+
+/* ── 頁首：品牌印記 ── */
+header.top{background:rgba(244,242,236,.92);border-bottom:1px solid var(--line)}
+.brandmark{position:relative;padding-left:15px}
+.brandmark::before{
+  content:"";position:absolute;left:0;top:52%;transform:translateY(-50%);
+  width:7px;height:1.05em;border-radius:2.5px;
+  background:linear-gradient(180deg,var(--now) 0 50%,var(--past) 50% 100%);
+}
+.backlink{color:var(--ink-soft);text-decoration:none;font-size:12.5px;letter-spacing:.06em}
+.backlink:hover{color:var(--ink)}
+
+/* ── 標題節奏 ── */
+h1{font-size:29px;line-height:1.32}
+.eyebrow{color:var(--gold);letter-spacing:.24em}
+h2{
+  display:flex;align-items:center;gap:12px;margin:34px 0 12px;
+}
+h2::after{content:"";flex:1;height:1px;background:var(--line)}
+h3.sub-h{display:flex;align-items:center;gap:10px}
+h3.sub-h::after{content:"";flex:1;height:1px;background:var(--line)}
+
+/* ── 卡片 ── */
+.card{
+  border-radius:16px;border-color:var(--line);
+  padding:19px 20px;
+}
+.card.game{
+  border-color:var(--line);
+  border-top:3px solid var(--ink);
+  box-shadow:var(--shadow);
+}
+
+/* ── 導覽膠囊與按鈕 ── */
+.pill{background:var(--card)}
+.pill:hover{border-color:var(--gold);color:var(--ink)}
+button.btn{
+  border-radius:11px;padding:9px 16px;
+  transition:border-color .18s,background .18s,color .18s,transform .12s;
+}
+button.btn:not(:disabled):active{transform:translateY(1px)}
+button.btn:not(.solid):hover{border-color:var(--gold)}
+button.btn.solid:hover{background:#101416}
+.btn.tiny{border-radius:8px}
+
+/* ── 進度條：雙軌漸層加光暈 ── */
+.bar{height:7px;background:var(--line)}
+.bar i{background:linear-gradient(90deg,var(--now) 0%,var(--past) 100%)}
+
+/* ── 總覽卡 ── */
+.hubcard{
+  border-radius:16px;
+  transition:border-color .18s,box-shadow .22s,transform .22s;
+  position:relative;
+}
+.hubcard:hover{
+  border-color:var(--gold);
+  box-shadow:var(--shadow-lift);
+  transform:translateY(-2px);
+}
+.hubcard h3::after{
+  content:"→";margin-left:7px;font-family:var(--mono);font-size:13px;
+  color:var(--gold);opacity:0;transition:opacity .18s;
+}
+.hubcard:hover h3::after{opacity:1}
+.ch-state{border-radius:999px}
+
+/* ── 軌道條：圓角與內距統一 ── */
+.rail{border-radius:12px;padding:10px 13px}
+.chip{border-radius:999px;transition:transform .12s,box-shadow .18s}
+.chip:hover{transform:translateY(-1px);box-shadow:0 2px 6px rgba(34,40,42,.12)}
+.chip.lit{box-shadow:0 0 0 2px currentColor inset}
+
+/* ── 金與灰的族系統一（覆蓋前面零散色碼） ── */
+.rail.simple,.rail.fut{background:var(--gold-bg);border-left-color:var(--gold)}
+.rail.simple .rail-label,.rail.fut .rail-label,
+.rail.simple .chip,.rail.fut .chip{color:#8A6B2C;border-color:rgba(176,138,62,.45)}
+v.simple,v.fut{color:#8A6B2C;border-color:var(--gold)}
+.tag.simple,.tag.fut{background:var(--gold)}
+.rail.plain{background:var(--gray-bg);border-left-color:var(--gray)}
+.rail.plain .rail-label,.rail.plain .chip{color:var(--gray);border-color:#C6CCC8}
+v.plain{color:var(--gray);border-color:var(--gray)}
+.tag.plain{background:var(--gray)}
+.axis.f{background:var(--gold-bg);border-left-color:var(--gold)}
+.axis.f h3{color:#8A6B2C}
+
+/* ── 遊戲元件 ── */
+.gstreak{background:var(--gold-bg);color:#8A6B2C}
+.fstep{border-radius:12px}
+.fstep.past{background:var(--paper)}
+.rg-sent,.fs-sent{
+  background:var(--gold-bg);
+  border-left:3px solid var(--gold);
+  border-radius:4px 12px 12px 4px;
+}
+.qk-phrase{letter-spacing:.01em}
+
+/* ── 考卷情境卡：宣紙質感 ── */
+.card.exam{
+  background:#FBF8F0;
+  border-color:#E6DFCF;
+}
+
+/* ── 表格 ── */
+table.irr th{
+  font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;
+  color:var(--ink-soft);text-transform:uppercase;
+}
+table.irr td{border-top:1px solid var(--line)}
+
+/* ── 目次列 ── */
+.toc-item{transition:background .15s}
+.toc-item:hover{background:var(--paper)}
+.toc-no{color:var(--gold)}
+
+/* ── 頁尾：印章式收款 ── */
+.footline{
+  margin:46px auto 8px;text-align:center;
+  font-family:var(--serif);font-size:13px;letter-spacing:.5em;text-indent:.5em;
+  color:var(--ink-soft);
+}
+.footline::before{
+  content:"";display:block;width:34px;height:2px;margin:0 auto 14px;
+  background:linear-gradient(90deg,var(--now),var(--past));border-radius:2px;
+}
+
+/* ── 行動裝置微調 ── */
+@media(max-width:560px){
+  h1{font-size:24.5px}
+  .card{padding:16px}
+  .rg-sent,.fs-sent{font-size:18px}
+  .qk-phrase{font-size:25px}
+}
+
+/* 教師端收合 */
+details.teach{margin:4px 0 2px}
+details.teach summary{
+  cursor:pointer;font-size:13px;color:var(--ink-soft);
+  font-family:var(--mono);letter-spacing:.08em;
+}
+details.teach summary:hover{color:var(--ink)}
+details.teach[open] summary{color:var(--gold)}
+
+/* ── 七態色票：與暖調基底對齊後的最終值 ── */
+:root{
+  --t-ps:#166B5F; --t-ps-bg:#E7F1EC;   /* 現在簡單 */
+  --t-pc:#2E8C74; --t-pc-bg:#E8F3ED;   /* 現在進行 */
+  --t-pt:#3A5384; --t-pt-bg:#E9EDF6;   /* 過去簡單 */
+  --t-xc:#5C7AB0; --t-xc-bg:#ECEFF7;   /* 過去進行 */
+  --t-pf:#8A6B2C; --t-pf-bg:#F6F0E0;   /* 現在完成 */
+  --t-xf:#7C5238; --t-xf-bg:#F3EAE3;   /* 過去完成 */
+  --t-fu:#6E538E; --t-fu-bg:#EFEAF4;   /* 未來 */
+  /* 三大類鏡頭 */
+  --k-simple:#5F6A66; --k-simple-bg:#EDEEEA;
+  --k-prog:#166B5F;   --k-prog-bg:#E7F1EC;
+  --k-perf:#8A6B2C;   --k-perf-bg:#F6F0E0;
+}
+
+/* 印刷質感收尾 */
+body{-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+.sent-en{letter-spacing:.006em}
+v{transition:background .15s,color .15s}
+v.lit{background:currentColor;color:#fff !important;border-radius:3px;padding:0 2px}
+.zh.on,.note{border-radius:11px}
+.opt{border-radius:10px}
+.opt.ok{border-color:var(--now);background:var(--now-bg);color:var(--now)}
+.opt.no{border-color:var(--wrong);background:#FAECEE;color:var(--wrong)}
+::selection{background:var(--gold-bg);color:var(--ink)}
+
+/* 未建置章節提示 */
+.buildnote{
+  border:1px dashed var(--line);border-radius:12px;
+  padding:15px 17px;font-size:13.5px;color:var(--ink-soft);
+  background:var(--card);line-height:1.85;
+}
+.buildnote::before{
+  content:"建置中";display:inline-block;margin-right:10px;
+  font-family:var(--mono);font-size:10px;letter-spacing:.14em;
+  background:var(--gold-bg);color:#8A6B2C;border-radius:999px;padding:3px 10px;
+}
 
 </style>
 </head>
@@ -798,7 +1007,12 @@ function verRows(ch){
 document.getElementById("host").innerHTML=
   '<h3>本章小節</h3><ol class="subs">'+ch.subs.map(s=>"<li>"+s+"</li>").join("")+'</ol>'+
   (ch.novers?"":'<h3 style="margin-top:16px">版本對照</h3>'+verRows(ch))+
-  '<div class="buildnote">本章互動內容尚未建置。建置後這一頁會沿用第一章的骨架：短文與軌道圖、逐句朗讀、動詞解析、每篇小測、專項練習與總複習，進度同樣存在本機瀏覽器。</div>';
+  '<div class="buildnote">本章互動內容尚未建置。建置後會沿用第一章的骨架：短文與軌道圖、逐句朗讀、動詞解析、每篇小測、專項練習與總複習，進度同樣存在本機瀏覽器。</div>'+
+  '<div class="toolbar">'+
+    '<a class="btn solid" href="ch01.html">先去第 1 章</a>'+
+    '<a class="btn" href="review.html">時態總複習</a>'+
+    '<a class="btn" href="index.html">回總覽</a>'+
+  '</div>';
 </script>
 </body>
 </html>
