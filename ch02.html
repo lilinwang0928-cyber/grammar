@@ -592,6 +592,95 @@ table.irr.work td:last-child{font-family:var(--serif);font-size:15.5px;color:var
 }
 #testQuiz .opt{font-size:14.5px}
 
+/* ══ 遊戲化元件 ══ */
+.card.game{border-color:var(--ink);box-shadow:0 2px 0 var(--line),var(--shadow)}
+.game-bar{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:6px}
+.gscore,.gstreak{font-family:var(--mono);font-size:11px;letter-spacing:.06em;color:var(--ink-soft)}
+.gstreak{background:var(--paper);border-radius:999px;padding:3px 10px}
+.spk.inline{
+  display:inline-flex;width:20px;height:20px;font-size:9px;vertical-align:middle;
+  margin:0 6px 2px 0;flex:0 0 auto;
+}
+.btn.tiny{padding:5px 10px;font-size:12px;border-radius:8px}
+
+/* 步驟式提問 */
+.fstep{border:1px solid var(--line);border-radius:11px;padding:11px 13px;margin-bottom:8px;background:var(--card)}
+.fstep.past{opacity:.72;background:var(--paper)}
+.fstep-q{margin:0 0 9px;font-size:14.5px}
+.fstep-q b{font-family:var(--serif);font-size:16px}
+.fstep-o{display:flex;gap:8px;flex-wrap:wrap}
+.btn.fo{flex:1 1 auto;min-width:96px;justify-content:center}
+.btn.fo.ok{border-color:var(--now);background:var(--now-bg);color:var(--now)}
+.btn.fo.no{border-color:var(--wrong);background:#FAECEE;color:var(--wrong)}
+.fstep-e{display:none;margin:9px 0 0;font-size:12.5px;color:var(--ink-soft);line-height:1.7}
+.fstep-e.on{display:block}
+.flow-done{margin:0;text-align:center;font-family:var(--serif);font-size:16px;color:var(--ink-soft);padding:14px 0}
+.fpath{font-family:var(--mono);font-size:11px;opacity:.75;display:block;margin-top:4px}
+
+/* 判讀四步 */
+.fs-sent{
+  font-family:var(--serif);font-size:20px;line-height:1.65;
+  margin:10px 0 14px;padding:12px 14px;border-radius:11px;background:var(--paper);
+}
+.st-prompt{margin:6px 0 4px;font-size:13px;color:var(--ink-soft)}
+.st-sent{font-family:var(--serif);font-size:19px;line-height:1.6;margin:0 0 14px}
+
+/* 關卡分頁 */
+.stage-tabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px}
+.stab{
+  font-family:var(--sans);font-size:12.5px;padding:6px 12px;border-radius:999px;
+  border:1px solid var(--line);background:var(--card);color:var(--ink-soft);cursor:pointer;
+}
+.stab.on{background:var(--ink);color:#fff;border-color:var(--ink)}
+.stab.done::after{content:" ✓";color:var(--now)}
+.stab.on.done::after{color:#fff}
+.stab:disabled{opacity:.4;cursor:not-allowed}
+
+/* 七態速查例句 */
+.mxex{display:block;font-family:var(--serif);font-size:14.5px;color:var(--ink);margin-top:6px}
+
+/* 鏡頭語音列 */
+.lens-say{display:flex;gap:6px;flex-wrap:wrap;margin:0 0 10px}
+
+/* 全文閱讀情境 */
+.sub-h{font-family:var(--serif);font-size:17px;margin:26px 0 6px}
+.card.exam{background:#FFFDF8}
+.exam-p{
+  font-family:var(--serif);font-size:17.5px;line-height:2.05;
+  margin:0 0 14px;text-align:justify;
+}
+.exam-p:last-of-type{margin-bottom:4px}
+.card.exam .exam-mark{display:none}
+.card.exam.marked .exam-clean{display:none}
+.card.exam.marked .exam-mark{display:inline}
+
+/* ══ 雙軌總覽闖關 ══ */
+.rg-sent{
+  font-family:var(--serif);font-size:20px;line-height:1.7;
+  margin:10px 0 14px;padding:13px 15px;border-radius:11px;background:var(--paper);
+}
+.rg-sent u{text-decoration-color:var(--gold);text-underline-offset:4px}
+/* 軌道選項按鈕：染上該軌顏色 */
+.btn.fo.rg-now,.btn.fo.rg-pres{color:var(--now);border-color:rgba(15,110,100,.4)}
+.btn.fo.rg-past{color:var(--past);border-color:rgba(46,74,125,.4)}
+.btn.fo.rg-fut,.btn.fo.rg-simple{color:#8A6B22;border-color:rgba(184,145,60,.45)}
+.btn.fo.rg-plain{color:#5A6663;border-color:#C3CAC6}
+.btn.fo.ok,.btn.fo.no{border-width:1px}
+.btn.fo.rg-now.no,.btn.fo.rg-pres.no,.btn.fo.rg-past.no,
+.btn.fo.rg-fut.no,.btn.fo.rg-simple.no,.btn.fo.rg-plain.no{
+  color:var(--wrong);border-color:var(--wrong);background:#FAECEE;
+}
+.btn.fo.rg-now.ok,.btn.fo.rg-pres.ok,.btn.fo.rg-past.ok,
+.btn.fo.rg-fut.ok,.btn.fo.rg-simple.ok,.btn.fo.rg-plain.ok{
+  color:var(--now);border-color:var(--now);background:var(--now-bg);
+}
+/* 回饋框依軌道著色 */
+.qk-fb.rg-now,.qk-fb.rg-pres{background:#E4F0ED;color:var(--now)}
+.qk-fb.rg-past{background:#E5EAF3;color:var(--past)}
+.qk-fb.rg-fut,.qk-fb.rg-simple{background:#F5F0E4;color:#8A6B22}
+.qk-fb.rg-plain{background:#EDEFEC;color:#5A6663}
+.qk-fb b{font-family:var(--serif);font-size:15.5px}
+
 </style>
 </head>
 <body>
@@ -692,6 +781,22 @@ table.irr.work td:last-child{font-family:var(--serif);font-size:15.5px;color:var
   <h2>沒有進行式的動詞</h2>
   <div class="card">
     <table class="irr"><thead><tr><th>動詞</th><th>狀態意義（不用進行式）</th><th>換成動作意義</th></tr></thead><tbody id="irrBody"></tbody></table>
+  </div>
+
+  <h2>軌道分派　闖關</h2>
+  <p class="lead">先判斷這一句要停在現在、停在過去，還是它根本不能用進行式；再選出動詞正確的樣子。</p>
+  <div class="card game" id="rgCard">
+    <div class="game-bar">
+      <span class="gscore" id="rgScore"></span>
+      <span class="gstreak" id="rgStreak"></span>
+    </div>
+    <p class="rg-sent" id="rgSent"></p>
+    <div id="rgSteps"></div>
+    <div class="qk-fb" id="rgFb"></div>
+    <div class="toolbar">
+      <button class="btn" id="rgNext" disabled>下一句</button>
+      <button class="btn" id="rgRestart">重新開始</button>
+    </div>
   </div>
 </section>
 
@@ -1265,7 +1370,104 @@ document.getElementById("finalGrade").onclick=()=>{
   document.getElementById("finalHost").scrollIntoView({behavior:"smooth",block:"start"});
 };
 
+
+const RG={
+ rails:[["pres","現在進行軌"],["past","過去進行軌"],["simple","不進行軌"]],
+ items:[
+  {s:"Look! The boys ______ in the park.",a:"pres",why:"Look! 表示眼前正在發生。",forms:["run","are running","were running"],fa:1,e:"複數主詞用 are；run 重複字尾再加 ing。"},
+  {s:"I ______ a shower at 8:00 last night.",a:"past",why:"at 8:00 last night 是過去某個時間點。",forms:["take","am taking","was taking"],fa:2,e:"主詞 I 的過去 be 動詞是 was；take 去 e 加 ing。"},
+  {s:"I ______ a new bicycle.（擁有）",a:"simple",why:"have 表擁有是狀態動詞。",forms:["am having","have","was having"],fa:1,e:"狀態動詞沒有進行式。"},
+  {s:"Mary ______ a comic book when the telephone rang.",a:"past",why:"被短暫動作打斷的長動作。",forms:["reads","is reading","was reading"],fa:2,e:"過去進行式 was ＋ V-ing。"},
+  {s:"Right now, he ______ about a difficult problem.",a:"pres",why:"Right now 指向此刻。",forms:["thinks","is thinking","was thinking"],fa:1,e:"think about 是思考的動作，可以進行。"},
+  {s:"I ______ a strange man outside the window.",a:"simple",why:"see 是感官動詞，表示視覺能力。",forms:["am seeing","see","was seeing"],fa:1,e:"see 一般不用進行式。"},
+  {s:"While Mom ______ dinner, Dad was watching TV.",a:"past",why:"while 連接兩個同時持續的動作。",forms:["cooks","was cooking","is cooking"],fa:1,e:"兩邊都用過去進行式。"},
+  {s:"My dog ______ on the sofa now.",a:"pres",why:"now 描述眼前的畫面。",forms:["lies","is lieing","is lying"],fa:2,e:"lie 的字尾 ie 改成 y 再加 ing。"},
+  {s:"______ you studying at ten last night?",a:"past",why:"過去某個時間點的疑問。",forms:["Did","Were","Are"],fa:1,e:"進行式疑問句用 be 動詞開頭，主詞 you 用 Were。"},
+  {s:"I ______ for Taipei tomorrow.（已排定）",a:"pres",why:"現在進行式可表示即將發生的計畫。",forms:["am leaving","was leaving","leaved"],fa:0,e:"搭配未來時間副詞，表示強烈意圖的安排。"},
+  {s:"She ______ this song very much.",a:"simple",why:"love 表達情感。",forms:["is loving","loves","was loving"],fa:1,e:"情感動詞沒有進行式。"},
+  {s:"The girls ______ under the tree at that time.",a:"past",why:"at that time 指過去某一刻。",forms:["sing","are singing","were singing"],fa:2,e:"複數主詞的過去 be 動詞用 were。"}
+ ]};
+
+/* ═══════════════ 軌道分派闖關 ═══════════════ */
+function rgShuffle(a){a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
+let rgList=[],rgI=0,rgStage=0,rgStreak=0,rgBest=0,rgMiss=false;
+function rgStart(){rgList=rgShuffle(RG.items);rgI=0;rgStreak=0;rgShow();}
+function rgShow(){
+  rgStage=0;rgMiss=false;
+  const fb=document.getElementById("rgFb");fb.className="qk-fb";fb.innerHTML="";
+  document.getElementById("rgNext").disabled=true;
+  if(rgI>=rgList.length){
+    document.getElementById("rgSent").textContent="全部完成";
+    document.getElementById("rgSteps").innerHTML='<p class="flow-done">走完 '+rgList.length+' 句，最長連勝 '+rgBest+'。</p>';
+    document.getElementById("rgScore").textContent="完成";
+    return;
+  }
+  const it=rgList[rgI];
+  document.getElementById("rgSent").innerHTML=it.s;
+  document.getElementById("rgScore").textContent="第 "+(rgI+1)+" / "+rgList.length+" 句";
+  document.getElementById("rgStreak").textContent="連勝 "+rgStreak;
+  document.getElementById("rgSteps").innerHTML=
+    '<div class="fstep" data-s="0">'+
+      '<p class="fstep-q">① 這一句該送上哪一軌？</p>'+
+      '<div class="fstep-o">'+RG.rails.map(r=>'<button class="btn fo rg-'+r[0]+'" data-s="0" data-pick="'+r[0]+'">'+r[1]+'</button>').join("")+'</div>'+
+      '<p class="fstep-e"></p>'+
+    '</div>';
+}
+document.getElementById("rgSteps").onclick=function(e){
+  const b=e.target.closest(".fo");if(!b||b.disabled)return;
+  const it=rgList[rgI],si=+b.dataset.s;
+  const row=document.querySelector('#rgSteps .fstep[data-s="'+si+'"]');
+  if(si===0){
+    row.querySelectorAll(".fo").forEach(o=>{
+      o.disabled=true;
+      if(o.dataset.pick===it.a)o.classList.add("ok");
+      else if(o===b)o.classList.add("no");
+    });
+    const ok=(b.dataset.pick===it.a);
+    if(!ok)rgMiss=true;
+    const ep=row.querySelector(".fstep-e");
+    const lab=RG.rails.find(r=>r[0]===it.a)[1];
+    ep.textContent=(ok?"✓ ":"正解："+lab+"　")+it.why;
+    ep.classList.add("on");
+    row.classList.add("past");
+    rgStage=1;
+    document.getElementById("rgSteps").insertAdjacentHTML("beforeend",
+      '<div class="fstep" data-s="1">'+
+        '<p class="fstep-q">② 動詞該變成什麼樣子？</p>'+
+        '<div class="fstep-o">'+it.forms.map((f,fi)=>'<button class="btn fo" data-s="1" data-pick="'+fi+'">'+f+'</button>').join("")+'</div>'+
+        '<p class="fstep-e"></p>'+
+      '</div>');
+    return;
+  }
+  row.querySelectorAll(".fo").forEach((o,oi)=>{
+    o.disabled=true;
+    if(oi===it.fa)o.classList.add("ok");
+    else if(o===b)o.classList.add("no");
+  });
+  const ok2=(+b.dataset.pick===it.fa);
+  if(!ok2)rgMiss=true;
+  const ep2=row.querySelector(".fstep-e");
+  ep2.textContent=(ok2?"✓ ":"正解："+it.forms[it.fa]+"　")+it.e;
+  ep2.classList.add("on");
+  const full=it.s.replace("______","<u>"+it.forms[it.fa]+"</u>");
+  const fb=document.getElementById("rgFb");
+  fb.className="qk-fb on rg-"+it.a;
+  fb.innerHTML='<b>'+RG.rails.find(r=>r[0]===it.a)[1]+'</b>　'+full+
+    ' <button class="spk inline" data-rgsay="'+it.s.replace("______",it.forms[it.fa]).replace(/"/g,"&quot;")+'" aria-label="朗讀">▶</button>';
+  if(!rgMiss){rgStreak++;rgBest=Math.max(rgBest,rgStreak);}
+  else rgStreak=0;
+  document.getElementById("rgStreak").textContent="連勝 "+rgStreak+(rgStreak>=3?" 🔥":"");
+  document.getElementById("rgNext").disabled=false;
+};
+document.getElementById("rgFb").onclick=function(e){
+  const b=e.target.closest("[data-rgsay]");
+  if(b)speak(b.getAttribute("data-rgsay"),0.85);
+};
+document.getElementById("rgNext").onclick=function(){rgI++;rgShow();};
+document.getElementById("rgRestart").onclick=rgStart;
+
 /* ═══════════════ 啟動 ═══════════════ */
+rgStart();
 renderPassage(0);
 updateProgress();
 advRender();

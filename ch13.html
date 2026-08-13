@@ -592,6 +592,95 @@ table.irr.work td:last-child{font-family:var(--serif);font-size:15.5px;color:var
 }
 #testQuiz .opt{font-size:14.5px}
 
+/* ══ 遊戲化元件 ══ */
+.card.game{border-color:var(--ink);box-shadow:0 2px 0 var(--line),var(--shadow)}
+.game-bar{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:6px}
+.gscore,.gstreak{font-family:var(--mono);font-size:11px;letter-spacing:.06em;color:var(--ink-soft)}
+.gstreak{background:var(--paper);border-radius:999px;padding:3px 10px}
+.spk.inline{
+  display:inline-flex;width:20px;height:20px;font-size:9px;vertical-align:middle;
+  margin:0 6px 2px 0;flex:0 0 auto;
+}
+.btn.tiny{padding:5px 10px;font-size:12px;border-radius:8px}
+
+/* 步驟式提問 */
+.fstep{border:1px solid var(--line);border-radius:11px;padding:11px 13px;margin-bottom:8px;background:var(--card)}
+.fstep.past{opacity:.72;background:var(--paper)}
+.fstep-q{margin:0 0 9px;font-size:14.5px}
+.fstep-q b{font-family:var(--serif);font-size:16px}
+.fstep-o{display:flex;gap:8px;flex-wrap:wrap}
+.btn.fo{flex:1 1 auto;min-width:96px;justify-content:center}
+.btn.fo.ok{border-color:var(--now);background:var(--now-bg);color:var(--now)}
+.btn.fo.no{border-color:var(--wrong);background:#FAECEE;color:var(--wrong)}
+.fstep-e{display:none;margin:9px 0 0;font-size:12.5px;color:var(--ink-soft);line-height:1.7}
+.fstep-e.on{display:block}
+.flow-done{margin:0;text-align:center;font-family:var(--serif);font-size:16px;color:var(--ink-soft);padding:14px 0}
+.fpath{font-family:var(--mono);font-size:11px;opacity:.75;display:block;margin-top:4px}
+
+/* 判讀四步 */
+.fs-sent{
+  font-family:var(--serif);font-size:20px;line-height:1.65;
+  margin:10px 0 14px;padding:12px 14px;border-radius:11px;background:var(--paper);
+}
+.st-prompt{margin:6px 0 4px;font-size:13px;color:var(--ink-soft)}
+.st-sent{font-family:var(--serif);font-size:19px;line-height:1.6;margin:0 0 14px}
+
+/* 關卡分頁 */
+.stage-tabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px}
+.stab{
+  font-family:var(--sans);font-size:12.5px;padding:6px 12px;border-radius:999px;
+  border:1px solid var(--line);background:var(--card);color:var(--ink-soft);cursor:pointer;
+}
+.stab.on{background:var(--ink);color:#fff;border-color:var(--ink)}
+.stab.done::after{content:" ✓";color:var(--now)}
+.stab.on.done::after{color:#fff}
+.stab:disabled{opacity:.4;cursor:not-allowed}
+
+/* 七態速查例句 */
+.mxex{display:block;font-family:var(--serif);font-size:14.5px;color:var(--ink);margin-top:6px}
+
+/* 鏡頭語音列 */
+.lens-say{display:flex;gap:6px;flex-wrap:wrap;margin:0 0 10px}
+
+/* 全文閱讀情境 */
+.sub-h{font-family:var(--serif);font-size:17px;margin:26px 0 6px}
+.card.exam{background:#FFFDF8}
+.exam-p{
+  font-family:var(--serif);font-size:17.5px;line-height:2.05;
+  margin:0 0 14px;text-align:justify;
+}
+.exam-p:last-of-type{margin-bottom:4px}
+.card.exam .exam-mark{display:none}
+.card.exam.marked .exam-clean{display:none}
+.card.exam.marked .exam-mark{display:inline}
+
+/* ══ 雙軌總覽闖關 ══ */
+.rg-sent{
+  font-family:var(--serif);font-size:20px;line-height:1.7;
+  margin:10px 0 14px;padding:13px 15px;border-radius:11px;background:var(--paper);
+}
+.rg-sent u{text-decoration-color:var(--gold);text-underline-offset:4px}
+/* 軌道選項按鈕：染上該軌顏色 */
+.btn.fo.rg-now,.btn.fo.rg-pres{color:var(--now);border-color:rgba(15,110,100,.4)}
+.btn.fo.rg-past{color:var(--past);border-color:rgba(46,74,125,.4)}
+.btn.fo.rg-fut,.btn.fo.rg-simple{color:#8A6B22;border-color:rgba(184,145,60,.45)}
+.btn.fo.rg-plain{color:#5A6663;border-color:#C3CAC6}
+.btn.fo.ok,.btn.fo.no{border-width:1px}
+.btn.fo.rg-now.no,.btn.fo.rg-pres.no,.btn.fo.rg-past.no,
+.btn.fo.rg-fut.no,.btn.fo.rg-simple.no,.btn.fo.rg-plain.no{
+  color:var(--wrong);border-color:var(--wrong);background:#FAECEE;
+}
+.btn.fo.rg-now.ok,.btn.fo.rg-pres.ok,.btn.fo.rg-past.ok,
+.btn.fo.rg-fut.ok,.btn.fo.rg-simple.ok,.btn.fo.rg-plain.ok{
+  color:var(--now);border-color:var(--now);background:var(--now-bg);
+}
+/* 回饋框依軌道著色 */
+.qk-fb.rg-now,.qk-fb.rg-pres{background:#E4F0ED;color:var(--now)}
+.qk-fb.rg-past{background:#E5EAF3;color:var(--past)}
+.qk-fb.rg-fut,.qk-fb.rg-simple{background:#F5F0E4;color:#8A6B22}
+.qk-fb.rg-plain{background:#EDEFEC;color:#5A6663}
+.qk-fb b{font-family:var(--serif);font-size:15.5px}
+
 </style>
 </head>
 <body data-ch="13">

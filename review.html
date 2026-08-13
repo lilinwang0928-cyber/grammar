@@ -592,6 +592,95 @@ table.irr.work td:last-child{font-family:var(--serif);font-size:15.5px;color:var
 }
 #testQuiz .opt{font-size:14.5px}
 
+/* ══ 遊戲化元件 ══ */
+.card.game{border-color:var(--ink);box-shadow:0 2px 0 var(--line),var(--shadow)}
+.game-bar{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:6px}
+.gscore,.gstreak{font-family:var(--mono);font-size:11px;letter-spacing:.06em;color:var(--ink-soft)}
+.gstreak{background:var(--paper);border-radius:999px;padding:3px 10px}
+.spk.inline{
+  display:inline-flex;width:20px;height:20px;font-size:9px;vertical-align:middle;
+  margin:0 6px 2px 0;flex:0 0 auto;
+}
+.btn.tiny{padding:5px 10px;font-size:12px;border-radius:8px}
+
+/* 步驟式提問 */
+.fstep{border:1px solid var(--line);border-radius:11px;padding:11px 13px;margin-bottom:8px;background:var(--card)}
+.fstep.past{opacity:.72;background:var(--paper)}
+.fstep-q{margin:0 0 9px;font-size:14.5px}
+.fstep-q b{font-family:var(--serif);font-size:16px}
+.fstep-o{display:flex;gap:8px;flex-wrap:wrap}
+.btn.fo{flex:1 1 auto;min-width:96px;justify-content:center}
+.btn.fo.ok{border-color:var(--now);background:var(--now-bg);color:var(--now)}
+.btn.fo.no{border-color:var(--wrong);background:#FAECEE;color:var(--wrong)}
+.fstep-e{display:none;margin:9px 0 0;font-size:12.5px;color:var(--ink-soft);line-height:1.7}
+.fstep-e.on{display:block}
+.flow-done{margin:0;text-align:center;font-family:var(--serif);font-size:16px;color:var(--ink-soft);padding:14px 0}
+.fpath{font-family:var(--mono);font-size:11px;opacity:.75;display:block;margin-top:4px}
+
+/* 判讀四步 */
+.fs-sent{
+  font-family:var(--serif);font-size:20px;line-height:1.65;
+  margin:10px 0 14px;padding:12px 14px;border-radius:11px;background:var(--paper);
+}
+.st-prompt{margin:6px 0 4px;font-size:13px;color:var(--ink-soft)}
+.st-sent{font-family:var(--serif);font-size:19px;line-height:1.6;margin:0 0 14px}
+
+/* 關卡分頁 */
+.stage-tabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px}
+.stab{
+  font-family:var(--sans);font-size:12.5px;padding:6px 12px;border-radius:999px;
+  border:1px solid var(--line);background:var(--card);color:var(--ink-soft);cursor:pointer;
+}
+.stab.on{background:var(--ink);color:#fff;border-color:var(--ink)}
+.stab.done::after{content:" ✓";color:var(--now)}
+.stab.on.done::after{color:#fff}
+.stab:disabled{opacity:.4;cursor:not-allowed}
+
+/* 七態速查例句 */
+.mxex{display:block;font-family:var(--serif);font-size:14.5px;color:var(--ink);margin-top:6px}
+
+/* 鏡頭語音列 */
+.lens-say{display:flex;gap:6px;flex-wrap:wrap;margin:0 0 10px}
+
+/* 全文閱讀情境 */
+.sub-h{font-family:var(--serif);font-size:17px;margin:26px 0 6px}
+.card.exam{background:#FFFDF8}
+.exam-p{
+  font-family:var(--serif);font-size:17.5px;line-height:2.05;
+  margin:0 0 14px;text-align:justify;
+}
+.exam-p:last-of-type{margin-bottom:4px}
+.card.exam .exam-mark{display:none}
+.card.exam.marked .exam-clean{display:none}
+.card.exam.marked .exam-mark{display:inline}
+
+/* ══ 雙軌總覽闖關 ══ */
+.rg-sent{
+  font-family:var(--serif);font-size:20px;line-height:1.7;
+  margin:10px 0 14px;padding:13px 15px;border-radius:11px;background:var(--paper);
+}
+.rg-sent u{text-decoration-color:var(--gold);text-underline-offset:4px}
+/* 軌道選項按鈕：染上該軌顏色 */
+.btn.fo.rg-now,.btn.fo.rg-pres{color:var(--now);border-color:rgba(15,110,100,.4)}
+.btn.fo.rg-past{color:var(--past);border-color:rgba(46,74,125,.4)}
+.btn.fo.rg-fut,.btn.fo.rg-simple{color:#8A6B22;border-color:rgba(184,145,60,.45)}
+.btn.fo.rg-plain{color:#5A6663;border-color:#C3CAC6}
+.btn.fo.ok,.btn.fo.no{border-width:1px}
+.btn.fo.rg-now.no,.btn.fo.rg-pres.no,.btn.fo.rg-past.no,
+.btn.fo.rg-fut.no,.btn.fo.rg-simple.no,.btn.fo.rg-plain.no{
+  color:var(--wrong);border-color:var(--wrong);background:#FAECEE;
+}
+.btn.fo.rg-now.ok,.btn.fo.rg-pres.ok,.btn.fo.rg-past.ok,
+.btn.fo.rg-fut.ok,.btn.fo.rg-simple.ok,.btn.fo.rg-plain.ok{
+  color:var(--now);border-color:var(--now);background:var(--now-bg);
+}
+/* 回饋框依軌道著色 */
+.qk-fb.rg-now,.qk-fb.rg-pres{background:#E4F0ED;color:var(--now)}
+.qk-fb.rg-past{background:#E5EAF3;color:var(--past)}
+.qk-fb.rg-fut,.qk-fb.rg-simple{background:#F5F0E4;color:#8A6B22}
+.qk-fb.rg-plain{background:#EDEFEC;color:#5A6663}
+.qk-fb b{font-family:var(--serif);font-size:15.5px}
+
 </style>
 </head>
 <body>
@@ -659,7 +748,7 @@ table.irr.work td:last-child{font-family:var(--serif);font-size:15.5px;color:var
     <a class="hubcard" href="#" data-target="sec-read">
       <span class="ch-state">六</span>
       <h3>閱讀測驗</h3>
-      <p>《意外的驚喜》一篇短文融合七個時態，附四題與逐題詳解。</p>
+      <p>六篇綜合時態短文，每篇附軌道標記、題目與逐題詳解。</p>
     </a>
     <a class="hubcard" href="#" data-target="sec-final">
       <span class="ch-state">七</span>
@@ -684,20 +773,26 @@ table.irr.work td:last-child{font-family:var(--serif);font-size:15.5px;color:var
   <h1>一眼立判<br>先看長相，再想意思</h1>
   <p class="lead">判斷時態不必從語意猜起。動詞的組合會直接把答案寫在臉上：有 be ＋ V-ing 就是進行式，有 have／has／had ＋ 過去分詞就是完成式，兩者都沒有就是簡單式。三秒之內先分好大類，再去細想是現在、過去還是未來。</p>
 
-  <h2>三步決策</h2>
-  <div class="card">
-    <div class="flow">
-      <div class="fnode q">看到動詞片語，先問第一句</div>
-      <div class="farrow">↓</div>
-      <div class="fnode ask">有 <b>be 動詞 ＋ V-ing</b> 嗎？<span class="fyes">有 → 進行式</span></div>
-      <div class="farrow">↓ 沒有</div>
-      <div class="fnode ask">有 <b>have / has / had ＋ 過去分詞</b> 嗎？<span class="fyes">有 → 完成式</span></div>
-      <div class="farrow">↓ 沒有</div>
-      <div class="fnode end">乾淨俐落，只有動詞本身或 will ＋ 原形　→　<b>簡單式</b></div>
+  <h2>三步決策　闖關版</h2>
+  <p class="lead">給你一個動詞片語，照著兩道問題往下走。答對一題往下一步，走到底就判出時態。連續答對會累積連勝。</p>
+  <div class="card game" id="flowCard">
+    <div class="game-bar">
+      <span class="gscore" id="flowScore">第 1 題</span>
+      <span class="gstreak" id="flowStreak">連勝 0</span>
+    </div>
+    <p class="qk-phrase" id="flowPhrase">—
+      <button class="spk inline" id="flowSay" aria-label="朗讀">▶</button>
+    </p>
+    <div class="flowsteps" id="flowSteps"></div>
+    <div class="qk-fb" id="flowFb"></div>
+    <div class="toolbar">
+      <button class="btn" id="flowNext" disabled>下一題</button>
+      <button class="btn" id="flowRestart">重新開始</button>
     </div>
   </div>
 
   <h2>三個鏡頭</h2>
+  <p class="lead">每張卡都可以聽：▶ 讀英文例句，🔈 讀中文導覽。</p>
   <div class="lens-grid">
     <div class="lens simple">
       <span class="lens-ic">📷</span>
@@ -705,7 +800,7 @@ table.irr.work td:last-child{font-family:var(--serif);font-size:15.5px;color:var
       <p class="lens-f">V ／ V-ed ／ will ＋ V</p>
       <p class="lens-d">時間軸上的一個「點」，或一種常態。描述事實、不變的道理、習慣，或單純發生過的一件事。</p>
       <p class="lens-e">I work every day.</p>
-      <p class="lens-z">我每天工作——習慣</p>
+      <p class="lens-say"><button class="btn tiny" data-sayen="I work every day.">▶ 英文例句</button><button class="btn tiny" data-sayzh="簡單式，像廣角鏡頭拍下的一張照片。它描述時間軸上的一個點，或是一種常態，用來說事實、不變的道理、習慣，或單純發生過的一件事。動詞乾淨俐落，沒有 be 加 ing，也沒有 have 加過去分詞。">🔈 中文導覽</button><button class="btn tiny" data-stopsay="1">停止</button></p><p class="lens-z">我每天工作——習慣</p>
     </div>
     <div class="lens prog">
       <span class="lens-ic">🔍</span>
@@ -713,7 +808,7 @@ table.irr.work td:last-child{font-family:var(--serif);font-size:15.5px;color:var
       <p class="lens-f">be 動詞 ＋ V-ing</p>
       <p class="lens-d">鏡頭停在某個時間點上，專注於那一刻「正在持續」的動作，充滿動態感。</p>
       <p class="lens-e">I am working right now.</p>
-      <p class="lens-z">我現在正在工作——當下動態</p>
+      <p class="lens-say"><button class="btn tiny" data-sayen="I am working right now.">▶ 英文例句</button><button class="btn tiny" data-sayzh="進行式，像放大鏡或錄影機的特寫。鏡頭停在某一個時間點上，專注於那一刻正在持續的動作，充滿動態感。它的長相一定是 be 動詞加上動詞的 ing 形式。">🔈 中文導覽</button><button class="btn tiny" data-stopsay="1">停止</button></p><p class="lens-z">我現在正在工作——當下動態</p>
     </div>
     <div class="lens perf">
       <span class="lens-ic">🎞️</span>
@@ -721,7 +816,7 @@ table.irr.work td:last-child{font-family:var(--serif);font-size:15.5px;color:var
       <p class="lens-f">have / has / had ＋ 過去分詞</p>
       <p class="lens-d">一座橋，把過去的某個點連到另一個時間點，強調經驗、持續的時間或已完成的結果。</p>
       <p class="lens-e">I have worked here for three years.</p>
-      <p class="lens-z">我在這裡工作三年了——從過去連到現在</p>
+      <p class="lens-say"><button class="btn tiny" data-sayen="I have worked here for three years.">▶ 英文例句</button><button class="btn tiny" data-sayzh="完成式，像全景模式拍出的一段長畫面。它是一座橋，把過去的某個點連到另一個時間點，強調累積下來的經驗、持續的時間，或已經完成的結果。長相是 have、has 或 had 加上過去分詞。">🔈 中文導覽</button><button class="btn tiny" data-stopsay="1">停止</button></p><p class="lens-z">我在這裡工作三年了——從過去連到現在</p>
     </div>
   </div>
 
@@ -755,13 +850,19 @@ table.irr.work td:last-child{font-family:var(--serif);font-size:15.5px;color:var
   <h1>七態速查</h1>
   <p class="lead">時態的本質是「時間」與「狀態」的結合：時間決定它落在時間線的哪一段，狀態決定它是持續、完成，還是單純發生過。</p>
 
-  <h2>判讀四步</h2>
-  <div class="card">
-    <div class="steps">
-      <div class="step"><span class="sn">1</span><div><b>找時間訊號</b><br>yesterday、now、for ten years、tomorrow——先確定這件事落在時間線的哪一段。</div></div>
-      <div class="step"><span class="sn">2</span><div><b>問狀態</b><br>是「正在進行」、「已經完成」，還是單純「發生過／會發生」？</div></div>
-      <div class="step"><span class="sn">3</span><div><b>選助動詞</b><br>be ＋ V-ing 是進行、have／has／had ＋ p.p. 是完成、will／be going to 是未來。</div></div>
-      <div class="step"><span class="sn">4</span><div><b>檢查主詞與子句</b><br>三單加 s、was 還是 were、has 還是 have；if／when 子句要用現在式代替未來式。</div></div>
+  <h2>判讀四步　實戰版</h2>
+  <p class="lead">拿一個真的句子走一遍四個步驟：先找時間訊號，再問狀態，接著選結構，最後檢查主詞。四步都答對，答案自然浮出來。</p>
+  <div class="card game" id="fsCard">
+    <div class="game-bar">
+      <span class="gscore" id="fsScore"></span>
+      <span class="gstreak" id="fsHit"></span>
+    </div>
+    <p class="fs-sent" id="fsSent"></p>
+    <div id="fsSteps"></div>
+    <div class="qk-fb" id="fsFb"></div>
+    <div class="toolbar">
+      <button class="btn" id="fsNext" disabled>下一句</button>
+      <button class="btn" id="fsRestart">重新開始</button>
     </div>
   </div>
 
@@ -769,25 +870,27 @@ table.irr.work td:last-child{font-family:var(--serif);font-size:15.5px;color:var
   <div id="matrixHost"></div>
 
   <h2>三組最容易混的對照</h2>
+  <p class="lead"><button class="btn tiny" data-sayzh="這三組是考試最常設陷阱的地方。第一組，現在完成式強調跟現在有關聯，過去簡單式則與現在無關。第二組，have been to 表示去過而且回來了，have gone to 表示去了還沒回來。第三組，兩個過去的動作中，先發生的用過去完成式，後發生的用過去簡單式。">🔈 中文導覽</button> <button class="btn tiny" data-stopsay="1">停止</button></p>
   <div class="card">
     <div class="vs">
       <p class="vs-q">現在完成式 vs 過去簡單式</p>
-      <p class="vs-a"><span class="mk pf">I have known Peter for ten years.</span>　與現在有關聯，他現在還是我的朋友。<br>
-      <span class="mk pt">I knew Peter in high school.</span>　與現在無關，只是過去的一段事。</p>
+      <p class="vs-a"><button class="spk inline" data-sayen="I have known Peter for ten years.">▶</button><span class="mk pf">I have known Peter for ten years.</span>　與現在有關聯，他現在還是我的朋友。<br>
+      <button class="spk inline" data-sayen="I knew Peter in high school.">▶</button><span class="mk pt">I knew Peter in high school.</span>　與現在無關，只是過去的一段事。</p>
     </div>
     <div class="vs">
       <p class="vs-q">have been to vs have gone to</p>
-      <p class="vs-a"><span class="mk pf">I have been to Japan.</span>　去過，人已經回來了。<br>
-      <span class="mk pf">Gary has gone to the meeting.</span>　去了，人還沒回來。</p>
+      <p class="vs-a"><button class="spk inline" data-sayen="I have been to Japan.">▶</button><span class="mk pf">I have been to Japan.</span>　去過，人已經回來了。<br>
+      <button class="spk inline" data-sayen="Gary has gone to the meeting.">▶</button><span class="mk pf">Gary has gone to the meeting.</span>　去了，人還沒回來。</p>
     </div>
     <div class="vs">
       <p class="vs-q">過去完成式 vs 過去簡單式</p>
-      <p class="vs-a"><span class="mk xf">The train had already left</span> <span class="mk pt">by the time I got to the station.</span><br>
+      <p class="vs-a"><button class="spk inline" data-sayen="The train had already left by the time I got to the station.">▶</button><span class="mk xf">The train had already left</span> <span class="mk pt">by the time I got to the station.</span><br>
       先發生的用過去完成式，後發生的用過去簡單式，順序就分出來了。</p>
     </div>
   </div>
 
   <h2>沒有進行式的動詞</h2>
+  <p class="lead"><button class="btn tiny" data-sayzh="狀態動詞不能加 ing。表示擁有的 have、表示感官的 see 和 hear、表示情感的 love 和 hate、表示認知的 know 和 believe，這些動詞本身就不是動作，所以沒有正在進行的說法。但是換成動作意義就可以，例如 have a good time 是度過，look at 是注視，listen to 是傾聽，think about 是思考，這四個都可以用進行式。">🔈 中文導覽</button> <button class="btn tiny" data-stopsay="1">停止</button></p>
   <div class="card">
     <p style="margin:0 0 8px;font-size:14.5px">表示擁有、感官、情感與認知的狀態動詞，通常不用進行式。</p>
     <p style="margin:0;font-family:var(--serif);font-size:16.5px;line-height:2">
@@ -880,20 +983,51 @@ table.irr.work td:last-child{font-family:var(--serif);font-size:15.5px;color:var
     </div>
   </div>
 
+  <h2>三關實戰</h2>
+  <p class="lead">把三個步驟拆成三道關卡，一關一關過。每關全對才算通關，通關後可以往下一關。</p>
+  <div class="card game" id="stCard">
+    <div class="stage-tabs" id="stTabs"></div>
+    <div class="game-bar">
+      <span class="gscore" id="stScore"></span>
+      <span class="gstreak" id="stLife"></span>
+    </div>
+    <p class="st-prompt" id="stPrompt"></p>
+    <p class="st-sent" id="stSent"></p>
+    <div class="fstep-o" id="stOpts"></div>
+    <div class="qk-fb" id="stFb"></div>
+    <div class="toolbar">
+      <button class="btn" id="stNext" disabled>下一題</button>
+      <button class="btn" id="stRestart">重來本關</button>
+    </div>
+  </div>
+
   <div class="toolbar">
-    <button class="btn solid" data-target="sec-read">用閱讀測驗試一次</button>
+    <button class="btn solid" data-target="sec-read">用六篇閱讀測驗試一次</button>
   </div>
 </section>
 
 <!-- ═══ 閱讀測驗 ═══ -->
 <section class="view" id="sec-read">
-  <p class="eyebrow">Reading Test　An Unexpected Surprise</p>
-  <h1>意外的驚喜</h1>
-  <p class="lead">一篇短文融合七個時態。先讀完再作答，作答後可展開逐題詳解與中譯。點文中有底線的動詞，可以看它屬於哪一個時態。</p>
+  <p class="eyebrow">Reading Test　綜合時態閱讀</p>
+  <h1>閱讀測驗　六篇</h1>
+  <p class="lead">六篇短文，每篇都融合了簡單式、進行式與完成式。先讀完再作答，作答後可展開逐題詳解與中譯。點文中有底線的動詞，可以看它屬於哪一個時態。</p>
+  <div class="unitbar" id="testBar"></div>
+  <div id="testHead"></div>
+
+  <h3 class="sub-h">全文　閱讀測驗情境</h3>
+  <p class="lead">先照真實考試的樣子讀一次：連續段落、沒有標記。讀完再往下看逐句版本與軌道分析。</p>
+  <div class="card exam" id="testFull"></div>
+
+  <h3 class="sub-h">逐句　軌道分析</h3>
   <div class="rails" id="testRails"></div>
   <div class="card" id="testBody"></div>
-  <h2>測驗四題</h2>
+  <h2 id="testQn">測驗題</h2>
   <div class="card" id="testQuiz"></div>
+  <div class="toolbar">
+    <button class="btn" id="testPrev">← 上一篇</button>
+    <button class="btn" id="testNext">下一篇 →</button>
+    <button class="btn" data-target="sec-final">前往綜合測驗</button>
+  </div>
 </section>
 
 <!-- ═══ 綜合測驗 ═══ -->
@@ -916,13 +1050,13 @@ table.irr.work td:last-child{font-family:var(--serif);font-size:15.5px;color:var
 <script>
 /* ═══════════════ 七態定義 ═══════════════ */
 const TENSE={
- ps:{n:"現在簡單式",f:"V／V-s",zone:"現在",use:"事實、定律、習慣",sig:"always、usually、every day"},
- pc:{n:"現在進行式",f:"am / is / are ＋ V-ing",zone:"現在",use:"此刻正在進行、即將發生的計畫",sig:"Look!、now、right now、at this moment"},
- pt:{n:"過去簡單式",f:"V-ed／不規則變化",zone:"過去",use:"過去發生而今不再繼續",sig:"yesterday、last night、two days ago"},
- xc:{n:"過去進行式",f:"was / were ＋ V-ing",zone:"過去",use:"過去某一刻正在進行、被打斷的動作",sig:"at 8:00 last night、when、while"},
- pf:{n:"現在完成式",f:"have / has ＋ 過去分詞",zone:"過去→現在",use:"經驗、完成與結果、持續",sig:"ever、never、just、already、yet、for、since"},
- xf:{n:"過去完成式",f:"had ＋ 過去分詞",zone:"過去的過去",use:"比過去某時間點更早完成",sig:"by the time、before、after"},
- fu:{n:"未來簡單式",f:"will ＋ V／be going to ＋ V",zone:"未來",use:"預測、臨時決定、事先規畫的行程",sig:"tomorrow、tonight、next week"}
+ ps:{n:"現在簡單式",f:"V／V-s",zone:"現在",use:"事實、定律、習慣",sig:"always、usually、every day",ex:"Sarah usually takes the bus to work every morning."},
+ pc:{n:"現在進行式",f:"am / is / are ＋ V-ing",zone:"現在",use:"此刻正在進行、即將發生的計畫",sig:"Look!、now、right now、at this moment",ex:"Right now, Lucky is sleeping peacefully on the sofa."},
+ pt:{n:"過去簡單式",f:"V-ed／不規則變化",zone:"過去",use:"過去發生而今不再繼續",sig:"yesterday、last night、two days ago",ex:"Yesterday, something terrible happened."},
+ xc:{n:"過去進行式",f:"was / were ＋ V-ing",zone:"過去",use:"過去某一刻正在進行、被打斷的動作",sig:"at 8:00 last night、when、while",ex:"I was sleeping when the phone rang."},
+ pf:{n:"現在完成式",f:"have / has ＋ 過去分詞",zone:"過去→現在",use:"經驗、完成與結果、持續",sig:"ever、never、just、already、yet、for、since",ex:"I have known Peter for ten years."},
+ xf:{n:"過去完成式",f:"had ＋ 過去分詞",zone:"過去的過去",use:"比過去某時間點更早完成",sig:"by the time、before、after",ex:"The train had already left by the time I got to the station."},
+ fu:{n:"未來簡單式",f:"will ＋ V／be going to ＋ V",zone:"未來",use:"預測、臨時決定、事先規畫的行程",sig:"tomorrow、tonight、next week",ex:"I am going to visit my grandmother next week."}
 };
 const ORDER=["xf","pt","xc","pf","ps","pc","fu"];
 
@@ -1054,8 +1188,169 @@ const KEYWORDS=[
  ["tomorrow　next week　soon","fu","未來，找 will 或 be going to。"]
 ];
 
+/* ═══ 三步決策闖關 ═══ */
+const FLOWQ=[
+ {t:"① 有 <b>be 動詞 ＋ V-ing</b> 嗎？",o:["有","沒有"]},
+ {t:"② 有 <b>have / has / had ＋ 過去分詞</b> 嗎？",o:["有","沒有"]}
+];
+let fList=[],fIdx=0,fStep=0,fStreak=0,fBest=0;
+function flowStart(){fList=shuffle(QUICK);fIdx=0;fStreak=0;flowShow();}
+function flowShow(){
+  fStep=0;
+  const fb=document.getElementById("flowFb");fb.className="qk-fb";fb.innerHTML="";
+  document.getElementById("flowNext").disabled=true;
+  if(fIdx>=fList.length){
+    document.getElementById("flowPhrase").textContent="全部完成";
+    document.getElementById("flowSteps").innerHTML='<p class="flow-done">走完 '+fList.length+' 題，最長連勝 '+fBest+'。</p>';
+    document.getElementById("flowScore").textContent="完成";
+    return;
+  }
+  const cur=fList[fIdx];
+  document.getElementById("flowPhrase").innerHTML=cur[0]+
+    ' <button class="spk inline" data-sayen="'+cur[0]+'" aria-label="朗讀">▶</button>';
+  document.getElementById("flowScore").textContent="第 "+(fIdx+1)+" / "+fList.length+" 題";
+  document.getElementById("flowStreak").textContent="連勝 "+fStreak;
+  flowStepRender();
+}
+function flowNode(i){
+  return '<div class="fstep" data-s="'+i+'">'+
+    '<p class="fstep-q">'+FLOWQ[i].t+'</p>'+
+    '<div class="fstep-o">'+FLOWQ[i].o.map((o,oi)=>'<button class="btn fo" data-pick="'+oi+'" data-s="'+i+'">'+o+'</button>').join("")+'</div>'+
+  '</div>';
+}
+function flowStepRender(){
+  document.getElementById("flowSteps").innerHTML=flowNode(0);
+}
+function flowAnswer(step,pick){
+  const cur=fList[fIdx],kind=cur[1];
+  // step0：問是不是進行式；step1：問是不是完成式
+  const truth = step===0 ? (kind==="prog") : (kind==="perf");
+  const said  = pick===0;
+  const right = (truth===said);
+  const host=document.getElementById("flowSteps");
+  const row=host.querySelector('.fstep[data-s="'+step+'"]');
+  row.querySelectorAll(".fo").forEach((b,i)=>{
+    b.disabled=true;
+    if((i===0)===truth)b.classList.add("ok");else if(+b.dataset.pick===pick)b.classList.add("no");
+  });
+  if(!right){
+    fStreak=0;
+    document.getElementById("flowStreak").textContent="連勝 0";
+    finishFlow(false,step);
+    return;
+  }
+  if(said){ finishFlow(true,step); return; }          // 答「有」且正確 → 判定完成
+  if(step===0){                                       // 不是進行式 → 附加第二題
+    fStep=1;row.classList.add("past");
+    document.getElementById("flowSteps").insertAdjacentHTML("beforeend",flowNode(1));
+    return;
+  }
+  finishFlow(true,step);                              // 兩題都「沒有」→ 簡單式
+}
+function finishFlow(ok,step){
+  const cur=fList[fIdx];
+  const fb=document.getElementById("flowFb");
+  fb.className="qk-fb on "+cur[1];
+  const path = cur[1]==="prog" ? "第一題就攔下來了" : (cur[1]==="perf" ? "第一題排除進行式，第二題攔下來" : "兩題都沒有，落到最後一格");
+  fb.innerHTML=(ok?"<b>"+KIND[cur[1]]+"</b>　":"<b>其實是 "+KIND[cur[1]]+"</b>　")+cur[2]+"　<span class='fpath'>"+path+"</span>";
+  if(ok){
+    fStreak++;fBest=Math.max(fBest,fStreak);
+    document.getElementById("flowStreak").textContent="連勝 "+fStreak+(fStreak>=3?" 🔥":"");
+  }
+  document.getElementById("flowSteps").querySelectorAll(".fo").forEach(b=>b.disabled=true);
+  document.getElementById("flowNext").disabled=false;
+}
+document.getElementById("flowSteps").onclick=e=>{
+  const b=e.target.closest(".fo");if(!b||b.disabled)return;
+  flowAnswer(+b.dataset.s,+b.dataset.pick);
+};
+document.getElementById("flowNext").onclick=()=>{fIdx++;flowShow();};
+document.getElementById("flowRestart").onclick=flowStart;
+
+/* ═══ 判讀四步實戰 ═══ */
+const FOURSTEP=[
+{ sent:"Mary ______ a comic book when the telephone rang.", ans:"was reading", tense:"xc",
+  ex:"Mary was reading a comic book when the telephone rang.",
+  steps:[
+   {t:"① 時間訊號是哪一個？",o:["a comic book","when the telephone rang","Mary"],a:1,e:"when ＋ 過去簡單式，標出一個過去的瞬間。"},
+   {t:"② 這個動作的狀態是？",o:["正在進行，被打斷","已經完成","單純發生過"],a:0,e:"看漫畫是長動作，被電話鈴聲這個短動作打斷。"},
+   {t:"③ 該用什麼結構？",o:["was / were ＋ V-ing","had ＋ 過去分詞","will ＋ 原形"],a:0,e:"過去某一刻正在進行，用過去進行式。"},
+   {t:"④ 主詞 Mary 該配哪一個？",o:["was","were","is"],a:0,e:"Mary 是單數主詞，過去 be 動詞用 was。"}
+  ]},
+{ sent:"By the time I got to the station, the train ______.", ans:"had already left", tense:"xf",
+  ex:"By the time I got to the station, the train had already left.",
+  steps:[
+   {t:"① 時間訊號是哪一個？",o:["to the station","By the time I got","the train"],a:1,e:"by the time 標出一個過去的時間點。"},
+   {t:"② 火車離開發生在什麼時候？",o:["在我到站之後","在我到站之前","跟我到站同時"],a:1,e:"我到的時候它已經走了，所以更早。"},
+   {t:"③ 該用什麼結構？",o:["was / were ＋ V-ing","had ＋ 過去分詞","have ＋ 過去分詞"],a:1,e:"過去的過去，用過去完成式。"},
+   {t:"④ 過去完成式的助動詞會因主詞改變嗎？",o:["會，單數用 has","不會，一律用 had","會，複數用 have"],a:1,e:"過去完成式不分主詞，一律 had。"}
+  ]},
+{ sent:"I ______ Peter for ten years. We are still good friends.", ans:"have known", tense:"pf",
+  ex:"I have known Peter for ten years.",
+  steps:[
+   {t:"① 時間訊號是哪一個？",o:["for ten years","Peter","still"],a:0,e:"for ＋ 一段時間，指向持續。"},
+   {t:"② 這件事跟現在有關係嗎？",o:["沒有，已經結束","有，一直持續到現在","還沒開始"],a:1,e:"下一句說我們現在還是好朋友。"},
+   {t:"③ 該用什麼結構？",o:["V-ed","have / has ＋ 過去分詞","had ＋ 過去分詞"],a:1,e:"從過去持續到現在，用現在完成式。"},
+   {t:"④ know 可以寫成 knowing 嗎？",o:["可以，加強持續感","不行，它是狀態動詞","可以，配 have 使用"],a:1,e:"know 表認知，沒有進行式；過去分詞是 known。"}
+  ]},
+{ sent:"If it ______ tomorrow, I will stay home.", ans:"rains", tense:"ps",
+  ex:"If it rains tomorrow, I will stay home.",
+  steps:[
+   {t:"① 時間訊號是哪一個？",o:["tomorrow","stay home","If"],a:0,e:"tomorrow 指向未來。"},
+   {t:"② 空格在哪一種子句裡？",o:["主要子句","if 引導的附屬子句","沒有子句"],a:1,e:"緊跟在 if 後面的那一句是附屬子句。"},
+   {t:"③ 附屬子句該用什麼時態？",o:["未來式 will rain","現在簡單式","過去簡單式"],a:1,e:"附屬子句用現在簡單式代替未來式。"},
+   {t:"④ 主詞 it 的動詞怎麼寫？",o:["rain","rains","raining"],a:1,e:"it 是第三人稱單數，動詞加 s。"}
+  ]},
+{ sent:"Look! The boys ______ in the park right now.", ans:"are running", tense:"pc",
+  ex:"Look! The boys are running in the park right now.",
+  steps:[
+   {t:"① 時間訊號是哪一個？",o:["in the park","Look! ... right now","The boys"],a:1,e:"Look! 與 right now 都指向此刻。"},
+   {t:"② 這個動作的狀態是？",o:["此刻正在進行","已經完成","一種習慣"],a:0,e:"眼前正在發生的畫面。"},
+   {t:"③ 該用什麼結構？",o:["am / is / are ＋ V-ing","have ＋ 過去分詞","will ＋ 原形"],a:0,e:"現在進行式。"},
+   {t:"④ 主詞 The boys 配哪個 be 動詞、run 怎麼拼？",o:["is runing","are runing","are running"],a:2,e:"複數用 are；run 是子音＋短母音＋子音，重複字尾再加 ing。"}
+  ]}
+];
+
+/* ═══ 解題三步：三關實戰 ═══ */
+const STAGES=[
+{
+ t:"關卡一　圈關鍵字", d:"讀句子，找出決定時態的那個時間訊號。",
+ items:[
+  {s:"She ______ her homework every evening.",o:["her homework","every evening","She"],a:1,k:"ps",e:"every evening 表習慣 → 現在簡單式（三單要加 s：does）。"},
+  {s:"They ______ to Japan two years ago.",o:["to Japan","two years ago","They"],a:1,k:"pt",e:"… ago 是明確的過去 → 過去簡單式（traveled）。"},
+  {s:"Look! The baby ______ at us.",o:["Look!","the baby","at us"],a:0,k:"pc",e:"Look! 表示眼前正在發生 → 現在進行式（is smiling）。"},
+  {s:"I ______ a shower at 8:00 last night.",o:["a shower","at 8:00 last night","I"],a:1,k:"xc",e:"過去某個明確時間點 → 過去進行式（was taking）。"},
+  {s:"He ______ in this company since 2015.",o:["in this company","since 2015","He"],a:1,k:"pf",e:"since ＋ 過去時間點 → 現在完成式（has been）。"},
+  {s:"By the time we arrived, the movie ______.",o:["By the time we arrived","the movie","we"],a:0,k:"xf",e:"by the time 標出過去的時間點 → 更早的用過去完成式（had started）。"},
+  {s:"She ______ her grandmother next week.",o:["her grandmother","next week","She"],a:1,k:"fu",e:"next week 指向未來 → 未來式（is going to visit）。"}
+ ]},
+{
+ t:"關卡二　判斷動作關係", d:"句子裡有兩個動作，判斷它們在時間軸上的關係。",
+ items:[
+  {s:"I was sleeping when the phone rang.",o:["先後發生","短暫打斷長動作","兩者同時進行"],a:1,k:"xc",e:"睡覺是長動作，電話響是短動作，用 when 連接。"},
+  {s:"While Mom was cooking, Dad was watching TV.",o:["先後發生","短暫打斷長動作","兩者同時進行"],a:2,k:"xc",e:"while 連接兩個同時持續的長動作，兩邊都是過去進行式。"},
+  {s:"The train had already left by the time I got there.",o:["先後發生","短暫打斷長動作","兩者同時進行"],a:0,k:"xf",e:"火車先走、我後到，先發生的用過去完成式。"},
+  {s:"She had forgotten to check the timetable before she left home.",o:["先後發生","短暫打斷長動作","兩者同時進行"],a:0,k:"xf",e:"忘記在離開之前，用 before 連接先後。"},
+  {s:"While he was searching his pockets, his phone rang.",o:["先後發生","短暫打斷長動作","兩者同時進行"],a:1,k:"xc",e:"翻找是長動作，鈴響是短動作，長的被打斷。"},
+  {s:"The kids were playing baseball when the ball hit the window.",o:["先後發生","短暫打斷長動作","兩者同時進行"],a:1,k:"xc",e:"打球正在進行，球砸破窗戶是突發短動作。"}
+ ]},
+{
+ t:"關卡三　避開陷阱", d:"每個句子都錯了。判斷它踩到哪一個陷阱。",
+ items:[
+  {s:"✗ She never miss any homework.",o:["忘記三單加 s","狀態動詞用進行式","子句忘記現在代替未來"],a:0,k:"ps",e:"主詞 She 是三單 → misses。"},
+  {s:"✗ I am having a new bicycle.",o:["忘記三單加 s","狀態動詞用進行式","子句忘記現在代替未來"],a:1,k:"ps",e:"have 表擁有是狀態動詞 → I have a new bicycle."},
+  {s:"✗ If it will rain tomorrow, I will stay home.",o:["忘記三單加 s","狀態動詞用進行式","子句忘記現在代替未來"],a:2,k:"ps",e:"if 子句用現在簡單式 → If it rains tomorrow…"},
+  {s:"✗ Right now he is knowing the answer.",o:["忘記三單加 s","狀態動詞用進行式","子句忘記現在代替未來"],a:1,k:"ps",e:"know 表認知，沒有進行式 → he knows the answer."},
+  {s:"✗ My brother go to school by bus every day.",o:["忘記三單加 s","狀態動詞用進行式","子句忘記現在代替未來"],a:0,k:"ps",e:"My brother 是三單 → goes。"},
+  {s:"✗ When she will arrive, I will call you.",o:["忘記三單加 s","狀態動詞用進行式","子句忘記現在代替未來"],a:2,k:"ps",e:"when 引導的附屬子句用現在式 → When she arrives…"},
+  {s:"✗ I am loving this song very much.",o:["忘記三單加 s","狀態動詞用進行式","子句忘記現在代替未來"],a:1,k:"ps",e:"love 表情感 → I love this song very much."}
+ ]}
+];
+
 /* ═══════════════ 閱讀測驗 ═══════════════ */
-const TEST={
+const TESTS=[
+{
+ n:1, zhT:"意外的驚喜", enT:"An Unexpected Surprise", paras:[3,5,5],
  text:`Sarah usually [[takes|ps|every morning 表習慣；Sarah 是三單，take 加 s。]] the bus to work every morning. She [[enjoys|ps|描述長期的喜好，用現在簡單式。]] reading a book while she [[is riding|pc|while 引導的同時動作，這裡描述搭車途中正在進行。]]. However, yesterday [[was|pt|yesterday 是過去訊號，be 動詞用 was。]] a very different day. While she [[was waiting|xc|被下一個突發事件打斷的長動作，用過去進行式。]] at the bus stop, it suddenly [[started|pt|突然發生的短暫動作，用過去簡單式。]] to rain heavily. Just then, she [[saw|pt|see 的過去式 saw；感官動詞不用進行式。]] a small, wet puppy. It [[was shivering|xc|描述當時正在持續的狀態，用過去進行式。]] under a wooden bench. Sarah [[realized|pt|過去那一刻發生的認知動作。]] that the poor dog [[had lost|xf|迷路發生在她看見小狗「之前」，是過去的過去。]] its way before the rain [[began|pt|before 子句用過去簡單式，標出那個過去時間點。]]. She immediately [[took|pt|take 的過去式 took。]] it home and [[dried|pt|dry 是子音＋y，去 y 加 ied。]] it with a warm towel. Since yesterday, the little dog [[has stayed|pf|since ＋ 過去時間點，表示從那時持續到現在。]] in her apartment. She [[has already named|pf|already 夾在 has 與過去分詞之間，表示已經完成。]] him Lucky. Right now, Lucky [[is sleeping|pc|Right now 是現在進行式的訊號。]] peacefully on the sofa. Tomorrow, Sarah [[is going to take|fu|Tomorrow 搭配 be going to，表示事先預定好的計畫。]] him to the vet for a check-up. She [[believes|ps|believe 是認知動詞，沒有進行式。]] they [[will be|fu|對未來的相信與預測，用 will。]] best friends forever!`,
  zh:"Sarah 通常每天早上搭乘公車上班。她喜歡在乘車時看書。然而，昨天是截然不同的一天。<br><br>正當她在一旁等候公車時，天空突然開始下起大雨。就在那時，她看見了一隻濕透的小狗。牠正躲在一張木椅下發抖。Sarah 意識到這隻可憐的狗在下雨前就已經迷路了。她立刻把牠帶回家，並用溫暖的毛巾把牠擦乾。<br><br>自從昨天起，這隻小狗就一直待在她的公寓裡。她已經給牠取名為「Lucky」。此時此刻，Lucky 正安靜地在沙發上睡覺。明天，Sarah 即將帶牠去獸醫那裡做檢查。她相信他們將會成為永遠的好朋友！",
  quiz:[
@@ -1071,12 +1366,72 @@ const TEST={
   {q:"Tomorrow, Sarah ________ to the vet.",
    o:["went","has gone","is going to take him","takes him"],a:2,
    e:"句首的 Tomorrow 指向未來。went 是過去式、has gone 是現在完成式、takes 是現在簡單式，只有 is going to take 符合未來式，且表示事先預定好的計畫。"}
- ]
-};
+ ]},
+{
+ n:2, zhT:"遺失的錢包", enT:"The Lost Wallet",
+ text:`Yesterday afternoon, David [[was walking|xc|被下一個突發事件打斷的長動作，用過去進行式。]] home from work when he suddenly [[realized|pt|when 引導的短暫動作，用過去簡單式。]] he [[didn't have|pt|過去的否定：didn't ＋ 原形；have 表擁有，沒有進行式。]] his wallet. He [[had bought|xf|買咖啡發生在「離開辦公室」之前，是過去的過去。]] a cup of coffee before he [[left|pt|before 子句用過去簡單式，標出那個過去時間點。]] the office, so he [[knew|pt|know 的過去式 knew；認知動詞沒有進行式。]] he [[had|pt|表示當時擁有的狀態。]] it then. While he [[was searching|xc|while 引導的長動作，正被電話鈴聲打斷。]] his pockets in a panic, his phone [[rang|pt|ring 的過去式 rang，瞬間發生的短暫動作。]]. It [[was|pt|描述過去的狀態。]] his colleague, who [[told|pt|tell 的過去式 told。]] him that he [[had left|xf|忘記錢包發生在同事打電話「之前」，用過去完成式。]] his wallet on his desk. David [[was|pt|描述當時的心情狀態。]] very relieved.`,
+ zh:"昨天下午，當 David 正在走路下班回家時，他突然意識到自己沒帶錢包。他在離開辦公室前買過一杯咖啡，所以他知道那時候錢包還在。正當他慌張地在口袋裡翻找時，他的電話響了。是他的同事打來的，告訴他把錢包忘在辦公桌上了。David 感到非常鬆了一口氣。",
+ quiz:[
+  {q:"What was David doing when he realized his wallet was missing?",
+   o:["He was buying a cup of coffee.","He was walking home.","He was searching his pockets.","He was answering his phone."],a:1,
+   e:"文章第一句 David was walking home... when he suddenly realized... 是標準的「過去進行式被過去簡單式打斷」句型，因此他當時正在走路回家。"},
+  {q:"Which of the following events happened FIRST?",
+   o:["David realized his wallet was missing.","David left the office.","David bought a cup of coffee.","David's phone rang."],a:2,
+   e:"考過去完成式。He had bought a cup of coffee before he left the office，had ＋ 過去分詞表示在另一個過去動作（離開辦公室）之前就已發生，因此買咖啡最早。"}
+ ]},
+{
+ n:3, zhT:"語言愛好者", enT:"The Language Lover",
+ text:`Emily [[loves|ps|love 表達情感，是狀態動詞，用現在簡單式。]] learning new languages. She [[has studied|pf|for three years 表示從過去持續到現在。]] Spanish for three years. She [[started|pt|明確的過去起點，用過去簡單式。]] learning it when she [[traveled|pt|in 2023 是過去的時間點。]] to Mexico in 2023. She [[has already visited|pf|since then 表示從那時到現在的經驗累積。]] several Spanish-speaking countries since then. Right now, she [[is packing|pc|Right now 是現在進行式的訊號。]] her bags because she [[is going to fly|fu|next week 搭配 be going to，表示事先規畫好的行程。]] to Spain next week. She [[hopes|ps|hope 是認知動詞，用現在簡單式。]] she [[will make|fu|對未來的期望與預測，用 will。]] a lot of new friends there.`,
+ zh:"Emily 熱愛學習新語言。她學習西班牙文已經三年了。她是 2023 年去墨西哥旅行時開始學的。從那時起，她已經造訪過幾個說西班牙文的國家。此時此刻，她正在打包行李，因為她下週即將飛往西班牙。她希望她將會在那裡交到很多新朋友。",
+ quiz:[
+  {q:"How long has Emily studied Spanish?",
+   o:["In 2023.","For three years.","Since she was born.","Next week."],a:1,
+   e:"考現在完成式的時間距離。She has studied Spanish for three years，問持續多久時用 for ＋ 一段時間。"},
+  {q:"What is the grammar reason for using \"loves\" in the first sentence?",
+   o:["It describes an action happening right now.","It describes a past event.","It describes a fact or a state that is generally true.","It is an action that will happen in the future."],a:2,
+   e:"考現在簡單式與狀態動詞。love 表達個人的喜好與狀態，屬於不變的常態，且狀態動詞不能用進行式。"}
+ ]},
+{
+ n:4, zhT:"打破的窗戶", enT:"The Broken Window",
+ text:`Last weekend, the kids [[were playing|xc|Last weekend 的背景動作，正被下一個突發事件打斷。]] baseball in the park. Suddenly, the ball [[hit|pt|Suddenly 提示突發的短暫動作；hit 的過去式與原形同形。]] Mr. Wilson's window and [[broke|pt|break 的過去式 broke，與 hit 並列。]] it. The kids [[were|pt|複數主詞的過去 be 動詞用 were。]] very scared and [[ran away|pt|run 的過去式 ran。]]. However, today they [[are cleaning|pc|today 搭配現在進行式，描述此刻正在做的事。]] Mr. Wilson's garden to say sorry. They [[promise|ps|promise 描述當下的宣告，用現在簡單式。]] they [[won't play|fu|won't 是 will not 的縮寫，未來簡單式的否定。]] baseball near houses again. Mr. Wilson [[has already forgiven|pf|already 夾在 has 與過去分詞之間，表示已經完成且影響到現在。]] them.`,
+ zh:"上週末，孩子們正在公園裡打棒球。突然間，球擊中了 Wilson 先生的窗戶並把它打破了。孩子們非常害怕，全都跑掉了。然而，今天他們正在打掃 Wilson 先生的花園以表達歉意。他們保證未來不會再在房子附近打棒球了。Wilson 先生已經原諒他們了。",
+ quiz:[
+  {q:"Why did the kids run away last weekend?",
+   o:["Because Mr. Wilson chased them.","Because they were cleaning the garden.","Because they broke a window and were scared.","Because they finished playing baseball."],a:2,
+   e:"文章指出球砸破了窗戶（hit Mr. Wilson's window and broke it），接著說孩子們很害怕並逃跑了（The kids were very scared and ran away）。"},
+  {q:"What does \"won't\" stand for in the story?",
+   o:["would not","will not","were not","have not"],a:1,
+   e:"考未來簡單式的否定縮寫。孩子們保證未來將不會再在房子附近打球，won't 就是 will not。"}
+ ]},
+{
+ n:5, zhT:"主廚的堅持", enT:"The Chef's Secret",
+ text:`Chef Mario [[owns|ps|own 表示擁有，是狀態動詞，沒有進行式。]] a very popular Italian restaurant in town. He [[has been|pf|since ＋ 過去時間點，表示從那時持續到現在。]] a chef since he [[was|pt|since 後面接過去式子句，標出起點。]] twenty years old. Right now, he [[is tasting|pc|taste 在這裡是「品嚐」的動作，可以用進行式。]] a new tomato soup in the kitchen. He [[thinks|ps|think 解釋為「認為」時是狀態動詞。]] it [[smells|ps|smell 表示「聞起來」是感官狀態，沒有進行式。]] great, but it [[needs|ps|need 表示需要，是狀態動詞。]] a little more salt. If he [[adds|ps|if 引導的條件子句用現在簡單式代替未來式；主詞三單，add 加 s。]] more spices, it [[will taste|fu|主要子句才用未來式。]] perfect.`,
+ zh:"Mario 主廚在鎮上擁有一家非常受歡迎的義大利餐廳。他從二十歲起就一直擔任廚師。此時此刻，他正在廚房裡品嚐一款新的番茄湯。他認為它聞起來很棒，但還需要一點鹽。如果他加入更多香料，嚐起來就會很完美。",
+ quiz:[
+  {q:"Why is the verb \"own\" written as \"owns\" and not \"is owning\"?",
+   o:["Because Mario is doing it right now.","Because \"own\" is a state verb indicating possession and does not take the continuous form.","Because it happened in the past.","Because Mario will own it tomorrow."],a:1,
+   e:"考狀態動詞沒有進行式。own（擁有）、think（認為）、smell（聞起來）、need（需要）都屬於表達狀態、認知或感官的動詞，只能用簡單式。"},
+  {q:"If Mario ________ more salt, the soup will be better.",
+   o:["added","will add","adds","has added"],a:2,
+   e:"考 if 引導的條件子句：連接未來事件時必須用現在簡單式代替未來式。主詞 Mario 是三單，動詞要加 s，因此是 adds。"}
+ ]},
+{
+ n:6, zhT:"演奏會前夕", enT:"Before the Concert",
+ text:`Jenny [[is going to attend|fu|tomorrow evening 搭配 be going to，表示事先規畫好的活動。]] a big piano concert tomorrow evening. She [[has practiced|pf|for two months 表示從過去持續到現在。]] the same song for two months. Before she [[got|pt|Before 子句用過去簡單式，標出那個過去時間點。]] this opportunity, she [[had never performed|xf|在得到機會「之前」從未有過的經驗，用過去完成式。]] in front of so many people. Right now, her hands [[are shaking|pc|Right now 是現在進行式的訊號；主詞 hands 是複數，用 are。]] a little bit. She [[hopes|ps|hope 是認知動詞，用現在簡單式。]] she [[won't make|fu|won't 是 will not 的縮寫。]] any mistakes. Her parents [[will be|fu|對未來的安排與承諾，用 will。]] in the front row to cheer for her.`,
+ zh:"Jenny 明天晚上即將參加一場盛大的鋼琴演奏會。同一首曲子她已經練習了兩個月。在得到這個機會之前，她從未在這麼多人面前表演過。現在，她的雙手正在微微發抖。她希望自己不會犯任何錯誤。她的父母將會坐在第一排為她加油。",
+ quiz:[
+  {q:"What had Jenny NEVER done before this opportunity?",
+   o:["She had never practiced a song for two months.","She had never attended a concert.","She had never performed in front of a big audience.","She had never seen her parents."],a:2,
+   e:"文章提到 she had never performed in front of so many people。過去完成式表示在得到這個機會（過去某個時間點）之前，從未有過的經驗。"},
+  {q:"Which sentence from the story shows a \"Future Plan\" that is already scheduled?",
+   o:["Her hands are shaking a little bit.","She has practiced the same song for two months.","Jenny is going to attend a big piano concert tomorrow evening.","She had never performed in front of so many people."],a:2,
+   e:"be going to ＋ 原形動詞表示具有確定性、事先已規畫好的未來活動。(A) 是現在進行式、(B) 是現在完成式、(D) 是過去完成式。"}
+ ]}
+];
 
 /* ═══════════════ 狀態 ═══════════════ */
 const KEY="tense_review_v1";
-let S={done:{},best:{},final:null,test:null};
+let S={done:{},best:{},final:null,tests:{}};
 function load(){try{const r=localStorage.getItem(KEY);if(r)S=Object.assign(S,JSON.parse(r));}catch(e){}}
 function save(){try{localStorage.setItem(KEY,JSON.stringify(S));}catch(e){}}
 load();
@@ -1114,12 +1469,36 @@ function stopSpeak(){
   if("speechSynthesis" in window)window.speechSynthesis.cancel();
   if(watchdog){clearInterval(watchdog);watchdog=null;}
 }
+function speakZh(text){
+  if(!("speechSynthesis" in window)){toast("此瀏覽器不支援語音朗讀");return;}
+  const synth=window.speechSynthesis;
+  synth.cancel();if(watchdog){clearInterval(watchdog);watchdog=null;}
+  const u=new SpeechSynthesisUtterance(text);
+  u.lang="zh-TW";u.rate=0.95;
+  u.onend=()=>{if(watchdog){clearInterval(watchdog);watchdog=null;}};
+  synth.speak(u);
+  watchdog=setInterval(()=>{
+    if(!synth.speaking){clearInterval(watchdog);watchdog=null;return;}
+    synth.pause();synth.resume();
+  },9000);
+}
+/* 全域朗讀按鈕：data-sayen 讀英文、data-sayzh 讀中文導覽 */
+document.addEventListener("click",e=>{
+  const en=e.target.closest("[data-sayen]");
+  if(en){speak(en.getAttribute("data-sayen"),0.85);return;}
+  const zh=e.target.closest("[data-sayzh]");
+  if(zh){speakZh(zh.getAttribute("data-sayzh"));return;}
+  const st=e.target.closest("[data-stopsay]");
+  if(st){stopSpeak();return;}
+});
 window.addEventListener("beforeunload",stopSpeak);
 
 /* ═══════════════ 一眼立判 ═══════════════ */
 function renderWork(){
   document.getElementById("workBody").innerHTML=WORKROW.map(r=>
-    "<tr><td>"+r[0]+"</td><td>"+r[1]+"</td><td>"+r[2]+"</td></tr>").join("");
+    "<tr><td>"+r[0]+"</td><td>"+r[1]+"</td><td>"+
+    '<button class="spk inline" data-sayen="'+r[2]+'" aria-label="朗讀例句">▶</button>'+r[2]+
+    "</td></tr>").join("");
 }
 let qkList=[],qkIdx=0,qkRight=0;
 function qkStart(){qkList=shuffle(QUICK);qkIdx=0;qkRight=0;qkShow();}
@@ -1136,7 +1515,8 @@ function qkShow(){
     document.getElementById("qkBar").style.width="100%";
     return;
   }
-  document.getElementById("qkPhrase").textContent=qkList[qkIdx][0];
+  document.getElementById("qkPhrase").innerHTML=qkList[qkIdx][0]+
+    ' <button class="spk inline" data-sayen="'+qkList[qkIdx][0]+'" aria-label="朗讀">▶</button>';
   document.getElementById("qkMeta").textContent=(qkIdx+1)+" / "+qkList.length+"　答對 "+qkRight;
 }
 document.querySelectorAll(".btn.qk").forEach(b=>b.onclick=()=>{
@@ -1168,8 +1548,32 @@ function renderKeywords(){
 }
 
 /* ═══════════════ 閱讀測驗 ═══════════════ */
-function renderTest(){
-  const d=parsePassage(TEST);
+let tIdx=0;
+function renderTest(i){
+  tIdx=i;
+  const T=TESTS[i],d=parsePassage(T);
+  document.getElementById("testHead").innerHTML=
+    '<p class="eyebrow">Reading '+String(T.n).padStart(2,"0")+'　'+T.enT+'</p>'+
+    '<h2 style="margin-top:2px">'+T.zhT+'</h2>';
+  // ── 全文（仿真實閱讀測驗）──
+  const paras=T.paras||[d.sentences.length];
+  let cur=0,pHtml="";
+  paras.forEach(cnt=>{
+    const seg=d.sentences.slice(cur,cur+cnt);cur+=cnt;
+    if(!seg.length)return;
+    pHtml+='<p class="exam-p" data-plain="'+seg.map(x=>x.plain).join(" ").replace(/"/g,"&quot;")+'">'+
+      '<span class="exam-clean">'+seg.map(x=>x.plain).join(" ")+'</span>'+
+      '<span class="exam-mark">'+seg.map(x=>x.inner).join(" ")+'</span></p>';
+  });
+  const fullEl=document.getElementById("testFull");
+  fullEl.innerHTML=pHtml+
+    '<div class="toolbar">'+
+      '<button class="btn solid" data-sayen="'+d.plain.replace(/"/g,"&quot;")+'">▶ 朗讀全文</button>'+
+      '<button class="btn" data-stopsay="1">停止</button>'+
+      '<button class="btn" id="examMarkBtn">顯示時態標記</button>'+
+    '</div>';
+  fullEl.classList.remove("marked");
+
   document.getElementById("testRails").innerHTML=ORDER.map(k=>{
     const list=d.verbs.filter(v=>v.type===k);
     if(!list.length)return "";
@@ -1178,7 +1582,7 @@ function renderTest(){
   }).join("");
   document.getElementById("testBody").innerHTML=
     d.sentences.map((s,k)=>'<div class="sent"><button class="spk" data-tsay="'+k+'" aria-label="朗讀這一句">▶</button><div class="sent-en">'+s.inner+'</div></div>').join("")+
-    '<div class="zh" id="testZh"><b>中譯</b><br>'+TEST.zh+'</div>'+
+    '<div class="zh" id="testZh"><b>中譯</b><br>'+T.zh+'</div>'+
     '<div class="note" id="testNote">點短文裡有底線的動詞，看它屬於哪一個時態、為什麼。</div>'+
     '<div class="toolbar">'+
       '<button class="btn solid" id="testPlay">朗讀全文</button>'+
@@ -1189,12 +1593,20 @@ function renderTest(){
   host._sentences=d.sentences.map(s=>s.plain);
   host._verbs=d.verbs;
   host.dataset.plain=d.plain;
-  document.getElementById("testQuiz").innerHTML=TEST.quiz.map((q,qi)=>
+  document.getElementById("testQn").textContent="測驗　"+T.quiz.length+" 題";
+  document.getElementById("testQuiz").innerHTML=T.quiz.map((q,qi)=>
     '<div class="q" data-q="'+qi+'">'+
       '<p class="q-stem"><span class="num">'+(qi+1)+'</span>'+q.q+'</p>'+
       '<div class="opts">'+q.o.map((o,oi)=>'<button class="opt" data-oi="'+oi+'">('+"ABCD"[oi]+') '+o+'</button>').join("")+'</div>'+
       '<p class="fb"></p>'+
     '</div>').join("");
+  document.querySelectorAll("#testBar .ubtn").forEach((b,k)=>{
+    b.setAttribute("aria-current",k===i?"true":"false");
+    b.classList.toggle("done",S.tests&&S.tests[k]!=null);
+  });
+  document.getElementById("testPrev").disabled=(i===0);
+  document.getElementById("testNext").disabled=(i===TESTS.length-1);
+  stopSpeak();
 }
 function testNote(v){
   const box=document.getElementById("testNote");if(!box)return;
@@ -1202,6 +1614,26 @@ function testNote(v){
   document.querySelectorAll("#testBody v").forEach(el=>el.classList.toggle("lit",el.dataset.v===v.id));
   document.querySelectorAll("#testRails .chip").forEach(el=>el.classList.toggle("lit",el.dataset.tjump===v.id));
 }
+document.getElementById("testBar").innerHTML=
+  TESTS.map((t,i)=>'<button class="ubtn" data-t="'+i+'">'+t.n+'</button>').join("");
+document.getElementById("testBar").onclick=e=>{
+  const b=e.target.closest(".ubtn");if(b)renderTest(+b.dataset.t);
+};
+document.getElementById("testPrev").onclick=()=>{if(tIdx>0)renderTest(tIdx-1);};
+document.getElementById("testNext").onclick=()=>{if(tIdx<TESTS.length-1)renderTest(tIdx+1);};
+document.getElementById("testFull").addEventListener("click",e=>{
+  if(e.target.id==="examMarkBtn"){
+    const el=document.getElementById("testFull");
+    el.classList.toggle("marked");
+    e.target.textContent=el.classList.contains("marked")?"隱藏時態標記":"顯示時態標記";
+    return;
+  }
+  const vEl=e.target.closest("v");
+  if(vEl){
+    const v=document.getElementById("testBody")._verbs.find(x=>x.id===vEl.dataset.v);
+    if(v){testNote(v);document.getElementById("testNote").scrollIntoView({behavior:"smooth",block:"center"});}
+  }
+});
 document.getElementById("testRails").onclick=e=>{
   const b=e.target.closest("[data-tjump]");if(!b)return;
   const v=document.getElementById("testBody")._verbs.find(x=>x.id===b.dataset.tjump);
@@ -1222,7 +1654,7 @@ document.getElementById("testBody").addEventListener("click",e=>{
 });
 document.getElementById("testQuiz").onclick=e=>{
   const b=e.target.closest(".opt");if(!b)return;
-  const qEl=b.closest(".q"),q=TEST.quiz[+qEl.dataset.q];
+  const qEl=b.closest(".q"),T=TESTS[tIdx],q=T.quiz[+qEl.dataset.q];
   if(qEl.dataset.locked)return;
   qEl.dataset.locked="1";
   qEl.querySelectorAll(".opt").forEach((o,oi)=>{
@@ -1234,12 +1666,140 @@ document.getElementById("testQuiz").onclick=e=>{
   fb.innerHTML=(+b.dataset.oi===q.a?"<b>答對了。</b> ":"<b>正解：("+"ABCD"[q.a]+")</b>　")+q.e;
   fb.classList.add("on");
   const box=document.getElementById("testQuiz");
-  if(box.querySelectorAll(".q[data-locked]").length===TEST.quiz.length){
+  if(box.querySelectorAll(".q[data-locked]").length===T.quiz.length){
     const score=[...box.querySelectorAll(".q")].filter(el=>!el.querySelector(".opt.no")).length;
-    S.test=Math.max(S.test||0,score);save();updateProgress();
-    toast("閱讀測驗　"+score+" / 4");
+    if(!S.tests)S.tests={};
+    S.tests[tIdx]=Math.max(S.tests[tIdx]||0,score);
+    save();updateProgress();
+    document.querySelectorAll("#testBar .ubtn")[tIdx].classList.add("done");
+    toast("第 "+T.n+" 篇　"+score+" / "+T.quiz.length);
   }
 };
+
+/* ═══ 判讀四步實戰 ═══ */
+let fsList=[],fsI=0,fsStep=0,fsHit=0,fsMiss=false;
+function fsStart(){fsList=shuffle(FOURSTEP);fsI=0;fsHit=0;fsShow();}
+function fsShow(){
+  fsStep=0;fsMiss=false;
+  const fb=document.getElementById("fsFb");fb.className="qk-fb";fb.innerHTML="";
+  document.getElementById("fsNext").disabled=true;
+  if(fsI>=fsList.length){
+    document.getElementById("fsSent").textContent="全部完成";
+    document.getElementById("fsSteps").innerHTML='<p class="flow-done">走完 '+fsList.length+' 句，一次過關 '+fsHit+' 句。</p>';
+    document.getElementById("fsScore").textContent="完成";
+    document.getElementById("fsHit").textContent="";
+    return;
+  }
+  const cur=fsList[fsI];
+  document.getElementById("fsSent").textContent=cur.sent;
+  document.getElementById("fsScore").textContent="第 "+(fsI+1)+" / "+fsList.length+" 句";
+  document.getElementById("fsHit").textContent="一次過關 "+fsHit;
+  fsRender();
+}
+function fsRender(){
+  const q=fsList[fsI].steps[0];
+  document.getElementById("fsSteps").innerHTML=
+    '<div class="fstep" data-s="0">'+
+      '<p class="fstep-q">'+q.t+'</p>'+
+      '<div class="fstep-o">'+q.o.map((o,oi)=>'<button class="btn fo" data-pick="'+oi+'" data-s="0">'+o+'</button>').join("")+'</div>'+
+      '<p class="fstep-e"></p>'+
+    '</div>';
+}
+document.getElementById("fsSteps").onclick=e=>{
+  const b=e.target.closest(".fo");if(!b||b.disabled)return;
+  const cur=fsList[fsI],si=+b.dataset.s,q=cur.steps[si];
+  const row=document.querySelector('#fsSteps .fstep[data-s="'+si+'"]');
+  row.querySelectorAll(".fo").forEach((o,oi)=>{
+    o.disabled=true;
+    if(oi===q.a)o.classList.add("ok");
+    else if(o===b)o.classList.add("no");
+  });
+  if(+b.dataset.pick!==q.a)fsMiss=true;
+  const ep=row.querySelector(".fstep-e");
+  ep.textContent=(+b.dataset.pick===q.a?"✓ ":"正解："+q.o[q.a]+"　")+q.e;
+  ep.classList.add("on");
+  if(si<cur.steps.length-1){
+    fsStep=si+1;row.classList.add("past");
+    const q2=cur.steps[fsStep];
+    document.getElementById("fsSteps").insertAdjacentHTML("beforeend",
+      '<div class="fstep" data-s="'+fsStep+'">'+
+        '<p class="fstep-q">'+q2.t+'</p>'+
+        '<div class="fstep-o">'+q2.o.map((o,oi)=>'<button class="btn fo" data-pick="'+oi+'" data-s="'+fsStep+'">'+o+'</button>').join("")+'</div>'+
+        '<p class="fstep-e"></p>'+
+      '</div>');
+    return;
+  }
+  if(!fsMiss)fsHit++;
+  const fb=document.getElementById("fsFb");
+  fb.className="qk-fb on "+cur.tense;
+  fb.innerHTML='<b>'+TENSE[cur.tense].n+'</b>　答案是 <u>'+cur.ans+'</u>'+
+    ' <button class="spk inline" data-sayen="'+cur.ex+'" aria-label="朗讀">▶</button><br>'+cur.ex;
+  document.getElementById("fsHit").textContent="一次過關 "+fsHit;
+  document.getElementById("fsNext").disabled=false;
+};
+document.getElementById("fsNext").onclick=()=>{fsI++;fsShow();};
+document.getElementById("fsRestart").onclick=fsStart;
+
+/* ═══ 解題三步：三關實戰 ═══ */
+let stG=0,stList=[],stI=0,stMiss=0,stPass=[false,false,false];
+function stTabs(){
+  document.getElementById("stTabs").innerHTML=STAGES.map((g,i)=>
+    '<button class="stab'+(i===stG?" on":"")+(stPass[i]?" done":"")+'" data-g="'+i+'"'+
+    (i>0&&!stPass[i-1]?' disabled':'')+'>'+g.t+'</button>').join("");
+}
+function stStart(g){
+  stG=g;stList=shuffle(STAGES[g].items);stI=0;stMiss=0;
+  stTabs();stShow();
+}
+function stShow(){
+  const fb=document.getElementById("stFb");fb.className="qk-fb";fb.innerHTML="";
+  document.getElementById("stNext").disabled=true;
+  const G=STAGES[stG];
+  if(stI>=stList.length){
+    const clear=(stMiss===0);
+    if(clear)stPass[stG]=true;
+    document.getElementById("stPrompt").textContent=G.t+"　結束";
+    document.getElementById("stSent").textContent=clear?"全對，通關。":"錯 "+stMiss+" 題，再來一次就能通關。";
+    document.getElementById("stOpts").innerHTML=
+      (clear&&stG<STAGES.length-1?'<button class="btn solid" id="stGo">前往 '+STAGES[stG+1].t+' →</button>':'')+
+      '<button class="btn" id="stAgain">再練一次</button>';
+    document.getElementById("stScore").textContent="完成";
+    document.getElementById("stLife").textContent=clear?"✓ 通關":"未通關";
+    stTabs();
+    return;
+  }
+  const it=stList[stI];
+  document.getElementById("stPrompt").textContent=G.d;
+  document.getElementById("stSent").textContent=it.s;
+  document.getElementById("stOpts").innerHTML=it.o.map((o,oi)=>
+    '<button class="btn fo" data-pick="'+oi+'">'+o+'</button>').join("");
+  document.getElementById("stScore").textContent=G.t+"　"+(stI+1)+" / "+stList.length;
+  document.getElementById("stLife").textContent="失誤 "+stMiss;
+}
+document.getElementById("stOpts").onclick=e=>{
+  if(e.target.id==="stAgain"){stStart(stG);return;}
+  if(e.target.id==="stGo"){stStart(stG+1);return;}
+  const b=e.target.closest(".fo");if(!b||b.disabled)return;
+  const it=stList[stI];
+  document.querySelectorAll("#stOpts .fo").forEach((o,oi)=>{
+    o.disabled=true;
+    if(oi===it.a)o.classList.add("ok");
+    else if(o===b)o.classList.add("no");
+  });
+  const ok=(+b.dataset.pick===it.a);
+  if(!ok)stMiss++;
+  const fb=document.getElementById("stFb");
+  fb.className="qk-fb on "+(it.k==="ps"?"simple":it.k);
+  fb.innerHTML=(ok?"<b>對。</b> ":"<b>正解："+it.o[it.a]+"</b>　")+it.e;
+  document.getElementById("stLife").textContent="失誤 "+stMiss;
+  document.getElementById("stNext").disabled=false;
+};
+document.getElementById("stTabs").onclick=e=>{
+  const b=e.target.closest(".stab");if(!b||b.disabled)return;
+  stStart(+b.dataset.g);
+};
+document.getElementById("stNext").onclick=()=>{stI++;stShow();};
+document.getElementById("stRestart").onclick=()=>stStart(stG);
 
 /* ═══════════════ 七態速查表 ═══════════════ */
 function renderMatrix(){
@@ -1248,7 +1808,8 @@ function renderMatrix(){
     return '<div class="tcard mx '+k+'">'+
       '<span class="mxzone">'+t.zone+'</span>'+
       '<span class="tname">'+t.n+'<span class="tsub">'+t.f+'</span></span>'+
-      '<span class="mxuse">'+t.use+'<span class="mxsig">'+t.sig+'</span></span>'+
+      '<span class="mxuse">'+t.use+'<span class="mxsig">'+t.sig+'</span>'+
+        '<span class="mxex"><button class="spk inline" data-sayen="'+t.ex+'" aria-label="朗讀例句">▶</button>'+t.ex+'</span></span>'+
     '</div>';
   }).join("");
 }
@@ -1256,7 +1817,9 @@ function renderMatrix(){
 /* ═══════════════ 故事解析 ═══════════════ */
 function parsePassage(p){
   const store=[];
-  const masked=p.text.replace(/\[\[(.+?)\]\]/g,(m,b)=>{store.push(b.split("|"));return "\u0001"+(store.length-1)+"\u0001";});
+  let masked=p.text.replace(/\[\[(.+?)\]\]/g,(m,b)=>{store.push(b.split("|"));return "\u0001"+(store.length-1)+"\u0001";});
+  masked=masked.replace(/\b(Mr|Mrs|Ms|Dr|St|Prof|vs)\./g,(m,w)=>w+"\u0002");
+  const undo=t=>t.replace(/\u0002/g,".");
   const raws=(masked.match(/[^.!?]+[.!?]*/g)||[masked]).map(s=>s.trim()).filter(Boolean);
   const verbs=[];
   const sentences=raws.map(s=>{
@@ -1266,7 +1829,7 @@ function parsePassage(p){
       return '<v class="'+type+'" data-v="'+id+'">'+w+'</v>';
     });
     const plain=s.replace(/\u0001(\d+)\u0001/g,(m,k)=>store[k][0]);
-    return {inner,plain};
+    return {inner:undo(inner),plain:undo(plain)};
   });
   return {sentences,verbs,plain:sentences.map(s=>s.plain).join(" ")};
 }
@@ -1388,11 +1951,11 @@ document.getElementById("tocList").onclick=e=>{
 function updateProgress(){
   const n=Object.keys(S.done).length;
   document.getElementById("tocBar").style.width=(n/PASSAGES.length*100)+"%";
-  document.getElementById("tocMeta").textContent=n===0?"尚未開始":"故事已完成 "+n+" / "+PASSAGES.length+" 段"+(S.test!=null?"　·　閱讀測驗 "+S.test+" / 4":"")+(S.final!=null?"　·　綜合測驗最佳成績 "+S.final+" / 15":"");
+  document.getElementById("tocMeta").textContent=n===0?"尚未開始":"故事已完成 "+n+" / "+PASSAGES.length+" 段"+(function(){const k=Object.keys(S.tests||{}).length;return k?"　·　閱讀測驗 "+k+" / "+TESTS.length+" 篇":"";})()+(S.final!=null?"　·　綜合測驗最佳成績 "+S.final+" / 15":"");
   renderToc();
 }
 document.getElementById("resetAll").onclick=()=>{
-  S={done:{},best:{},final:null,test:null};save();
+  S={done:{},best:{},final:null,tests:{}};save();
   updateProgress();
   document.querySelectorAll("#unitbar .ubtn").forEach(b=>b.classList.remove("done"));
   renderPassage(current);
@@ -1481,10 +2044,13 @@ document.getElementById("finalGrade").onclick=()=>{
 };
 
 /* ═══════════════ 啟動 ═══════════════ */
+flowStart();
 renderKeywords();
-renderTest();
+renderTest(0);
 renderWork();
 qkStart();
+fsStart();
+stStart(0);
 renderMatrix();
 renderPassage(0);
 updateProgress();
