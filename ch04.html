@@ -3013,6 +3013,32 @@ section.line.ap .stop.on .stop-dot{border-color:#8D958E}
   .pa-tag{flex:1 1 100%;order:-1}
 }
 
+/* ═══ 廣播浮出式（頁面捲動時仍看得見）═══ */
+.pa.pa-fixed{
+  position:fixed;left:10px;right:10px;top:10px;z-index:75;
+  max-width:720px;margin:0 auto;
+  box-shadow:0 12px 34px rgba(20,25,32,.42);
+  animation:paDrop .4s cubic-bezier(.2,.9,.3,1.25);
+}
+@keyframes paDrop{from{opacity:0;transform:translateY(-16px)}to{opacity:1;transform:none}}
+.pa.pa-fixed::after{
+  content:"廣播中　15 秒後收起";position:absolute;right:12px;bottom:6px;
+  font-family:var(--mono);font-size:9px;letter-spacing:.1em;color:rgba(200,215,230,.5);
+}
+@media(max-width:560px){
+  .pa.pa-fixed{left:8px;right:8px;top:8px}
+}
+
+/* 頁尾版本號 */
+.build-ver{
+  display:block;margin-top:6px;font-family:var(--mono);font-size:9.5px;
+  letter-spacing:.14em;color:var(--ink-soft);opacity:.55;text-indent:0;
+}
+
+/* 雷達圖不再被裁切 */
+#radarCv{max-width:340px}
+.card.weekly{overflow:hidden}
+
 </style>
 </head>
 <body>
@@ -3285,7 +3311,7 @@ section.line.ap .stop.on .stop-dot{border-color:#8D958E}
   </button>
 </div>
 
-<p class="footline">溯源，塑局</p>
+<p class="footline">溯源，塑局<span class="build-ver">v2026.08.15</span></p>
 </main>
 
 <div class="toast" id="toast"></div>
@@ -3470,7 +3496,7 @@ const ADVERBS=[
 
 /* ═══════════════ 站長廣播 ═══════════════ */
 const PA={
-  cur:null, actx:null, queue:[], playing:false, wd:null,
+  cur:null, actx:null, queue:[], playing:false, wd:null, ft:null,
   el(){return document.getElementById("pa");},
   chime(kind){
     try{
@@ -3498,6 +3524,11 @@ const PA={
     document.getElementById("paTag").textContent=tag||"站長廣播";
     el.hidden=false;el.classList.remove("in");void el.offsetWidth;el.classList.add("in");
     el.dataset.kind=kind||"info";
+    if(window.__paBooted){
+      el.classList.add("pa-fixed");
+      clearTimeout(this.ft);
+      this.ft=setTimeout(()=>el.classList.remove("pa-fixed"),15000);
+    }else{ window.__paBooted=1; }
     this.chime(kind==="ok"?"ok":kind==="bad"?"bad":kind==="soft"?"soft":"in");
     if(this.autoOn())setTimeout(()=>this.play("both"),620);
   },
@@ -3574,7 +3605,7 @@ const PA={
     if(en)en.onclick=()=>this.play("en");
     if(zh)zh.onclick=()=>this.play("zh");
     if(au)au.onclick=()=>{ const v=!this.autoOn(); this.setAuto(v); if(v)this.play("both"); };
-    if(x)x.onclick=()=>{this.stop();this.el().hidden=true;};
+    if(x)x.onclick=()=>{this.stop();const e=this.el();e.classList.remove("pa-fixed");e.hidden=true;};
     this.setAuto(this.autoOn());
     try{
       if(window.speechSynthesis&&window.speechSynthesis.onvoiceschanged===null)

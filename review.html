@@ -3013,6 +3013,32 @@ section.line.ap .stop.on .stop-dot{border-color:#8D958E}
   .pa-tag{flex:1 1 100%;order:-1}
 }
 
+/* ═══ 廣播浮出式（頁面捲動時仍看得見）═══ */
+.pa.pa-fixed{
+  position:fixed;left:10px;right:10px;top:10px;z-index:75;
+  max-width:720px;margin:0 auto;
+  box-shadow:0 12px 34px rgba(20,25,32,.42);
+  animation:paDrop .4s cubic-bezier(.2,.9,.3,1.25);
+}
+@keyframes paDrop{from{opacity:0;transform:translateY(-16px)}to{opacity:1;transform:none}}
+.pa.pa-fixed::after{
+  content:"廣播中　15 秒後收起";position:absolute;right:12px;bottom:6px;
+  font-family:var(--mono);font-size:9px;letter-spacing:.1em;color:rgba(200,215,230,.5);
+}
+@media(max-width:560px){
+  .pa.pa-fixed{left:8px;right:8px;top:8px}
+}
+
+/* 頁尾版本號 */
+.build-ver{
+  display:block;margin-top:6px;font-family:var(--mono);font-size:9.5px;
+  letter-spacing:.14em;color:var(--ink-soft);opacity:.55;text-indent:0;
+}
+
+/* 雷達圖不再被裁切 */
+#radarCv{max-width:340px}
+.card.weekly{overflow:hidden}
+
 </style>
 </head>
 <body>
@@ -3374,7 +3400,7 @@ section.line.ap .stop.on .stop-dot{border-color:#8D958E}
   </div>
 </section>
 
-<p class="footline">溯源，塑局</p>
+<p class="footline">溯源，塑局<span class="build-ver">v2026.08.15</span></p>
 </main>
 
 <div class="toast" id="toast"></div>
