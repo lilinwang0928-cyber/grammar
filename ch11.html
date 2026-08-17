@@ -3039,6 +3039,344 @@ section.line.ap .stop.on .stop-dot{border-color:#8D958E}
 #radarCv{max-width:340px}
 .card.weekly{overflow:hidden}
 
+/* ═══ 作用中分頁鈕：改為薄荷綠，不再是黑底 ═══ */
+.pill[aria-current="true"]{
+  background:var(--now-bg);color:var(--now);border-color:var(--now);
+  font-weight:600;box-shadow:inset 0 0 0 1px var(--now);
+}
+.pill[aria-current="true"]::before{
+  content:"●";font-size:8px;margin-right:6px;vertical-align:1px;opacity:.85;
+}
+.tab[aria-selected="true"],
+.mini.v[aria-selected="true"],
+.mini.o[aria-selected="true"],
+.mini.vf[aria-selected="true"]{
+  background:var(--now-bg);color:var(--now);border-color:var(--now);font-weight:600;
+}
+
+/* ═══ 月台指示牌：下一站 / 終點站 ═══ */
+#nextBoard{margin-top:16px}
+.board{
+  position:relative;border-radius:16px;padding:18px 18px 16px;
+  background:linear-gradient(180deg,#1B2029,#141920);
+  border:1.5px solid #2E3642;box-shadow:0 8px 24px rgba(20,25,32,.28);
+  overflow:hidden;
+}
+.board::before{
+  content:"";position:absolute;inset:0;pointer-events:none;
+  background:radial-gradient(circle,rgba(255,255,255,.05) 1px,transparent 1px) 0 0/4px 4px;
+}
+.bd-tag{
+  margin:0 0 8px;font-family:var(--mono);font-size:10px;letter-spacing:.2em;color:#9FB4CC;
+  position:relative;
+}
+.bd-name{
+  margin:0 0 8px;font-family:var(--serif);font-size:24px;line-height:1.35;
+  color:#FFD98A;text-shadow:0 0 14px rgba(255,200,110,.45);position:relative;
+}
+.bd-note{
+  margin:0 0 14px;font-size:13px;line-height:1.85;color:#8FD2FF;opacity:.9;position:relative;
+}
+.bd-acts{display:flex;gap:8px;flex-wrap:wrap;position:relative}
+.bd-acts .btn{
+  border-color:rgba(255,255,255,.22);background:rgba(255,255,255,.06);color:#DDE9F5;
+}
+.bd-acts .btn:hover{background:rgba(255,255,255,.14);border-color:rgba(255,255,255,.4)}
+.bd-acts .btn.solid{
+  background:linear-gradient(180deg,#FFE3A6,#F0CC7E);color:#4A3A16;
+  border-color:#E4CE9A;font-weight:600;
+}
+.bd-acts .btn.solid:hover{background:linear-gradient(180deg,#FFEDC4,#F6D896)}
+/* 終點站：紫色星空 */
+.board.final{background:linear-gradient(160deg,#2B2748,#413963 60%,#2B2748);border-color:#5B4F86}
+.board.final .bd-name{color:#F4EEFF;text-shadow:0 0 16px rgba(200,180,250,.5);font-size:22px}
+.board.final .bd-note{color:#C6B8E6}
+.board.final .bd-tag{color:#C4AEDD}
+@media(max-width:560px){
+  .bd-name{font-size:20px}
+  .bd-acts .btn{flex:1 1 100%;text-align:center}
+}
+
+/* ═══════════════ 認識站長 ═══════════════ */
+/* 大尺寸站長 */
+.bibi-hero{
+  display:grid;gap:16px;grid-template-columns:1fr;align-items:center;
+  background:linear-gradient(160deg,#E9F4EF,#DCEDF6 60%,#F3ECF8);
+  border:1.5px solid var(--line);border-radius:18px;padding:20px 18px;
+  box-shadow:var(--shadow);margin-bottom:20px;
+}
+@media(min-width:640px){.bibi-hero{grid-template-columns:190px 1fr}}
+.hero-fig{display:flex;justify-content:center}
+.big-bibi{position:relative;display:block;width:132px;height:174px;animation:bibiFloat 3.6s ease-in-out infinite}
+.big-bibi::before{
+  content:"";position:absolute;left:10px;top:34px;width:112px;height:124px;border-radius:26px;
+  background:linear-gradient(180deg,#FDFCF9,#EDE8DE);border:2px solid #DED6C9;
+  box-shadow:0 10px 26px rgba(58,64,62,.2), inset 0 0 0 4px rgba(255,255,255,.65);
+}
+.bb-cap{
+  position:absolute;left:4px;top:2px;width:124px;height:42px;z-index:3;
+  background:linear-gradient(180deg,#3C4762,#2A3448);border-radius:24px 24px 9px 9px;
+}
+.bb-cap::after{content:"";position:absolute;left:-7px;bottom:-8px;width:138px;height:14px;border-radius:0 0 16px 16px;background:#222A3A}
+.bb-cap::before{content:"";position:absolute;left:-2px;bottom:2px;width:128px;height:8px;background:linear-gradient(90deg,#D9B25E,#F4DEA6,#D9B25E)}
+.bb-cap b{
+  position:absolute;left:50%;top:7px;transform:translateX(-50%);z-index:4;
+  font-family:var(--sans);font-size:10px;letter-spacing:.06em;color:#5B4415;
+  background:linear-gradient(180deg,#F5E1A8,#D8B25C);border-radius:5px;padding:2px 7px;
+}
+.bb-screen{
+  position:absolute;left:24px;top:50px;width:84px;height:56px;z-index:2;
+  background:#151A22;border-radius:12px;display:flex;align-items:center;justify-content:center;
+  box-shadow:inset 0 0 16px rgba(120,190,255,.35);
+}
+.bb-screen b{
+  font-family:var(--mono);font-size:26px;color:#8FD2FF;
+  text-shadow:0 0 12px rgba(120,200,255,.9);
+}
+.bb-deco{
+  position:absolute;left:24px;top:114px;width:84px;height:30px;z-index:2;
+  background:
+   radial-gradient(circle at 12% 60%, #E79AB4 0 11px, transparent 11px),
+   radial-gradient(circle at 44% 26%, #8FC3EB 0 9px, transparent 9px),
+   radial-gradient(circle at 72% 66%, #A9D49B 0 11px, transparent 11px),
+   radial-gradient(circle at 92% 24%, #F0C583 0 7px, transparent 7px);
+}
+.bb-wheel{
+  position:absolute;left:18px;bottom:0;width:96px;height:24px;z-index:2;
+  background:#2B3038;border-radius:13px;
+}
+.bb-wheel::after{
+  content:"";position:absolute;left:10px;top:8px;width:76px;height:7px;border-radius:6px;
+  background:repeating-linear-gradient(90deg,#7FC9F5 0 6px,transparent 6px 18px);
+}
+.hero-say{min-width:0}
+.hs-t{margin:0 0 6px;font-family:var(--mono);font-size:10px;letter-spacing:.2em;color:var(--ink-soft)}
+.hs-d{margin:0 0 12px;font-size:14px;line-height:2;color:var(--ink)}
+.hs-d b{font-family:var(--serif);color:var(--now)}
+.hs-tip{
+  margin:0 0 12px;padding:10px 13px;border-radius:12px 12px 12px 4px;
+  background:var(--card);border:1.5px solid var(--now);color:var(--now);
+  font-family:var(--serif);font-size:14px;line-height:1.75;
+}
+.hs-tip.in{animation:bubbleIn .26s ease}
+
+/* 九宮格狀態卡 */
+.bgrid{display:grid;gap:11px;grid-template-columns:repeat(auto-fit,minmax(155px,1fr));margin-bottom:20px}
+.bcard{
+  position:relative;border-radius:15px;padding:14px 13px 13px;text-align:center;
+  border:1.5px solid var(--line);box-shadow:var(--shadow);
+  transition:transform .18s,box-shadow .18s;
+}
+.bcard:hover{transform:translateY(-3px);box-shadow:var(--shadow-lift)}
+.bcard.s-mint{background:linear-gradient(170deg,#EFF8F3,#E0F0E8)}
+.bcard.s-butter{background:linear-gradient(170deg,#FDF6E6,#F6EBD2)}
+.bcard.s-sakura{background:linear-gradient(170deg,#FDEFF3,#F8E2E9)}
+.bcard.s-lilac{background:linear-gradient(170deg,#F3EEFA,#E9E0F5)}
+.bcard.s-sky{background:linear-gradient(170deg,#EDF3FB,#DEE9F7)}
+.bc-no{
+  position:absolute;left:10px;top:10px;width:22px;height:22px;border-radius:50%;
+  background:rgba(255,255,255,.85);border:1.5px solid var(--line);
+  font-family:var(--mono);font-size:11px;color:var(--ink-soft);
+  display:flex;align-items:center;justify-content:center;
+}
+.bc-fig{display:flex;justify-content:center;margin:6px 0 9px}
+.bc-t{margin:0 0 3px;font-family:var(--serif);font-size:15.5px;color:var(--ink)}
+.bc-s{margin:0 0 6px;font-size:12px;color:var(--now)}
+.bc-d{margin:0;font-size:11.5px;line-height:1.7;color:var(--ink-soft)}
+/* 小站長 */
+.mini-bibi{position:relative;display:block;width:52px;height:68px}
+.mini-bibi::before{
+  content:"";position:absolute;left:4px;top:14px;width:44px;height:48px;border-radius:12px;
+  background:linear-gradient(180deg,#FDFCF9,#EEE9DF);border:1.5px solid #DED6C9;
+  box-shadow:0 3px 8px rgba(58,64,62,.16);
+}
+.mb-cap{position:absolute;left:1px;top:1px;width:50px;height:16px;z-index:3;background:linear-gradient(180deg,#3C4762,#2A3448);border-radius:9px 9px 4px 4px}
+.mb-cap::after{content:"";position:absolute;left:-3px;bottom:-4px;width:56px;height:6px;border-radius:0 0 7px 7px;background:#222A3A}
+.mb-cap::before{content:"";position:absolute;left:-1px;bottom:1px;width:52px;height:3px;background:#D9B25E}
+.mb-screen{position:absolute;left:10px;top:22px;width:32px;height:22px;z-index:2;background:#151A22;border-radius:6px;display:flex;align-items:center;justify-content:center}
+.mb-screen b{font-family:var(--mono);font-size:10px;color:#8FD2FF;text-shadow:0 0 6px rgba(120,200,255,.85)}
+.mb-deco{
+  position:absolute;left:10px;top:47px;width:32px;height:12px;z-index:2;
+  background:
+   radial-gradient(circle at 14% 60%, #E79AB4 0 4.5px, transparent 4.5px),
+   radial-gradient(circle at 46% 28%, #8FC3EB 0 3.5px, transparent 3.5px),
+   radial-gradient(circle at 76% 66%, #A9D49B 0 4.5px, transparent 4.5px);
+}
+.mb-wheel{position:absolute;left:7px;bottom:0;width:38px;height:11px;z-index:2;background:#2B3038;border-radius:6px}
+.mb-wheel::after{content:"";position:absolute;left:4px;top:4px;width:30px;height:3px;border-radius:3px;background:repeating-linear-gradient(90deg,#7FC9F5 0 3px,transparent 3px 8px)}
+
+/* 表情列 */
+.frow{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:20px}
+.fchip{display:flex;flex-direction:column;align-items:center;gap:5px}
+.fchip-led{
+  width:66px;height:40px;border-radius:9px;background:#151A22;
+  display:flex;align-items:center;justify-content:center;
+  font-family:var(--mono);font-size:14px;color:#8FD2FF;
+  text-shadow:0 0 8px rgba(120,200,255,.85);
+  box-shadow:inset 0 0 10px rgba(120,190,255,.22);
+  background-image:radial-gradient(circle,rgba(255,255,255,.05) 1px,transparent 1px);
+  background-size:3px 3px;
+}
+.fchip-n{font-size:11px;color:var(--ink-soft)}
+
+/* 角色設定圖 */
+.bibi-sheet{margin:0 0 8px;padding:0}
+.bibi-sheet img{
+  width:100%;height:auto;display:block;border-radius:16px;
+  border:1.5px solid var(--line);box-shadow:var(--shadow);
+}
+.bibi-sheet figcaption{
+  margin-top:8px;text-align:center;font-family:var(--mono);font-size:10.5px;
+  letter-spacing:.14em;color:var(--ink-soft);
+}
+
+/* ═══════════════════════════════════════════════
+   優化層　Polish Layer
+   版面節奏 · 色彩統一 · 觸控與無障礙
+   ═══════════════════════════════════════════════ */
+:root{
+  --deep:#1D242C;          /* 統一的深色元件底（廣播看板 · 里程計 · 指示牌）*/
+  --deep-2:#161C23;
+  --deep-line:#2E3742;
+  --r-sm:10px; --r-md:14px; --r-lg:18px;
+  --page:min(760px,100%);
+}
+/* 深色元件統一色調，不再各自為政 */
+.pa{background:linear-gradient(180deg,var(--deep),var(--deep-2));border-color:var(--deep-line)}
+.board{background:linear-gradient(180deg,var(--deep),var(--deep-2));border-color:var(--deep-line)}
+.odo-wrap{background:linear-gradient(180deg,#232B34,var(--deep-2));border-color:var(--deep-line)}
+
+/* ── 導覽列：邊緣淡出，暗示可左右滑動 ── */
+nav.tabs{position:relative;scroll-snap-type:x proximity;scrollbar-width:none;-ms-overflow-style:none}
+nav.tabs::-webkit-scrollbar{display:none}
+nav.tabs .pill{scroll-snap-align:start}
+header.top{position:relative}
+header.top::after{
+  content:"";position:absolute;right:0;bottom:0;width:34px;height:44px;pointer-events:none;
+  background:linear-gradient(90deg,rgba(250,246,240,0),rgba(250,246,240,.95));
+}
+/* 捲動後頁首加一道細影，與內容分層 */
+header.top{transition:box-shadow .2s}
+body.scrolled header.top{box-shadow:0 2px 14px rgba(58,64,62,.10)}
+
+/* ── 閱讀節奏 ── */
+main.wrap{padding-bottom:96px}          /* 讓出右下角站長的位置 */
+.view>h1{letter-spacing:-.01em}
+.view>.lead{max-width:62ch}
+.view>h2{margin-top:30px}
+.view>h2:first-of-type{margin-top:22px}
+.card+h2,.album+h2,.missions+h2{margin-top:28px}
+p.motto{max-width:62ch}
+
+/* ── 卡片手感統一 ── */
+.card{border-radius:var(--r-lg)}
+.hubcard,.mission,.lostticket,.drawer,.album-ticket,.stop{
+  -webkit-tap-highlight-color:transparent;
+}
+.hubcard:active,.mission:active,.lostticket:active,.album-ticket:active{transform:translateY(1px)}
+
+/* ── 可及性：鍵盤焦點看得見 ── */
+a:focus-visible,button:focus-visible,input:focus-visible,.pill:focus-visible{
+  outline:3px solid rgba(46,140,116,.45);outline-offset:2px;border-radius:8px;
+}
+/* 選取顏色與捲軸 */
+::selection{background:rgba(46,140,116,.20);color:var(--ink)}
+*{scrollbar-color:rgba(120,128,124,.45) transparent}
+*::-webkit-scrollbar{height:8px;width:8px}
+*::-webkit-scrollbar-thumb{background:rgba(120,128,124,.35);border-radius:99px}
+*::-webkit-scrollbar-track{background:transparent}
+
+/* ── 尊重系統的減少動態設定 ── */
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{
+    animation-duration:.01ms !important;animation-iteration-count:1 !important;
+    transition-duration:.01ms !important;scroll-behavior:auto !important;
+  }
+}
+
+/* ── 小螢幕微調 ── */
+@media(max-width:560px){
+  .view>h1{font-size:26px;line-height:1.4}
+  .view>h2{font-size:19px}
+  .card{padding:14px}
+  main.wrap{padding-bottom:104px}
+  .toolbar{gap:7px}
+  .toolbar .btn{flex:1 1 calc(50% - 4px);text-align:center}
+}
+@media(min-width:900px){
+  .view>h1{font-size:34px}
+  .bgrid{grid-template-columns:repeat(3,1fr)}
+}
+
+/* ── 列印：老師可直接印講義 ── */
+@media print{
+  header.top,nav.tabs,.bibi,.pa,.goldticket,.sharewrap,.toolbar,.unitbar{display:none !important}
+  body{background:#fff}
+  .view{display:block !important;page-break-inside:auto}
+  .card,.rail,.q{break-inside:avoid;box-shadow:none;border-color:#ccc}
+  a{text-decoration:none;color:#000}
+  .board,.pa,.odo-wrap{background:#fff !important;color:#000 !important;border:1px solid #999}
+}
+
+/* ── 對比微調：次要文字加深一階 ── */
+:root{--ink-soft:#6B746F}
+.meta,.ms-d,.bc-d,.lost-a,.gate-d,.lic-sub{color:#66706B}
+.stop-nm{color:#5F6863}
+.stop.on .stop-nm{color:var(--ink)}
+
+/* ── 對比補強：軌道色在自家淺底上加深，確保小字讀得清楚 ── */
+:root{
+  --now:#256F5C;            /* 薄荷綠加深 */
+  --wrong:#A8506A;          /* 櫻花粉加深 */
+  --ink-soft:#69726D;
+}
+/* 六大家族的文字色一併加深（底色維持粉彩不變） */
+:root{
+  --t-ps:#256F5C; --t-pc:#2F7C68;
+  --a-abil:#256F5C; --p-time:#256F5C; --n-pron:#256F5C; --j-pos:#256F5C;
+  --v-freq:#256F5C; --c-equal:#256F5C; --g-subj:#256F5C; --e-ed:#256F5C;
+  --w-bas:#256F5C; --s-link:#256F5C; --x-say:#256F5C; --n-htin:#256F5C;
+  --q-qpro:#256F5C; --j-coord:#256F5C; --r-subj:#256F5C; --o-there:#256F5C;
+  --y-sfut:#256F5C; --i-aaa:#256F5C; --k-prog:#256F5C;
+  --t-pt:#4A67A0; --t-xc:#5E7BB0;
+  --a-polite:#4A67A0; --p-place:#4A67A0; --n-refl:#4A67A0; --j-conf:#4A67A0;
+  --v-same:#4A67A0; --c-comp:#4A67A0; --g-inf:#4A67A0; --w-aux:#4A67A0;
+  --s-give:#4A67A0; --x-see:#4A67A0; --n-indir:#4A67A0; --q-qadj:#4A67A0;
+  --j-tconj:#4A67A0; --r-objr:#4A67A0; --o-thatc:#4A67A0; --y-snow:#4A67A0;
+  --i-abb:#4A67A0;
+  --t-pf:#96742F; --p-means:#96742F; --n-count:#96742F; --j-num:#96742F;
+  --v-mann:#96742F; --c-mod:#96742F; --g-ving:#96742F; --e-ing:#96742F;
+  --s-sep:#96742F; --x-cost:#96742F; --n-agree:#96742F; --q-hext:#96742F;
+  --j-corr:#96742F; --r-cwhat:#96742F; --o-excl:#96742F; --y-swish:#96742F;
+  --k-perf:#96742F; --gold:#A8842F;
+  --t-fu:#74589A; --a-guess:#74589A; --p-move:#74589A; --n-indef:#74589A;
+  --j-part:#74589A; --v-deg:#74589A; --c-sup:#74589A; --g-tov:#74589A;
+  --w-cont:#74589A; --s-sens:#74589A; --x-hear:#74589A; --n-loc:#74589A;
+  --q-qadv:#74589A; --j-cond:#74589A; --r-radv:#74589A; --o-nounc:#74589A;
+  --y-smix:#74589A; --i-aba:#74589A;
+  --a-duty:#A8506A; --g-both:#A8506A; --w-spc:#A8506A; --s-caus:#A8506A;
+  --x-hurt:#A8506A; --n-tag:#A8506A; --q-hspec:#A8506A; --j-cause:#A8506A;
+  --r-thatr:#A8506A; --o-imp:#A8506A; --y-spast:#A8506A; --i-abc:#A8506A;
+  --t-xf:#82603F; --p-desc:#82603F; --n-poss:#82603F; --j-itfor:#82603F;
+  --v-patt:#82603F; --c-obj:#82603F; --w-wth:#82603F; --x-lose:#82603F;
+  --r-whos:#82603F;
+  --gray:#66706B; --p-pair:#66706B; --j-prep:#66706B; --v-sent:#66706B;
+  --c-pick:#66706B; --g-idiom:#66706B; --e-vrb:#66706B; --w-misc:#66706B;
+  --s-insep:#66706B; --y-sthat:#66706B; --k-simple:#66706B;
+}
+
+/* 最後兩組補到標準 */
+:root{
+  --t-pf:#87682A; --p-means:#87682A; --n-count:#87682A; --j-num:#87682A;
+  --v-mann:#87682A; --c-mod:#87682A; --g-ving:#87682A; --e-ing:#87682A;
+  --s-sep:#87682A; --x-cost:#87682A; --n-agree:#87682A; --q-hext:#87682A;
+  --j-corr:#87682A; --r-cwhat:#87682A; --o-excl:#87682A; --y-swish:#87682A;
+  --k-perf:#87682A; --gold:#96742F;
+  --gray:#5F6863; --p-pair:#5F6863; --j-prep:#5F6863; --v-sent:#5F6863;
+  --c-pick:#5F6863; --g-idiom:#5F6863; --e-vrb:#5F6863; --w-misc:#5F6863;
+  --s-insep:#5F6863; --y-sthat:#5F6863; --k-simple:#5F6863;
+}
+
 </style>
 </head>
 <body>
@@ -3288,6 +3626,8 @@ section.line.ap .stop.on .stop-dot{border-color:#8D958E}
     <button class="btn" id="finalGrade" disabled>交卷</button>
     <a class="btn" href="review.html">跨章時態總複習 →</a>
   </div>
+  <div id="nextBoard" hidden></div>
+
 </section>
 
 
@@ -3302,7 +3642,7 @@ section.line.ap .stop.on .stop-dot{border-color:#8D958E}
   </button>
 </div>
 
-<p class="footline">溯源，塑局<span class="build-ver">v2026.08.15</span></p>
+<p class="footline">溯源，塑局<span class="build-ver">v2026.08.16</span></p>
 </main>
 
 <div class="toast" id="toast"></div>
@@ -3603,6 +3943,36 @@ const PA={
     }catch(e){}
   }
 };
+
+const NEXT_STOP={"final": false, "name": "被動語態", "note": "being 是進行，been 是完成。", "href": "ch12.html"};
+
+/* ═══ 月台指示牌：驗票後顯示下一站 ═══ */
+function showNextBoard(){
+  const host=document.getElementById("nextBoard");
+  if(!host)return;
+  host.hidden=false;
+  host.innerHTML=NEXT_STOP.final
+    ? '<div class="board final">'+
+        '<p class="bd-tag">FINAL STOP　終點站</p>'+
+        '<p class="bd-name">您已抵達本次列車的終點站</p>'+
+        '<p class="bd-note">感謝您全程搭乘國中英文直達車，從時態線一路走到長句子句線，全線二十座車站已全數通過。下車前請確認隨身行李，別把學過的文法遺留在車上；若有遺失，請至失物招領處認領。</p>'+
+        '<div class="bd-acts">'+
+          '<a class="btn solid" href="index.html">回到轉運站大廳</a>'+
+          '<a class="btn" href="review.html">跨線時態總複習</a>'+
+          '<a class="btn" href="appendix.html">前往工具間</a>'+
+        '</div>'+
+      '</div>'
+    : '<div class="board">'+
+        '<p class="bd-tag">NEXT STOP　下一站</p>'+
+        '<p class="bd-name">'+NEXT_STOP.name+'</p>'+
+        '<p class="bd-note">'+NEXT_STOP.note+'</p>'+
+        '<div class="bd-acts">'+
+          '<a class="btn solid" href="'+NEXT_STOP.href+'">前往下一站 →</a>'+
+          '<a class="btn" href="index.html">回轉運站大廳</a>'+
+        '</div>'+
+      '</div>';
+  host.scrollIntoView({behavior:"smooth",block:"center"});
+}
 
 /* ═══════════════ 嗶嗶站長 ═══════════════ */
 const BIBI={
@@ -4065,6 +4435,7 @@ document.getElementById("finalGrade").onclick=()=>{
   document.getElementById("finalGrade").disabled=true;
   passSave(score,fPool.length);
   dailyBump("gate");
+  showNextBoard();
   PA.show("驗票成功，文法能量已儲值。下一站：「被動語態」，在本站，受詞會坐到前排，動作的執行者移到後面。請注意 being 是進行、been 是完成，一字之差。","Ticket validated. Your grammar energy has been recharged. Next stop: Passive Voice Station. On this platform the object takes the front seat and the doer moves back. Note that being marks the progressive and been marks the perfect.","下一站　Next Stop","ok");
   if(score===fPool.length)BIBI.say('<b>出站驗票　全對！</b><br>金車票已收進車票收集冊。',"wink",5200);
   else BIBI.say('<b>出站驗票　'+score+' / '+fPool.length+'</b><br>車票已收進收集冊，去總覽的收集冊看看。',"happy",4600);
@@ -4197,6 +4568,17 @@ renderPassage(0);
 updateProgress();
 advRender();
 drillStart();
+
+/* 捲動時頁首分層 */
+(function(){
+  let t=false;
+  window.addEventListener("scroll",()=>{
+    if(t)return;t=true;
+    requestAnimationFrame(()=>{
+      document.body.classList.toggle("scrolled",window.scrollY>8);t=false;
+    });
+  },{passive:true});
+})();
 </script>
 </body>
 </html>
