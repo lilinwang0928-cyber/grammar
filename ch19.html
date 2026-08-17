@@ -3377,6 +3377,53 @@ a:focus-visible,button:focus-visible,input:focus-visible,.pill:focus-visible{
   --s-insep:#5F6863; --y-sthat:#5F6863; --k-simple:#5F6863;
 }
 
+/* 路線總複習入口 */
+.line-rv{
+  flex:0 0 auto;margin-left:10px;font-family:var(--serif);font-size:12.5px;
+  text-decoration:none;border-radius:999px;padding:3px 11px;
+  border:1.5px solid currentColor;transition:background .16s;
+}
+section.line.p1 .line-rv{color:#2E7A62}
+section.line.p2 .line-rv{color:#96742F}
+section.line.p3 .line-rv{color:#41628F}
+section.line.p4 .line-rv{color:#74589A}
+.line-rv:hover{background:rgba(255,255,255,.7)}
+section.line.ap .line-rv{display:none}
+
+/* 總複習頁的站別速查卡 */
+.rvst{
+  background:var(--card);border:1.5px solid var(--line);border-radius:var(--r-lg);
+  padding:14px 16px;margin-bottom:12px;box-shadow:var(--shadow);
+}
+.rvst-head{display:flex;align-items:center;gap:10px;margin-bottom:9px}
+.rvst-no{font-family:var(--mono);font-size:10.5px;letter-spacing:.08em;color:var(--ink-soft)}
+.rvst-head b{font-family:var(--serif);font-size:17px}
+.rvst-head .btn.tiny{margin-left:auto}
+.rvst-keys{margin:0 0 10px;padding-left:20px}
+.rvst-keys li{font-size:13.5px;line-height:1.9;color:var(--ink)}
+.rvst-keys li::marker{color:var(--gold)}
+table.irr.rvst-tb td{font-size:13px;padding:7px 10px}
+table.irr.rvst-tb td.rh{white-space:nowrap;font-size:12.5px}
+
+/* 速查語音按鈕與朗讀中高亮 */
+.rvst-acts{display:flex;gap:6px;margin-left:auto;flex-wrap:wrap}
+.rvst-acts .btn.tiny{white-space:nowrap}
+.rvst{transition:border-color .2s,box-shadow .2s,background .2s}
+.rvst.reading{
+  border-color:var(--now);background:var(--now-bg);
+  box-shadow:0 0 0 3px rgba(37,111,92,.14),var(--shadow);
+}
+.rvst.reading .rvst-head b{color:var(--now)}
+.rvst.reading .rvst-head b::after{
+  content:"　🔈 朗讀中";font-family:var(--mono);font-size:10px;letter-spacing:.08em;
+  color:var(--now);opacity:.85;
+}
+@media(max-width:560px){
+  .rvst-head{flex-wrap:wrap}
+  .rvst-acts{width:100%;margin-left:0;margin-top:6px}
+  .rvst-acts .btn.tiny{flex:1 1 auto;text-align:center}
+}
+
 </style>
 </head>
 <body>
